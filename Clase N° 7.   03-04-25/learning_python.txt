@@ -1,5 +1,0 @@
-En Python podés crear funciones para reutilizar código.
-En Python podés trabajar con estructuras de datos como listas y diccionarios.
-En Python podés manejar archivos para leer y escribir información.
-En Python podés usar bucles para repetir tareas de forma eficiente.
-En Python podés utilizar bibliotecas externas para ampliar funcionalidades.
