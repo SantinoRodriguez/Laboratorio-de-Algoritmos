@@ -10,6 +10,11 @@ os.environ['SDL_VIDEO_CENTERED'] = '1'
 # =============== INICIALIZAR PYGAME ============================
 pygame.init()
 
+# Cargar fuente personalizada desde la carpeta Letras
+FUENTE = pygame.font.Font("Letras/space_invaders.ttf", 20)
+FUENTE_NEGRITA = pygame.font.Font("Letras/space_invaders.ttf", 20)
+FUENTE_NEGRITA.set_bold(True)
+
 # =============== PRIMERA PANTALLA - IMAGEN INICIAL =============
 ANCHO_INICIO = 532
 ALTO_INICIO = 800
@@ -20,8 +25,17 @@ imagen_inicio = pygame.image.load("Images/image_init.jpeg")
 imagen_inicio = pygame.transform.scale(imagen_inicio, (ANCHO_INICIO, ALTO_INICIO))
 
 def pantalla_inicio():
-    PANTALLA.blit(imagen_inicio, (0, 0))
-    pygame.display.flip()
+    # ========== Crear los textos ==========
+    texto_original = FUENTE.render("The Original Game".title(), True, (255, 238, 0))  # Amarillo Space Invaders
+    texto_produced = FUENTE_NEGRITA.render("Produced By Fuchs".title(), True, (255, 255, 255))
+    texto_licencia = FUENTE_NEGRITA.render("Licenced By Huergo Inst.".title(), True, (255, 255, 255))
+    texto_presionar = FUENTE.render("Push Start Button".title(), True, (255, 238, 0))
+
+    # ========== Posicionar los textos ==========
+    rect_original = texto_original.get_rect(center=(ANCHO_INICIO // 2,  222))
+    rect_produced = texto_produced.get_rect(center=(ANCHO_INICIO // 2, 685))
+    rect_licencia = texto_licencia.get_rect(center=(ANCHO_INICIO // 2, 715))
+    rect_presionar = texto_presionar.get_rect(center=(ANCHO_INICIO // 2, 300))
 
     esperando = True
     while esperando:
@@ -32,12 +46,16 @@ def pantalla_inicio():
             if evento.type == pygame.KEYDOWN:
                 esperando = False
 
+        PANTALLA.blit(imagen_inicio, (0, 0))                      # Fondo
+        PANTALLA.blit(texto_original, rect_original)              # Texto superior
+        PANTALLA.blit(texto_presionar, rect_presionar)
+        PANTALLA.blit(texto_produced, rect_produced)              # Texto inferior
+        PANTALLA.blit(texto_licencia, rect_licencia)              # Texto inferior
+        pygame.display.flip() 
+
 # =============== MENÚ PRINCIPAL ===============================
 ANCHO_MENU = 800
 ALTO_MENU = 600
-
-# Cargar fuente personalizada desde la carpeta Letras
-FUENTE = pygame.font.Font("Letras/space_invaders.ttf", 20)
 
 # Colores
 BLANCO = (255, 255, 255)

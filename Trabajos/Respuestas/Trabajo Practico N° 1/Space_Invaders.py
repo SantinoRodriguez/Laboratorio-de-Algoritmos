@@ -355,20 +355,22 @@ class SpaceInvaders(object): # Codigo del Juego
         self.clock = time.Clock() # Timer
         self.caption = display.set_caption('Space Invaders') # Titulo
         self.screen = SCREEN # Pantalla
+        self.menu = image.load(IMAGE_PATH + 'image_second.webp') # Cargar fondo
+        self.menu = transform.scale(self.menu, (800, 600))
         self.background = image.load(IMAGE_PATH + 'background.jpg') # Cargar fondo
         self.startGame = False # Iniciar el juego
         self.mainScreen = True # El menu principal
         self.gameOver = False # Controla si el juego termino
         self.enemyPosition = ENEMY_DEFAULT_POSITION # Llama a la funcion para poder colocar a los enemigos
-        self.titleText = Text(FONT, 50, 'Space Invaders', WHITE, 164, 155) # Titulo del fondo
+        # self.titleText = image.load(IMAGE_PATH + 'space_invaders_logo.png') # Titulo del fondo
         self.titleText2 = Text(FONT, 25, 'Press any key to continue', WHITE, 
-                               201, 225) # Titulo de inicializacion
+                               201, 325) # Titulo de inicializacion
         self.gameOverText = Text(FONT, 50, 'Game Over', WHITE, 250, 270) # Texto al perder
         self.nextRoundText = Text(FONT, 50, 'Next Round', WHITE, 240, 270) # Texto para la proxima ronda
-        self.enemy1Text = Text(FONT, 25, '   =   10 pts', GREEN, 368, 270) 
-        self.enemy2Text = Text(FONT, 25, '   =  20 pts', BLUE, 368, 320)
-        self.enemy3Text = Text(FONT, 25, '   =  30 pts', PURPLE, 368, 370)
-        self.enemy4Text = Text(FONT, 25, '   =  ?????', RED, 368, 420)
+        self.enemy1Text = Text(FONT, 25, '   =   10 pts', GREEN, 368, 400) 
+        self.enemy2Text = Text(FONT, 25, '   =  20 pts', BLUE, 368, 450)
+        self.enemy3Text = Text(FONT, 25, '   =  30 pts', PURPLE, 368, 500)
+        self.enemy4Text = Text(FONT, 25, '   =  ?????', RED, 368, 550)
         self.scoreText = Text(FONT, 20, 'Score', WHITE, 5, 5)
         self.livesText = Text(FONT, 20, 'Lives ', WHITE, 640, 5)
 
@@ -527,10 +529,10 @@ class SpaceInvaders(object): # Codigo del Juego
         self.enemy3 = transform.scale(self.enemy3, (40, 40))
         self.enemy4 = IMAGES['mystery']
         self.enemy4 = transform.scale(self.enemy4, (80, 40))
-        self.screen.blit(self.enemy1, (318, 270))
-        self.screen.blit(self.enemy2, (318, 320))
-        self.screen.blit(self.enemy3, (318, 370))
-        self.screen.blit(self.enemy4, (299, 420))
+        self.screen.blit(self.enemy1, (318, 395))
+        self.screen.blit(self.enemy2, (318, 445))
+        self.screen.blit(self.enemy3, (318, 495))
+        self.screen.blit(self.enemy4, (299, 545))
 
     def check_collisions(self): # Checkear las coliciones de hitbox's
         # Valores True para eliminaciones y False para no eliminados al contacto
@@ -618,7 +620,8 @@ class SpaceInvaders(object): # Codigo del Juego
             
             if self.mainScreen: # Si se encuentra en la pantalla del menú principal
                 self.screen.blit(self.background, (0, 0)) # Se grafica el fondo
-                self.titleText.draw(self.screen) # Se dibuja el título
+                self.screen.blit(self.menu, (0, 0)) # Se grafica el fondo
+                # self.screen.blit(self.titleText, (0, 0)) # Se dibuja el título
                 self.titleText2.draw(self.screen) # Se dibuja el subtítulo
                 self.enemy1Text.draw(self.screen) # Imagen del primer enemigo
                 self.enemy2Text.draw(self.screen) # Imagen del segundo enemigo
@@ -626,10 +629,9 @@ class SpaceInvaders(object): # Codigo del Juego
                 self.enemy4Text.draw(self.screen) # Imagen del enemigo especial
                 self.create_main_menu() # Dibuja los textos con puntajes
 
-                # NOTA: Ya no se usa `event.get()` aquí, porque los eventos se procesan en `check_input()`
-
             elif self.startGame: # Si el juego ya ha comenzado
                 currentTime = time.get_ticks() # Guarda el tiempo actual
+                self.screen.blit(self.background, (0, 0)) # Se grafica el fondo
 
                 if not self.enemies and not self.explosionsGroup: # Si no hay enemigos ni explosiones
                     if currentTime - self.gameTimer < 3000: # Si pasaron menos de 3 segundos
