@@ -562,7 +562,7 @@ class SpaceInvaders(object): # Codigo del Juego
             if self.should_exit(e): # Si en de salida
                 sys.exit() # Salir del progama
 
-    def main(self): # Definiendo el menu
+    def main2(self): # Definiendo el menu
         while True:
             if self.mainScreen: # Si se encuentra en la pantalla del menu
                 self.screen.blit(self.background, (0, 0)) # Se carga el fondo
@@ -633,6 +633,5 @@ class SpaceInvaders(object): # Codigo del Juego
             display.update() # Se actualiza la pantalla
             self.clock.tick(60) # Se limita el sistema a 60 FPS
 
-if __name__ == '__main__':
-    game = SpaceInvaders()
-    game.main()
+game = SpaceInvaders()
+game.main2()

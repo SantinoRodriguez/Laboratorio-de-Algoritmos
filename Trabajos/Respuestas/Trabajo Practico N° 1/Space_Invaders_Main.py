@@ -2,6 +2,7 @@ import pygame
 import sys
 import os
 from Space_Invaders import *  # Asegúrate de que este archivo esté en la misma carpeta
+#import Space_Invaders_2 as nm
 
 # =============== CONFIGURAR VENTANA CENTRADA ==================
 os.environ['SDL_VIDEO_CENTERED'] = '1'
@@ -73,17 +74,17 @@ def menu_principal():
         boton_multijugador = dibujar_boton("Multijugador", ANCHO_MENU // 2 + 60, y_botones, 200, 60, AZUL, VERDE, pos_mouse)
 
         for evento in pygame.event.get():
-            if evento.type == pygame.QUIT:
+            if evento.type == pygame.QUIT or (evento.type == KEYUP and evento.key == K_ESCAPE):
                 pygame.quit()
                 sys.exit()
             if evento.type == pygame.MOUSEBUTTONDOWN:
                 if boton_1_jugador.collidepoint(evento.pos):
-                    pygame.quit()  # Cerramos el menú para iniciar el juego
                     game = SpaceInvaders()
                     game.main()
                     ejecutando = False
                 if boton_multijugador.collidepoint(evento.pos):
-                    print("Modo Multijugador seleccionado")
+                    # game = nm.SpaceInvaders()
+                    # game.main2()
                     ejecutando = False
 
         pygame.display.flip()

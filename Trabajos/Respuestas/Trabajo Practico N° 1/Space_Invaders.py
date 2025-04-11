@@ -342,6 +342,16 @@ class SpaceInvaders(object): # Codigo del Juego
     def __init__(self):
         mixer.pre_init(44100, -16, 1, 4096) # Es recomendado para las persona que usan Linux
         init()
+        self.bullets = sprite.Group() # Inicializa el grupo de balas
+        self.allSprites = sprite.Group() # También asegurate de tener este grupo para los .add()
+        self.shipAlive = True
+        self.score = 0
+        self.player = Ship() 
+        self.sounds = {
+            'shoot': mixer.Sound('Sounds\shoot.wav'),
+            'shoot2': mixer.Sound('Sounds\shoot2.wav')
+        }
+        self.allSprites.add(self.player)
         self.clock = time.Clock() # Timer
         self.caption = display.set_caption('Space Invaders') # Titulo
         self.screen = SCREEN # Pantalla
@@ -429,33 +439,52 @@ class SpaceInvaders(object): # Codigo del Juego
         return evt.type == QUIT or (evt.type == KEYUP and evt.key == K_ESCAPE)
         # Si es la accion de tocar la cruz o la tecla escape se cierra el juego
 
-    def check_input(self): # Checkiar los valores de entrada
-        self.keys = key.get_pressed() # Evalua la presion de una tecla para las otras funciones
-        for e in event.get(): # Recorre todo lo que ocurrio en el ultimo ciclo
-            if self.should_exit(e):
-                sys.exit() # Si el evento es el QUIT se cierra el juego
-            if e.type == KEYDOWN: # Si una tecla es presionada
-                if e.key == K_SPACE: # Si es el espacio
-                    if len(self.bullets) == 0 and self.shipAlive: # Solo si no hay balas en el grupo
-                        if self.score < 1000: # Si tiene menos de 1000 puntos 
+    def check_input(self): # Verifica los eventos del teclado y salida
+        self.keys = key.get_pressed() # Detecta qué teclas están siendo presionadas
+
+        for e in event.get(): # Recorre todos los eventos
+            if self.should_exit(e): # Si el jugador cierra la ventana
+                return True # Indica que se debe salir al menú
+
+            # Iniciar el juego desde el menú presionando cualquier tecla
+            if e.type == KEYUP and self.mainScreen:
+                # Crea los bloques defensivos al iniciar
+                self.allBlockers = sprite.Group(self.make_blockers(0),
+                                                self.make_blockers(1),
+                                                self.make_blockers(2),
+                                                self.make_blockers(3))
+                # Agrega las vidas a su grupo visual
+                self.livesGroup.add(self.life1, self.life2, self.life3)
+                self.reset(0) # Reinicia los valores del juego
+                self.startGame = True # Marca que el juego ha comenzado
+                self.mainScreen = False # Sale del menú
+
+            # Detecta disparos cuando se está en el juego
+            if e.type == KEYDOWN and self.startGame:
+                if e.key == K_SPACE: # Si se presiona la barra espaciadora
+                    if len(self.bullets) == 0 and self.shipAlive: # Solo dispara si no hay balas
+                        if self.score < 1000: # Disparo normal
                             bullet = Bullet(self.player.rect.x + 23,
                                             self.player.rect.y + 5, -1,
-                                            15, 'laser', 'center') # Se le da un valor una bala
-                            self.bullets.add(bullet) # Se agrega a la lista de las balas
-                            self.allSprites.add(self.bullets) # Que sea actualizada y dibujada
-                            self.sounds['shoot'].play() # Se reproduce el sonido del disparo
-                        else: # Si tiene mas de 1000 puntos se activa el modo avnazado
+                                            15, 'laser', 'center')
+                            self.bullets.add(bullet)
+                            self.allSprites.add(self.bullets)
+                            self.sounds['shoot'].play()
+                        else: # Disparo doble si el jugador tiene más de 1000 puntos
                             leftbullet = Bullet(self.player.rect.x + 8,
                                                 self.player.rect.y + 5, -1,
                                                 15, 'laser', 'left')
                             rightbullet = Bullet(self.player.rect.x + 38,
-                                                 self.player.rect.y + 5, -1,
-                                                 15, 'laser', 'right') # Dipara dos lasers, uno de cada lado 
-                            self.bullets.add(leftbullet) # Se agraga el disparo izquierdo a su lista
-                            self.bullets.add(rightbullet) # Se agrega el disparo derecho a su lista
+                                                self.player.rect.y + 5, -1,
+                                                15, 'laser', 'right')
+                            self.bullets.add(leftbullet)
+                            self.bullets.add(rightbullet)
                             self.allSprites.add(self.bullets)
-                            self.sounds['shoot2'].play() # Se reproduce otro sonido
+                            self.sounds['shoot2'].play()
 
+        return False # No se salió, el juego continúa
+
+    
     def make_enemies(self): # Crear los enemigos
         enemies = EnemiesGroup(10, 5, self.enemyPosition) # Se agregan los anemigos a los grupos de enemigos 
         for row in range(5):
@@ -579,76 +608,67 @@ class SpaceInvaders(object): # Codigo del Juego
             if self.should_exit(e): # Si en de salida
                 sys.exit() # Salir del progama
 
-    def main(self): # Definiendo el menu
-        self.screen = display.set_mode((800, 600))
-        while True:
-            if self.mainScreen: # Si se encuentra en la pantalla del menu
-                self.screen.blit(self.background, (0, 0)) # Se carga el fondo
-                self.titleText.draw(self.screen) # Se carga el titulo
-                self.titleText2.draw(self.screen) # Se carga el segundo texto
-                self.enemy1Text.draw(self.screen) # Se carga la imagen del primer enemigo
-                self.enemy2Text.draw(self.screen) # Se carga la imagen del segundo enemigo
-                self.enemy3Text.draw(self.screen) # Se carga la imagen del tercer enemigo
-                self.enemy4Text.draw(self.screen) # Se carga la imagen de la nave especial
-                self.create_main_menu()
-                for e in event.get(): # Dentro de los eventos
-                    if self.should_exit(e): # Si es de QUIT
-                        sys.exit() # Sale automaticamente
-                    if e.type == KEYUP: # Si es de dejar de presionar una tecla 
-                        # Solo crea bloques en una nueva partida, no una nueva ronda
-                        self.allBlockers = sprite.Group(self.make_blockers(0), 
-                                                        self.make_blockers(1),
-                                                        self.make_blockers(2),
-                                                        self.make_blockers(3)) # Crea los 4 bloques
-                        self.livesGroup.add(self.life1, self.life2, self.life3) # Se añaden las vidas del jugador
-                        self.reset(0) # Se resetea el estado del juego
-                        self.startGame = True
-                        self.mainScreen = False # Sale del menu
+    def main(self): # Definiendo el bucle principal del juego
+        self.screen = display.set_mode((800, 600)) # Define el tamaño de la pantalla
 
-            elif self.startGame: # Cuando se ejecuta el juego
-                if not self.enemies and not self.explosionsGroup: # Si no hay enemigos ni coliciones
-                    currentTime = time.get_ticks() # Se guarda el tiempo
-                    if currentTime - self.gameTimer < 3000: # Durante los 3 segundos
-                        self.screen.blit(self.background, (0, 0)) # Muestra fondo
-                        self.scoreText2 = Text(FONT, 20, str(self.score), 
-                                               GREEN, 85, 5) # Textos
+        while True:
+            salir = self.check_input() # Verifica si se debe salir (al menú)
+            if salir:
+                return 'menu'
+            
+            if self.mainScreen: # Si se encuentra en la pantalla del menú principal
+                self.screen.blit(self.background, (0, 0)) # Se grafica el fondo
+                self.titleText.draw(self.screen) # Se dibuja el título
+                self.titleText2.draw(self.screen) # Se dibuja el subtítulo
+                self.enemy1Text.draw(self.screen) # Imagen del primer enemigo
+                self.enemy2Text.draw(self.screen) # Imagen del segundo enemigo
+                self.enemy3Text.draw(self.screen) # Imagen del tercer enemigo
+                self.enemy4Text.draw(self.screen) # Imagen del enemigo especial
+                self.create_main_menu() # Dibuja los textos con puntajes
+
+                # NOTA: Ya no se usa `event.get()` aquí, porque los eventos se procesan en `check_input()`
+
+            elif self.startGame: # Si el juego ya ha comenzado
+                currentTime = time.get_ticks() # Guarda el tiempo actual
+
+                if not self.enemies and not self.explosionsGroup: # Si no hay enemigos ni explosiones
+                    if currentTime - self.gameTimer < 3000: # Si pasaron menos de 3 segundos
+                        self.screen.blit(self.background, (0, 0)) # Fondo del juego
+                        self.scoreText2 = Text(FONT, 20, str(self.score), GREEN, 85, 5) # Puntaje actualizado
                         self.scoreText.draw(self.screen)
                         self.scoreText2.draw(self.screen)
-                        self.nextRoundText.draw(self.screen)
-                        self.livesText.draw(self.screen)
-                        self.livesGroup.update()
-                        self.check_input()
-                    if currentTime - self.gameTimer > 3000: # Luego de los 3 segundos
-                        self.enemyPosition += ENEMY_MOVE_DOWN # Se posicionan los enemigos mas abajo
-                        self.reset(self.score) 
-                        self.gameTimer += 3000
-                    self.allSprites.update(self.keys, currentTime,)
-                else: # Si no, se ejecuta el juego normalmente
-                    currentTime = time.get_ticks() # Se guarda el tiempo
-                    self.play_main_music(currentTime) # Se ejecuta el sonido
-                    self.screen.blit(self.background, (0, 0)) # Se grafica le fondo
-                    self.allBlockers.update(self.screen) # Se actualizan los bloques
-                    self.scoreText2 = Text(FONT, 20, str(self.score), GREEN,
-                                           85, 5) # Se fibujan los textos
+                        self.nextRoundText.draw(self.screen) # Mensaje "Siguiente ronda"
+                        self.livesText.draw(self.screen) # Vidas
+                        self.livesGroup.update() # Dibuja las vidas
+                    elif currentTime - self.gameTimer > 3000: # Si pasaron más de 3 segundos
+                        self.enemyPosition += ENEMY_MOVE_DOWN # Baja los enemigos
+                        self.reset(self.score) # Resetea la ronda manteniendo el puntaje
+                        self.gameTimer += 3000 # Actualiza el temporizador
+                    self.allSprites.update(self.keys, currentTime, self.screen) # Actualiza los sprites
+
+                else: # Si hay enemigos y el juego continúa
+                    self.play_main_music(currentTime) # Ejecuta la música del juego
+                    self.screen.blit(self.background, (0, 0)) # Fondo
+                    self.allBlockers.update(self.screen) # Dibuja los bloques defensivos
+                    self.scoreText2 = Text(FONT, 20, str(self.score), GREEN, 85, 5) # Puntaje
                     self.scoreText.draw(self.screen)
                     self.scoreText2.draw(self.screen)
                     self.livesText.draw(self.screen)
-                    self.check_input() # Se recive el imput del jugador
-                    self.enemies.update(currentTime) # Se actualiza a los jugadores
-                    self.allSprites.update(self.keys, currentTime, self.screen) # Se actualizan todos los sprites con pantalla incluida
-                    self.explosionsGroup.update(currentTime) # Se actualizan las explosiones
-                    self.check_collisions() # Se actializan las coliciones
-                    self.create_new_ship(self.makeNewShip, currentTime)
-                    self.make_enemies_shoot() # Los enemigos comienzan a disparar
+                    self.enemies.update(currentTime) # Mueve enemigos
+                    self.allSprites.update(self.keys, currentTime, self.screen) # Mueve jugador, balas, etc.
+                    self.explosionsGroup.update(currentTime) # Actualiza explosiones
+                    self.check_collisions() # Verifica colisiones entre elementos
+                    self.create_new_ship(self.makeNewShip, currentTime) # Crea nave nueva si fue destruida
+                    self.make_enemies_shoot() # Los enemigos disparan
 
-            elif self.gameOver: # Si se perdio
-                currentTime = time.get_ticks() # Se guarda el tiempo
-                # Resetea enemigos a posicion incial
-                self.enemyPosition = ENEMY_DEFAULT_POSITION
-                self.create_game_over(currentTime) # Se llama a la funcion de perdida
+            elif self.gameOver: # Si el juego terminó
+                currentTime = time.get_ticks()
+                self.enemyPosition = ENEMY_DEFAULT_POSITION # Reinicia la posición de enemigos
+                self.create_game_over(currentTime) # Muestra pantalla de Game Over
 
-            display.update() # Se actualiza la pantalla
-            self.clock.tick(60) # Se limita el sistema a 60 FPS
+            display.update() # Actualiza la pantalla
+            self.clock.tick(60) # Limita la velocidad de fotogramas a 60 FPS
+
 
 if __name__ == "__main__":
     game = SpaceInvaders()
