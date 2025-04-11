@@ -43,14 +43,14 @@ class Ship(sprite.Sprite): # Hereda la clase Sprite de Pygame (Util para objetos
         self.tiempoDeCreacion = time.get_ticks() # Tiempo de creación
         self.speed = 5
 
-    def update(self, keys, currentTime, *args): # Para reescribir la posicion del objeto (Keys - Teclas, *Args - Agrupar argumentos)
+    def update(self, keys, currentTime, pantalla): # Para reescribir la posicion del objeto (Keys - Teclas, *Args - Agrupar argumentos)
         if self.invulnerable and (currentTime - self.tiempoDeCreacion > 1000):
             self.invulnerable = False
         if keys[K_LEFT] and self.rect.x > 10:
             self.rect.x -= self.speed # Si se presiona la flecha izquierda y no esta en el borde se mueve hacia allí
         if keys[K_RIGHT] and self.rect.x < 740:
             self.rect.x += self.speed # Si se presiona la flecha derecha y no esta en el borde se mueve hacia allí
-        game.screen.blit(self.image, self.rect) # Dibuja el objeto
+        pantalla.blit(self.image, self.rect) # Dibuja el objeto
 
 class Bullet(sprite.Sprite): # Definiendo las balas
     def __init__(self, xpos, ypos, direction, speed, filename, side):
@@ -63,10 +63,16 @@ class Bullet(sprite.Sprite): # Definiendo las balas
         self.filename = filename # Nombre de la imagen
 
     def update(self, keys, *args): # Para reescribir la posicion del objeto (Keys - Teclas, *Args - Agrupar argumentos)
-        game.screen.blit(self.image, self.rect)
-        self.rect.y += self.speed * self.direction
+        if args and hasattr(args[-1], "blit"): # Verifica que se haya pasado la pantalla y que tenga el método blit
+            pantalla = args[-1] # Extrae la pantalla desde los argumentos
+            pantalla.blit(self.image, self.rect) # Dibuja la imagen de la bala
+        else:
+            print("Advertencia: No se pasó pantalla correctamente a update()")
+        
+        self.rect.y += self.speed * self.direction # Mueve la bala
         if self.rect.y < 15 or self.rect.y > 600:
-            self.kill() # Eliminar la bala en caso que exceda los limites
+            self.kill() # Eliminar la bala en caso que exceda los límites
+
 
 class Enemy(sprite.Sprite): # Definiendo a los enemigos
     def __init__(self, row, column): # Para ubicar al enemigo dentro de una matriz de posiciones
@@ -86,7 +92,9 @@ class Enemy(sprite.Sprite): # Definiendo a los enemigos
         self.image = self.images[self.index]
 
     def update(self, *args):
-        game.screen.blit(self.image, self.rect) # Solo lo dibuja
+        if args: # Verifica que se haya pasado al menos un argumento
+            pantalla = args[-1] # Obtiene el último argumento como la pantalla
+            pantalla.blit(self.image, self.rect) # Solo lo dibuja
 
     def load_images(self): 
         images = {0: ['1_2', '1_1'],
@@ -101,7 +109,7 @@ class Enemy(sprite.Sprite): # Definiendo a los enemigos
         self.images.append(transform.scale(img2, (40, 35))) # Asigna un tamaño a la imagen y la guarda dentro de la lista
 
 class EnemiesGroup(sprite.Group): # Extiende la clase Enemies para trabajar en conjunto con cada uno de ellos
-    def __init__(self, columns, rows):
+    def __init__(self, columns, rows, enemyPosition):
         sprite.Group.__init__(self)
         self.enemies = [[None] * columns for _ in range(rows)] # Crea una matriz vacia para la formacion de enemigos
         self.columns = columns
@@ -114,7 +122,7 @@ class EnemiesGroup(sprite.Group): # Extiende la clase Enemies para trabajar en c
         self.leftMoves = 30 # Cantidad de paso para poder bajar a la siguiente columna
         self.moveNumber = 15
         self.timer = time.get_ticks() # Ultimo momento en el que se movieron
-        self.bottom = game.enemyPosition + ((rows - 1) * 45) + 35 # Bottom = la ilera de abajo
+        self.bottom = enemyPosition + ((rows - 1) * 45) + 35 # Bottom = la ilera de abajo
         self._aliveColumns = list(range(columns))
         self._leftAliveColumn = 0
         self._rightAliveColumn = columns - 1
@@ -203,8 +211,8 @@ class Blocker(sprite.Sprite): # Definir los bloques de proteccion
         self.row = row
         self.column = column
 
-    def update(self, keys, *args):
-        game.screen.blit(self.image, self.rect) # Dibujar el objeto
+    def update(self, pantalla):
+        pantalla.blit(self.image, self.rect) # Dibujar el objeto
 
 class Mystery(sprite.Sprite): # Nave misteriosa
     def __init__(self):
@@ -220,32 +228,36 @@ class Mystery(sprite.Sprite): # Nave misteriosa
         self.mysteryEntered.set_volume(0.3)
         self.playSound = True # Controla si el sonido debe reproducirse nuevamente
 
-    def update(self, keys, currentTime, *args):
+def update(self, keys, currentTime, *args):
+    if args: # Verifica que se haya pasado la pantalla
+        pantalla = args[-1] # Se extrae la pantalla desde los argumentos
         resetTimer = False
         passed = currentTime - self.timer
-        if passed > self.moveTime: # Solo si pasarons 25 segundos
+
+        if passed > self.moveTime: # Solo si pasaron los milisegundos necesarios
             if (self.rect.x < 0 or self.rect.x > 800) and self.playSound:
                 self.mysteryEntered.play() # Reproduce el sonido de la nave
-                self.playSound = False # apaga el sonido de la nave
+                self.playSound = False # Apaga el sonido de la nave
             if self.rect.x < 840 and self.direction == 1:
                 self.mysteryEntered.fadeout(4000) # Reduce suavemente el sonido
                 self.rect.x += 2
-                game.screen.blit(self.image, self.rect) # Lo mueve para la derecha
+                pantalla.blit(self.image, self.rect) # Lo mueve para la derecha
             if self.rect.x > -100 and self.direction == -1:
                 self.mysteryEntered.fadeout(4000) # Reduce suavemente el sonido
                 self.rect.x -= 2
-                game.screen.blit(self.image, self.rect) # Lo mueve para la izquierda
+                pantalla.blit(self.image, self.rect) # Lo mueve para la izquierda
 
-        if self.rect.x > 830: # Si salio por la derecha
+        if self.rect.x > 830: # Si salió por la derecha
             self.playSound = True
             self.direction = -1 # Setea el movimiento para la izquierda
             resetTimer = True 
-        if self.rect.x < -90: # Si salio por la izquierda
+        if self.rect.x < -90: # Si salió por la izquierda
             self.playSound = True
             self.direction = 1 # Setea el movimiento para la derecha
             resetTimer = True
         if passed > self.moveTime and resetTimer:
-            self.timer = currentTime # Resetea el reloj de 25 segundos
+            self.timer = currentTime # Resetea el reloj
+
 
 class EnemyExplosion(sprite.Sprite): # Definir la explosion de los enemigos tras su muerte
     def __init__(self, enemy, *groups):
@@ -261,13 +273,16 @@ class EnemyExplosion(sprite.Sprite): # Definir la explosion de los enemigos tras
         return IMAGES['explosion{}'.format(img_colors[row])] # Generador de imagenes
 
     def update(self, current_time, *args):
-        passed = current_time - self.timer
-        if passed <= 100:
-            game.screen.blit(self.image, self.rect) # Dibuja una imagen luego de 100 milisegundos
-        elif passed <= 200:
-            game.screen.blit(self.image2, (self.rect.x - 6, self.rect.y - 6)) # Dibuja la segunda luego de 200 milisegundos
-        elif 400 < passed:
-            self.kill() # Luego de 400 milisegundo las elimina
+        if args: # Solo si hay argumentos extra
+            pantalla = args[-1]
+            passed = current_time - self.timer
+            if passed <= 100:
+                pantalla.blit(self.image, self.rect)
+            elif passed <= 200:
+                pantalla.blit(self.image2, (self.rect.x - 6, self.rect.y - 6))
+        if current_time - self.timer > 400:
+            self.kill()
+
 
 class MysteryExplosion(sprite.Sprite): # Explosion de la nave misteriosa
     def __init__(self, mystery, score, *groups):
@@ -277,11 +292,13 @@ class MysteryExplosion(sprite.Sprite): # Explosion de la nave misteriosa
         self.timer = time.get_ticks() # Guarda el tiempo de la explosion
 
     def update(self, current_time, *args):
-        passed = current_time - self.timer
-        if passed <= 200 or 400 < passed <= 600:
-            self.text.draw(game.screen) # Muestra el texto en 2 intervalos; 0 - 200 , 400 - 600 milesegundos
-        elif 600 < passed:
-            self.kill() # Luego de 600 milisegundo elimina el texto
+        if args: # Verifica si se pasó la pantalla
+            pantalla = args[-1] # Extrae la pantalla desde los argumentos
+            passed = current_time - self.timer
+            if passed <= 200 or 400 < passed <= 600:
+                self.text.draw(pantalla) # Muestra el texto en 2 intervalos; 0 - 200 , 400 - 600 milisegundos
+            elif 600 < passed:
+                self.kill() # Luego de 600 milisegundos elimina el texto
 
 class ShipExplosion(sprite.Sprite): # Explosion de la nave propia
     def __init__(self, ship, *groups):
@@ -291,11 +308,14 @@ class ShipExplosion(sprite.Sprite): # Explosion de la nave propia
         self.timer = time.get_ticks() # Guarda el tiempo de la explosion
 
     def update(self, current_time, *args):
-        passed = current_time - self.timer
-        if 300 < passed <= 600:
-            game.screen.blit(self.image, self.rect) # Durante 300 milisegundo dibuja de nuevo la nave
-        elif 900 < passed:
-            self.kill() # Luego de 900 milisegundo la elimina
+        if args:
+            pantalla = args[-1] # Extrae la pantalla desde los argumentos si existe
+            passed = current_time - self.timer
+            if 300 < passed <= 600:
+                pantalla.blit(self.image, self.rect) # Durante 300 milisegundos dibuja de nuevo la nave
+        if current_time - self.timer > 900:
+            self.kill() # Luego de 900 milisegundos la elimina
+
 
 class Life(sprite.Sprite): 
     def __init__(self, xpos, ypos):
@@ -305,7 +325,9 @@ class Life(sprite.Sprite):
         self.rect = self.image.get_rect(topleft=(xpos, ypos)) # Define la posicion inicial en pantalla
 
     def update(self, *args):
-        game.screen.blit(self.image, self.rect) # Dibuja la imagen cada vez que se actualiza el juego
+        if args and hasattr(args[-1], "blit"): # Verifica que el último argumento tenga el método blit
+            pantalla = args[-1]
+            pantalla.blit(self.image, self.rect)
 
 class Text(object):
     def __init__(self, textFont, size, message, color, xpos, ypos):
@@ -323,7 +345,7 @@ class SpaceInvaders(object): # Codigo del Juego
         self.clock = time.Clock() # Timer
         self.caption = display.set_caption('Space Invaders') # Titulo
         self.screen = SCREEN # Pantalla
-        self.background = image.load(IMAGE_PATH + 'background.jpg').convert() # Cargar fondo
+        self.background = image.load(IMAGE_PATH + 'background.jpg') # Cargar fondo
         self.startGame = False # Iniciar el juego
         self.mainScreen = True # El menu principal
         self.gameOver = False # Controla si el juego termino
@@ -435,7 +457,7 @@ class SpaceInvaders(object): # Codigo del Juego
                             self.sounds['shoot2'].play() # Se reproduce otro sonido
 
     def make_enemies(self): # Crear los enemigos
-        enemies = EnemiesGroup(10, 5) # Se agregan los anemigos a los grupos de enemigos 
+        enemies = EnemiesGroup(10, 5, self.enemyPosition) # Se agregan los anemigos a los grupos de enemigos 
         for row in range(5):
             for column in range(10):
                 enemy = Enemy(row, column)
@@ -558,6 +580,7 @@ class SpaceInvaders(object): # Codigo del Juego
                 sys.exit() # Salir del progama
 
     def main(self): # Definiendo el menu
+        self.screen = display.set_mode((800, 600))
         while True:
             if self.mainScreen: # Si se encuentra en la pantalla del menu
                 self.screen.blit(self.background, (0, 0)) # Se carga el fondo
@@ -612,7 +635,7 @@ class SpaceInvaders(object): # Codigo del Juego
                     self.livesText.draw(self.screen)
                     self.check_input() # Se recive el imput del jugador
                     self.enemies.update(currentTime) # Se actualiza a los jugadores
-                    self.allSprites.update(self.keys, currentTime)
+                    self.allSprites.update(self.keys, currentTime, self.screen) # Se actualizan todos los sprites con pantalla incluida
                     self.explosionsGroup.update(currentTime) # Se actualizan las explosiones
                     self.check_collisions() # Se actializan las coliciones
                     self.create_new_ship(self.makeNewShip, currentTime)
@@ -627,6 +650,6 @@ class SpaceInvaders(object): # Codigo del Juego
             display.update() # Se actualiza la pantalla
             self.clock.tick(60) # Se limita el sistema a 60 FPS
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     game = SpaceInvaders()
     game.main()
