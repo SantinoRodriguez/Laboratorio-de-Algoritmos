@@ -1,6 +1,7 @@
 import pygame
 from Space_Invaders_Main import menu_principal
 from Space_Invaders import SpaceInvaders
+from Space_Invaders_2 import SpaceInvaders2
 
 pygame.init()
 
@@ -14,8 +15,10 @@ def main():
                 juego = SpaceInvaders()
                 estado = juego.main()  # Devuelve 'menu' si se quiere volver
             elif resultado == 'multi':
-                print("Modo multijugador no implementado")
-                estado = 'menu'
+                juego2 = SpaceInvaders2()
+                estado = juego2.main2()  # Devuelve 'menu' si se quiere volver
+            elif resultado == 'salir':
+                break
         elif estado == 'salir':
             break
 

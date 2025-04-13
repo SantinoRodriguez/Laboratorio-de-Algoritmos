@@ -2,6 +2,7 @@ from pygame import *
 import sys
 from os.path import abspath, dirname
 from random import choice
+import config  # Importar el estado de muteo
 
 # Archivos
 BASE_PATH = abspath(dirname(__file__))
@@ -214,19 +215,22 @@ class Blocker(sprite.Sprite): # Definir los bloques de proteccion
     def update(self, pantalla):
         pantalla.blit(self.image, self.rect) # Dibujar el objeto
 
-class Mystery(sprite.Sprite): # Nave misteriosa
+class Mystery(sprite.Sprite):  # Nave misteriosa
     def __init__(self):
         sprite.Sprite.__init__(self)
         self.image = IMAGES['mystery']
         self.image = transform.scale(self.image, (75, 35))
-        self.rect = self.image.get_rect(topleft=(-80, 45)) # Posicion incial (Fuera de la pantalla)
+        self.rect = self.image.get_rect(topleft=(-80, 45))  # Posición inicial
         self.row = 5
-        self.moveTime = 25000 # Aparace cada 25 segundos
-        self.direction = 1 
+        self.moveTime = 25000  # Aparece cada 25 segundos
+        self.direction = 1
         self.timer = time.get_ticks()
+        
+        # Cargar el sonido con volumen según esté muteado o no
         self.mysteryEntered = mixer.Sound(SOUND_PATH + 'mysteryentered.wav')
-        self.mysteryEntered.set_volume(0.3)
-        self.playSound = True # Controla si el sonido debe reproducirse nuevamente
+        self.mysteryEntered.set_volume(0.0 if config.MUTEADO else 0.3)
+        
+        self.playSound = True  # Controla si el sonido debe reproducirse nuevamente
 
 def update(self, keys, currentTime, *args):
     if args: # Verifica que se haya pasado la pantalla
@@ -364,13 +368,13 @@ class SpaceInvaders(object): # Codigo del Juego
         self.enemyPosition = ENEMY_DEFAULT_POSITION # Llama a la funcion para poder colocar a los enemigos
         # self.titleText = image.load(IMAGE_PATH + 'space_invaders_logo.png') # Titulo del fondo
         self.titleText2 = Text(FONT, 25, 'Press any key to continue', WHITE, 
-                               201, 325) # Titulo de inicializacion
+                               201, 540) # Titulo de inicializacion
         self.gameOverText = Text(FONT, 50, 'Game Over', WHITE, 250, 270) # Texto al perder
         self.nextRoundText = Text(FONT, 50, 'Next Round', WHITE, 240, 270) # Texto para la proxima ronda
-        self.enemy1Text = Text(FONT, 25, '   =   10 pts', GREEN, 368, 400) 
+        """self.enemy1Text = Text(FONT, 25, '   =   10 pts', GREEN, 368, 400) 
         self.enemy2Text = Text(FONT, 25, '   =  20 pts', BLUE, 368, 450)
         self.enemy3Text = Text(FONT, 25, '   =  30 pts', PURPLE, 368, 500)
-        self.enemy4Text = Text(FONT, 25, '   =  ?????', RED, 368, 550)
+        self.enemy4Text = Text(FONT, 25, '   =  ?????', RED, 368, 550)"""
         self.scoreText = Text(FONT, 20, 'Score', WHITE, 5, 5)
         self.livesText = Text(FONT, 20, 'Lives ', WHITE, 640, 5)
 
@@ -410,20 +414,20 @@ class SpaceInvaders(object): # Codigo del Juego
                 blockerGroup.add(blocker)
         return blockerGroup
 
-    def create_audio(self): # Guarda los sonidos de cada actualizacion
-        self.sounds = {} # Crea un diccionario para acceder de forma mas facil a los sonidos
-        for sound_name in ['shoot', 'shoot2', 'invaderkilled', 'mysterykilled',
-                           'shipexplosion']: # La lista de los sonidos
-            self.sounds[sound_name] = mixer.Sound( # Funcion de Pygame para encontrar el archivo
-                SOUND_PATH + '{}.wav'.format(sound_name)) # Construlle el nombre completo del sonido
-            self.sounds[sound_name].set_volume(0.2) # Setear volumen
+    def create_audio(self):  # Guarda los sonidos de cada actualización
+        self.sounds = {}  # Diccionario para acceder a los sonidos fácilmente
 
-        self.musicNotes = [mixer.Sound(SOUND_PATH + '{}.wav'.format(i)) for i
-                           in range(4)] # Crea un lista con los sonido 0,1,2 y 3.wav
-        for sound in self.musicNotes:
-            sound.set_volume(0.5)
+        for SoundName in ['shoot', 'shoot2', 'invaderkilled', 'mysterykilled', 'shipexplosion']:
+            self.sounds[SoundName] = mixer.Sound(SOUND_PATH + '{}.wav'.format(SoundName))
+            # Si está muteado, volumen en 0; si no, en 0.2
+            self.sounds[SoundName].set_volume(0.0 if config.MUTEADO else 0.2)
 
-        self.noteIndex = 0 # Se crea un indice para las notas
+        self.musicNotes = [mixer.Sound(SOUND_PATH + '{}.wav'.format(i)) for i in range(4)]
+        for Sound in self.musicNotes:
+            # Si está muteado, volumen en 0; si no, en 0.5
+            Sound.set_volume(0.0 if config.MUTEADO else 0.5)
+
+        self.noteIndex = 0  # Índice de nota para la secuencia
 
     def play_main_music(self, currentTime): # Reproductor de musica
         if currentTime - self.noteTimer > self.enemies.moveTime: # Suena con el mismo intercalo que los enemigos se mueven
@@ -521,7 +525,7 @@ class SpaceInvaders(object): # Codigo del Juego
         return score
 
     def create_main_menu(self): # Crea el menu principal
-        self.enemy1 = IMAGES['enemy3_1'] # Coloca un enemigo en cada posicion asignada
+        """self.enemy1 = IMAGES['enemy3_1'] # Coloca un enemigo en cada posicion asignada
         self.enemy1 = transform.scale(self.enemy1, (40, 40)) # Crea la escala de la imagen
         self.enemy2 = IMAGES['enemy2_2']
         self.enemy2 = transform.scale(self.enemy2, (40, 40))
@@ -532,7 +536,7 @@ class SpaceInvaders(object): # Codigo del Juego
         self.screen.blit(self.enemy1, (318, 395))
         self.screen.blit(self.enemy2, (318, 445))
         self.screen.blit(self.enemy3, (318, 495))
-        self.screen.blit(self.enemy4, (299, 545))
+        self.screen.blit(self.enemy4, (299, 545))"""
 
     def check_collisions(self): # Checkear las coliciones de hitbox's
         # Valores True para eliminaciones y False para no eliminados al contacto
@@ -623,10 +627,10 @@ class SpaceInvaders(object): # Codigo del Juego
                 self.screen.blit(self.menu, (0, 0)) # Se grafica el fondo
                 # self.screen.blit(self.titleText, (0, 0)) # Se dibuja el título
                 self.titleText2.draw(self.screen) # Se dibuja el subtítulo
-                self.enemy1Text.draw(self.screen) # Imagen del primer enemigo
+                """self.enemy1Text.draw(self.screen) # Imagen del primer enemigo
                 self.enemy2Text.draw(self.screen) # Imagen del segundo enemigo
                 self.enemy3Text.draw(self.screen) # Imagen del tercer enemigo
-                self.enemy4Text.draw(self.screen) # Imagen del enemigo especial
+                self.enemy4Text.draw(self.screen) # Imagen del enemigo especial"""
                 self.create_main_menu() # Dibuja los textos con puntajes
 
             elif self.startGame: # Si el juego ya ha comenzado
