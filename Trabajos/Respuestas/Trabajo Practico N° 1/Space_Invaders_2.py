@@ -19,7 +19,9 @@ PURPLE = (203, 0, 255)
 RED = (237, 28, 36)
 
 # Cargado de Imagenes y Pantalla
-SCREEN = display.set_mode((1000, 800))
+GAME2_WIDTH = config.get_game2_width()
+GAME2_HEIGTH = config.get_game2_height()
+SCREEN = display.set_mode((GAME2_WIDTH, GAME2_HEIGTH))
 FONT = FONT_PATH + 'space_invaders.ttf'
 IMG_NAMES = ['ship', 'mystery',
              'enemy1_1', 'enemy1_2',
