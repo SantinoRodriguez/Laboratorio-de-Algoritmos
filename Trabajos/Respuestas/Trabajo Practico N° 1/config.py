@@ -8,37 +8,55 @@ CONFIG_FILE = "config.json"
 # Resolución base de referencia (16:9)
 BASE_WIDTH = 1920
 BASE_HEIGHT = 1080
+BASE_ASPECT_RATIO = BASE_WIDTH / BASE_HEIGHT
 
 # Detectar resolución actual de la pantalla
 pygame.init()
 info = pygame.display.Info()
 SCREEN_WIDTH = info.current_w
 SCREEN_HEIGHT = info.current_h
+SCREEN_ASPECT_RATIO = SCREEN_WIDTH / SCREEN_HEIGHT
 
 # Calcular la proporción de escala
 SCALE_X = SCREEN_WIDTH / BASE_WIDTH
 SCALE_Y = SCREEN_HEIGHT / BASE_HEIGHT
 SCALE_FACTOR = min(SCALE_X, SCALE_Y)  # Usamos el menor para evitar distorsión
 
+# Calcular el área de juego efectiva
+EFFECTIVE_WIDTH = int(BASE_WIDTH * SCALE_FACTOR)
+EFFECTIVE_HEIGHT = int(BASE_HEIGHT * SCALE_FACTOR)
+
+# Calcular offsets para centrar el contenido
+OFFSET_X = (SCREEN_WIDTH - EFFECTIVE_WIDTH) // 2
+OFFSET_Y = (SCREEN_HEIGHT - EFFECTIVE_HEIGHT) // 2
+
 # Adaptar resoluciones y posiciones
 def scale_value(value):
-    """Escala un valor basado en la resolución actual"""
     return int(value * SCALE_FACTOR)
 
-# Dimensiones globales para Space Invaders
-GAME_WIDTH = scale_value(800)
-GAME_HEIGHT = scale_value(600)
-GAME2_WIDTH = scale_value(1000)
-GAME2_HEIGHT = scale_value(800)
-MENU_WIDTH = scale_value(800)
-MENU_HEIGHT = scale_value(600)
-INICIO_WIDTH = scale_value(532)
-INICIO_HEIGHT = scale_value(800)
+def scale_position_x(x):
+    return OFFSET_X + int(x * SCALE_FACTOR)
 
-# Posiciones y tamaños escalados
-BLOCKERS_POSITION = scale_value(450)
-ENEMY_DEFAULT_POSITION = scale_value(65)
-ENEMY_MOVE_DOWN = scale_value(35)
+def scale_position_y(y):
+    return OFFSET_Y + int(y * SCALE_FACTOR)
+
+def scale_size(width, height):
+    return (int(width * SCALE_FACTOR), int(height * SCALE_FACTOR))
+
+# Valores base sin escalar
+GAME_WIDTH_BASE = 800
+GAME_HEIGHT_BASE = 600
+GAME2_WIDTH_BASE = 1000
+GAME2_HEIGHT_BASE = 800
+GAME3_WIDTH_BASE = 1000
+GAME3_HEIGHT_BASE = 800
+MENU_WIDTH_BASE = 800
+MENU_HEIGHT_BASE = 600
+INICIO_WIDTH_BASE = 532
+INICIO_HEIGHT_BASE = 800
+BLOCKERS_POSITION_BASE = 450
+ENEMY_DEFAULT_POSITION_BASE = 65
+ENEMY_MOVE_DOWN_BASE = 35
 
 # Valores por defecto
 DEFAULT_CONFIG = {
@@ -55,7 +73,6 @@ Derecha1 = DEFAULT_CONFIG["derecha"]
 MUTEADO = DEFAULT_CONFIG["muteado"]
 
 def guardar_configuracion():
-    """Guarda los valores actuales en el archivo JSON"""
     try:
         config_data = {
             "izquierda": Izquierda1,
@@ -71,7 +88,6 @@ def guardar_configuracion():
         print(f"❌ Error al guardar configuración: {e}")
 
 def cargar_configuracion():
-    """Carga la configuración desde el archivo JSON si existe"""
     global Izquierda1, Derecha1, MUTEADO
     try:
         if os.path.exists(CONFIG_FILE):
@@ -87,51 +103,27 @@ def cargar_configuracion():
         print(f"❌ Error al cargar configuración: {e}")
 
 # Getters - Configuración
-def get_izquierda():
-    return Izquierda1
+def get_izquierda(): return Izquierda1
+def get_derecha(): return Derecha1
+def get_muteado(): return MUTEADO
 
-def get_derecha():
-    return Derecha1
-
-def get_muteado():
-    return MUTEADO
-
-# Getters - Resolución
-def get_game_width():
-    return GAME_WIDTH
-
-def get_game_height():
-    return GAME_HEIGHT
-
-def get_game2_width():
-    return GAME2_WIDTH
-
-def get_game2_height():
-    return GAME2_HEIGHT
-
-def get_menu_width():
-    return MENU_WIDTH
-
-def get_menu_height():
-    return MENU_HEIGHT
-
-def get_inicio_width():
-    return INICIO_WIDTH
-
-def get_inicio_height():
-    return INICIO_HEIGHT
-
-def get_blockers_position():
-    return BLOCKERS_POSITION
-
-def get_enemy_default_position():
-    return ENEMY_DEFAULT_POSITION
-
-def get_enemy_move_down():
-    return ENEMY_MOVE_DOWN
-
-def get_scale_factor():
-    return SCALE_FACTOR
+# Getters - Resolución escalada
+def get_game_width(): return scale_value(GAME_WIDTH_BASE)
+def get_game_height(): return scale_value(GAME_HEIGHT_BASE)
+def get_game2_width(): return scale_value(GAME2_WIDTH_BASE)
+def get_game2_height(): return scale_value(GAME2_HEIGHT_BASE)
+def get_game3_width(): return scale_value(GAME3_WIDTH_BASE)
+def get_game3_height(): return scale_value(GAME3_HEIGHT_BASE)
+def get_menu_width(): return scale_value(MENU_WIDTH_BASE)
+def get_menu_height(): return scale_value(MENU_HEIGHT_BASE)
+def get_inicio_width(): return scale_value(INICIO_WIDTH_BASE)
+def get_inicio_height(): return scale_value(INICIO_HEIGHT_BASE)
+def get_blockers_position(): return scale_value(BLOCKERS_POSITION_BASE)
+def get_enemy_default_position(): return scale_value(ENEMY_DEFAULT_POSITION_BASE)
+def get_enemy_move_down(): return scale_value(ENEMY_MOVE_DOWN_BASE)
+def get_scale_factor(): return SCALE_FACTOR
+def get_offset_x(): return OFFSET_X
+def get_offset_y(): return OFFSET_Y
 
 # Setters
 def set_izquierda(tecla):
@@ -150,24 +142,29 @@ def set_muteado(valor):
     guardar_configuracion()
 
 def toggle_muteado():
-    """Cambia el estado de muteado y lo guarda"""
     global MUTEADO
     MUTEADO = not MUTEADO
     guardar_configuracion()
     return MUTEADO
 
-def scale_size(width, height):
-    """Escala un par (ancho, alto) con el SCALE_FACTOR."""
-    return (int(width * SCALE_FACTOR), int(height * SCALE_FACTOR))
+# Getters de tamaños escalados (pares ancho, alto)
+def get_scaled_game_size():
+    return scale_value(GAME_WIDTH_BASE), scale_value(GAME_HEIGHT_BASE)
 
-def get_scaled_rect(x, y, width, height):
-    # Escalar las posiciones (x, y) y el tamaño (width, height)
-    sx = scale_value(x)
-    sy = scale_value(y)
-    sw, sh = scale_size(width, height)  # Escalar el tamaño
+def get_scaled_game2_size():
+    return scale_value(GAME2_WIDTH_BASE), scale_value(GAME2_HEIGHT_BASE)
 
-    # Crear el rectángulo escalado con las posiciones escaladas y tamaño escalado
-    return pygame.Rect(sx, sy, sw, sh)
+def get_scaled_game3_size():
+    return scale_value(GAME3_WIDTH_BASE), scale_value(GAME3_HEIGHT_BASE)
 
-# Cargar al inicio
+def get_scaled_menu_size():
+    return scale_value(MENU_WIDTH_BASE), scale_value(MENU_HEIGHT_BASE)
+
+def get_scaled_inicio_size():
+    return scale_value(INICIO_WIDTH_BASE), scale_value(INICIO_HEIGHT_BASE)
+
+def get_game_area():
+    return pygame.Rect(OFFSET_X, OFFSET_Y, EFFECTIVE_WIDTH, EFFECTIVE_HEIGHT)
+
+# Cargar configuración al inicio
 cargar_configuracion()

@@ -19,7 +19,9 @@ PURPLE = (203, 0, 255)
 RED = (237, 28, 36)
 
 # Cargado de Imagenes y Pantalla
-SCREEN = display.set_mode((1800, 800))
+GAME3_WIDTH = config.get_game3_width()
+GAME3_HEIGTH = config.get_game3_height()
+SCREEN = display.set_mode((GAME3_WIDTH, GAME3_HEIGTH))
 FONT = FONT_PATH + 'space_invaders.ttf'
 IMG_NAMES = ['ship', 'mystery',
              'enemy1_1', 'enemy1_2',
@@ -30,10 +32,10 @@ IMG_NAMES = ['ship', 'mystery',
 IMAGES = {name: image.load(IMAGE_PATH + '{}.png'.format(name)).convert_alpha()
           for name in IMG_NAMES} # Cargado Automatico de Imagenes en un diccionario
 
-BLOCKERS_POSITION = 550
-ENEMY_DEFAULT_POSITION = 65 
-ENEMY_MOVE_DOWN = 35
-
+# Valores escalados de posiciones
+ENEMY_DEFAULT_POSITION = config.get_enemy_default_position()
+BLOCKERS_POSITION = config.get_blockers_position()
+ENEMY_MOVE_DOWN = config.get_enemy_move_down()
 
 class Ship(sprite.Sprite): # Hereda la clase Sprite de Pygame (Util para objetos con hitbox)
     def __init__(self, player_num=1):
@@ -343,7 +345,7 @@ class SpaceInvaders2(object): # Codigo del Juego
         self.menu = image.load(IMAGE_PATH + 'image_second.webp') # Cargar fondo
         self.menu = transform.scale(self.menu, (1000, 800))
         self.background = image.load(IMAGE_PATH + 'background.jpg').convert() # Cargar fondo
-        self.background = transform.scale(self.background, (1000, 800))
+        self.background = transform.scale(self.background, (800, 600))
         self.startGame = False # Iniciar el juego
         self.mainScreen = True # El menu principal
         self.gameOver = False # Controla si el juego termino

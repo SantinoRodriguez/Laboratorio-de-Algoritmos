@@ -87,7 +87,7 @@ def dibujar_boton(texto, x, y, ancho, alto, color_base, color_hover, pos_mouse):
     
     return rect
 
-def abrir_menu_settings():
+def abrir_menu_settings(): 
     corriendo = True
     cambiando_izquierda = False
     cambiando_derecha = False
@@ -96,16 +96,20 @@ def abrir_menu_settings():
         PANTALLA.fill((30, 30, 30))
         pos_mouse = pygame.mouse.get_pos()
 
-        fuente = pygame.font.SysFont(None, 36)
+        fuente = pygame.font.SysFont(None, scale_value(36))
         mute_texto = f"Mute: {'ON' if config.get_muteado() else 'OFF'}"
         tecla_izq = pygame.key.name(config.get_izquierda()).upper()
         tecla_der = pygame.key.name(config.get_derecha()).upper()
 
         # Escalar las posiciones y tamaños de los botones
-        mute_rect = pygame.Rect(scale_value(300), scale_value(200), scale_value(200), scale_value(40))
-        izquierda_rect = pygame.Rect(scale_value(300), scale_value(260), scale_value(200), scale_value(40))
-        derecha_rect = pygame.Rect(scale_value(300), scale_value(320), scale_value(200), scale_value(40))
-        volver_rect = pygame.Rect(scale_value(300), scale_value(380), scale_value(200), scale_value(40))
+        x_boton = scale_position_x(300)
+        w_boton = scale_value(200)
+        h_boton = scale_value(40)
+
+        mute_rect = pygame.Rect(x_boton, scale_position_y(200), w_boton, h_boton)
+        izquierda_rect = pygame.Rect(x_boton, scale_position_y(260), w_boton, h_boton)
+        derecha_rect = pygame.Rect(x_boton, scale_position_y(320), w_boton, h_boton)
+        volver_rect = pygame.Rect(x_boton, scale_position_y(380), w_boton, h_boton)
 
         # Colores al pasar el ratón
         mute_color = (200, 0, 0) if mute_rect.collidepoint(pos_mouse) else (150, 0, 0)
@@ -139,7 +143,7 @@ def abrir_menu_settings():
                 sys.exit()
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 if mute_rect.collidepoint(event.pos):
-                    config.toggle_muteado()  # Ya alterna internamente
+                    config.toggle_muteado()
                 elif izquierda_rect.collidepoint(event.pos):
                     cambiando_izquierda = True
                     cambiando_derecha = False
@@ -164,65 +168,53 @@ def menu_principal():
     pygame.display.set_caption("Space Invaders - Menú Principal")
     
     ejecutando = True
-    # Variable para controlar si se muestra el submenú de multijugador
     mostrar_submenu_multi = False
-    
+
     while ejecutando:
         pos_mouse = pygame.mouse.get_pos()
-        
-        # Dibujar fondo escalado
         PANTALLA.blit(imagen_menu, (0, 0))
-        
-        # Dibujar botón de configuración escalado
-        settings_button_rect = pygame.Rect(scale_value(650), scale_value(30), scale_value(125), scale_value(35))
+
+        # Botón de configuración escalado
+        settings_button_rect = pygame.Rect(scale_position_x(650), scale_position_y(30), scale_value(125), scale_value(35))
         settings_color = (150, 150, 255) if settings_button_rect.collidepoint(pos_mouse) else (100, 100, 255)
         pygame.draw.rect(PANTALLA, settings_color, settings_button_rect)
         texto = FUENTE.render("Settings", True, (255, 255, 255))
         PANTALLA.blit(texto, (settings_button_rect.x + scale_value(5), settings_button_rect.y + scale_value(5)))
-        
-        # Si no estamos en el submenú, mostrar los botones principales
+
+        y_botones = ALTO_MENU - scale_value(100)
+
         if not mostrar_submenu_multi:
-            y_botones = ALTO_MENU - scale_value(100)
-            boton_1_jugador = dibujar_boton("1 Jugador", ANCHO_MENU // 2 - scale_value(260), y_botones, scale_value(200), scale_value(60), AZUL, VERDE, pos_mouse)
-            boton_multijugador = dibujar_boton("Multijugador", ANCHO_MENU // 2 + scale_value(60), y_botones, scale_value(200), scale_value(60), AZUL, VERDE, pos_mouse)
+            boton_1_jugador = dibujar_boton("1 Jugador", scale_position_x(140), y_botones, scale_position_y(200), scale_value(60), AZUL, VERDE, pos_mouse)
+            boton_multijugador = dibujar_boton("Multijugador", scale_position_x(460), y_botones, scale_position_y(200), scale_value(60), AZUL, VERDE, pos_mouse)
         else:
-            # Mostrar los botones del submenu multijugador
-            y_botones = ALTO_MENU - scale_value(100)
-            boton_1vs1 = dibujar_boton("1 vs 1", ANCHO_MENU // 2 - scale_value(260), y_botones, scale_value(200), scale_value(60), AZUL, VERDE, pos_mouse)
-            boton_2vsCpu = dibujar_boton("2 vs Cpu", ANCHO_MENU // 2 + scale_value(60), y_botones, scale_value(200), scale_value(60), AZUL, VERDE, pos_mouse)
+            boton_1vs1 = dibujar_boton("1 vs 1", ANCHO_MENU // 2 - scale_position_x(260), y_botones, scale_position_y(200), scale_value(60), AZUL, VERDE, pos_mouse)
+            boton_2vsCpu = dibujar_boton("2 vs Cpu", ANCHO_MENU // 2 + scale_position_x(60), y_botones, scale_position_y(200), scale_value(60), AZUL, VERDE, pos_mouse)
 
         for evento in pygame.event.get():
             if evento.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
-            
-            # Manejar el clic en botones
+
             if evento.type == pygame.MOUSEBUTTONDOWN:
-                # Verificar si se hizo clic en el botón de configuración
                 if settings_button_rect.collidepoint(evento.pos):
                     abrir_menu_settings()
-                
+
                 if not mostrar_submenu_multi:
-                    # Interacción con los botones del menú principal
                     if boton_1_jugador.collidepoint(evento.pos):
-                        return '1player'  # Devolver el modo seleccionado
+                        return '1player'
                     if boton_multijugador.collidepoint(evento.pos):
                         mostrar_submenu_multi = True
                 else:
-                    # Interacción con los botones del submenú multijugador
                     if boton_1vs1.collidepoint(evento.pos):
-                        return '1vs1'  # Devolver el modo seleccionado
+                        return '1vs1'
                     if boton_2vsCpu.collidepoint(evento.pos):
-                        return '2vsCpu'  # Devolver el modo seleccionado
-            
-            # Manejo de tecla Escape
+                        return '2vsCpu'
+
             if evento.type == pygame.KEYDOWN and evento.key == pygame.K_ESCAPE:
                 if mostrar_submenu_multi:
-                    # Si estamos en el submenú, volver al menú principal
                     mostrar_submenu_multi = False
                 else:
-                    # Si estamos en el menú principal, salir del juego
-                    return 'salir'  # Devolver salir para terminar el programa
+                    return 'salir'
 
         pygame.display.flip()
 
