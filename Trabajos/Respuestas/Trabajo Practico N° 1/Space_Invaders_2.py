@@ -52,6 +52,11 @@ class Ship(sprite.Sprite): # Hereda la clase Sprite de Pygame (Util para objetos
         self.tiempoDeCreacion = time.get_ticks() # Tiempo de creación
         self.speed = 5
         self.player_num = player_num # Guardamos qué jugador es para referencia
+        
+        # Atributos para el disparo
+        self.bullet = None # Bala actual (si existe)
+        self.canShoot = True # Bandera para permitir disparo
+        self.lastShot = 0 # Tiempo del último disparo
 
     def update(self, screen, keys, currentTime, *args): # Para reescribir la posicion del objeto
         if self.invulnerable and (currentTime - self.tiempoDeCreacion > 1000):
@@ -491,51 +496,59 @@ class SpaceInvaders2(object): # Codigo del Juego
                     # Disparo para el jugador 1 con SPACE
                     if e.key == K_SPACE: 
                         # Verificar que el jugador tenga vidas antes de permitirle disparar
-                        can_shoot1 = self.shipAlive and (self.life1.alive() or self.life2.alive() or self.life3.alive())
-                        if len(self.bullets) == 0 and can_shoot1: 
-                            if self.score < 2000: 
-                                bullet = Bullet(self.player.rect.x + 23,
-                                                self.player.rect.y + 5, -1,
-                                                15, 'laser', 'center') 
-                                self.bullets.add(bullet) 
-                                self.allSprites.add(self.bullets) 
-                                self.sounds['shoot'].play() 
-                            else: 
-                                leftbullet = Bullet(self.player.rect.x + 8,
+                        can_shoot1 = self.shipAlive 
+                        if can_shoot1:
+                            # Verificar si no hay balas activas antes de permitir disparar
+                            if len(self.bullets) == 0:  # Solo dispara si no hay balas en pantalla
+                                if self.score < 2000: 
+                                    bullet = Bullet(self.player.rect.x + 23,
                                                     self.player.rect.y + 5, -1,
-                                                    15, 'laser', 'left')
-                                rightbullet = Bullet(self.player.rect.x + 38,
-                                                    self.player.rect.y + 5, -1,
-                                                    15, 'laser', 'right') 
-                                self.bullets.add(leftbullet) 
-                                self.bullets.add(rightbullet) 
-                                self.allSprites.add(self.bullets)
-                                self.sounds['shoot2'].play() 
-                    
+                                                    15, 'laser', 'center') 
+                                    self.bullets.add(bullet) 
+                                    self.allSprites.add(self.bullets) 
+                                    self.sounds['shoot'].play() 
+                                else: 
+                                    # Disparo doble (izquierda y derecha) solo si el puntaje es mayor a 2000
+                                    leftbullet = Bullet(self.player.rect.x + 8,
+                                                        self.player.rect.y + 5, -1,
+                                                        15, 'laser', 'left')
+                                    rightbullet = Bullet(self.player.rect.x + 38,
+                                                        self.player.rect.y + 5, -1,
+                                                        15, 'laser', 'right') 
+                                    self.bullets.add(leftbullet) 
+                                    self.bullets.add(rightbullet) 
+                                    self.allSprites.add(self.bullets)
+                                    self.sounds['shoot2'].play()
+
                     # Disparo para el jugador 2 con W
                     if e.key == K_w:
                         # Verificar que el jugador 2 tenga vidas antes de permitirle disparar
-                        can_shoot2 = self.ship2Alive and (self.life1_p2.alive() or self.life2_p2.alive() or self.life3_p2.alive())
-                        if len(self.bullets2) == 0 and can_shoot2:
-                            if self.score < 2000:
-                                bullet = Bullet(self.player2.rect.x + 23,
-                                                self.player2.rect.y + 5, -1,
-                                                15, 'laser', 'center')
-                                self.bullets2.add(bullet)
-                                self.allSprites.add(self.bullets2)
-                                self.sounds['shoot'].play()
-                            else:
-                                leftbullet = Bullet(self.player2.rect.x + 8,
+                        can_shoot2 = self.ship2Alive 
+                        if can_shoot2:
+                            # Verificar si no hay balas activas antes de permitir disparar
+                            if len(self.bullets2) == 0:  # Solo dispara si no hay balas en pantalla
+                                if self.score < 2000:
+                                    bullet = Bullet(self.player2.rect.x + 23,
                                                     self.player2.rect.y + 5, -1,
-                                                    15, 'laser', 'left')
-                                rightbullet = Bullet(self.player2.rect.x + 38,
-                                                    self.player2.rect.y + 5, -1,
-                                                    15, 'laser', 'right')
-                                self.bullets2.add(leftbullet)
-                                self.bullets2.add(rightbullet)
-                                self.allSprites.add(self.bullets2)
-                                self.sounds['shoot2'].play()
-            return None
+                                                    15, 'laser', 'center')
+                                    self.bullets2.add(bullet)
+                                    self.allSprites.add(self.bullets2)
+                                    self.sounds['shoot'].play()
+                                else:
+                                    # Disparo doble (izquierda y derecha) solo si el puntaje es mayor a 2000
+                                    leftbullet = Bullet(self.player2.rect.x + 8,
+                                                        self.player2.rect.y + 5, -1,
+                                                        15, 'laser', 'left')
+                                    rightbullet = Bullet(self.player2.rect.x + 38,
+                                                        self.player2.rect.y + 5, -1,
+                                                        15, 'laser', 'right')
+                                    self.bullets2.add(leftbullet)
+                                    self.bullets2.add(rightbullet)
+                                    self.allSprites.add(self.bullets2)
+                                    self.sounds['shoot2'].play()
+
+        return None
+
 
     def make_enemies(self): # Crear los enemigos
         enemies = EnemiesGroup(15, 5, self.enemyPosition) # Se agregan los anemigos a los grupos de enemigos 
@@ -590,24 +603,21 @@ class SpaceInvaders2(object): # Codigo del Juego
         sprite.groupcollide(self.bullets2, self.enemyBullets, True, True) # Lo mismo pero para balas del jugador 2
 
         # Colisiones entre balas del jugador 1 y enemigos
-        for enemy in sprite.groupcollide(self.enemies, self.bullets,
-                                         True, True).keys(): # Considera enemigos y balas propias
+        for enemy in sprite.groupcollide(self.enemies, self.bullets,True, True).keys(): # Considera enemigos y balas propias
             self.sounds['invaderkilled'].play() # Suena el sonido de muerte
             self.calculate_score(enemy.row) # Calcula el puntaje
             EnemyExplosion(enemy, self.explosionsGroup) # Llama a la funcion de grafico de explosiones
             self.gameTimer = time.get_ticks() # Guarda el tiempo de la muerte
             
         # Colisiones entre balas del jugador 2 y enemigos
-        for enemy in sprite.groupcollide(self.enemies, self.bullets2,
-                                         True, True).keys():
+        for enemy in sprite.groupcollide(self.enemies, self.bullets2,True, True).keys():
             self.sounds['invaderkilled'].play()
             self.calculate_score(enemy.row)
             EnemyExplosion(enemy, self.explosionsGroup)
             self.gameTimer = time.get_ticks()
 
         # Colisiones entre balas del jugador 1 y naves misteriosas
-        for mystery in sprite.groupcollide(self.mysteryGroup, self.bullets,
-                                           True, True).keys(): # Para las naves misteriosas y balas propias
+        for mystery in sprite.groupcollide(self.mysteryGroup, self.bullets, True, True).keys(): # Para las naves misteriosas y balas propias
             mystery.mysteryEntered.stop() # Se detiene el sonido de la nave recorriendo el juego
             self.sounds['mysterykilled'].play() # Se inserta el sonido de la nave destruida
             score = self.calculate_score(mystery.row) # Se calcula el puntaje
@@ -617,8 +627,7 @@ class SpaceInvaders2(object): # Codigo del Juego
             self.mysteryGroup.add(newShip)
             
         # Colisiones entre balas del jugador 2 y naves misteriosas
-        for mystery in sprite.groupcollide(self.mysteryGroup, self.bullets2,
-                                           True, True).keys():
+        for mystery in sprite.groupcollide(self.mysteryGroup, self.bullets2, True, True).keys():
             mystery.mysteryEntered.stop()
             self.sounds['mysterykilled'].play()
             score = self.calculate_score(mystery.row)
@@ -628,8 +637,7 @@ class SpaceInvaders2(object): # Codigo del Juego
             self.mysteryGroup.add(newShip)
 
         # Colisiones entre balas enemigas y jugador 1
-        for player in sprite.groupcollide(self.playerGroup, self.enemyBullets,
-                                        True, True).keys(): 
+        for player in sprite.groupcollide(self.playerGroup, self.enemyBullets, True, True).keys(): 
             if not player.invulnerable: 
                 if self.life3.alive(): 
                     self.life3.kill()
@@ -677,25 +685,20 @@ class SpaceInvaders2(object): # Codigo del Juego
                     self.makeNewShip2 = False
                     self.ship2Alive = False  # Aseguramos que no pueda disparar
 
-            # Comprobar si ambos jugadores perdieron todas sus vidas (forma dinámica y segura)
-            if not any(life.alive() for life in self.livesGroup) and not any(life.alive() for life in self.livesGroup2):
-                self.gameOver = True
-                self.startGame = False
-                self.gameTimer = time.get_ticks()
+        # Comprobar si ambos jugadores perdieron todas sus vidas (forma dinámica y segura)
+        if not any(life.alive() for life in self.livesGroup) and not any(life.alive() for life in self.livesGroup2):
+            self.gameOver = True
+            self.startGame = False
+            self.gameTimer = time.get_ticks()
 
-                if not any(life.alive() for life in self.livesGroup) and not any(life.alive() for life in self.livesGroup2):
-                    self.gameOver = True
-                    self.startGame = False
-                    self.gameTimer = time.get_ticks()
-
-            # También modificar esta condición:
-            if self.enemies and self.enemies.bottom >= 718:
-                sprite.groupcollide(self.enemies, self.playerGroup, True, True)
-                sprite.groupcollide(self.enemies, self.player2Group, True, True)
-                # Si los enemigos tocan el suelo, terminar el juego
-                self.gameOver = True
-                self.startGame = False
-                self.gameTimer = time.get_ticks()
+        # También modificar esta condición:
+        if self.enemies and self.enemies.bottom >= 718:
+            sprite.groupcollide(self.enemies, self.playerGroup, True, True)
+            sprite.groupcollide(self.enemies, self.player2Group, True, True)
+            # Si los enemigos tocan el suelo, terminar el juego
+            self.gameOver = True
+            self.startGame = False
+            self.gameTimer = time.get_ticks()
 
         # Colisiones con bloques
         sprite.groupcollide(self.bullets, self.allBlockers, True, True) # Considera balas aliadas y los bloques
@@ -709,19 +712,26 @@ class SpaceInvaders2(object): # Codigo del Juego
         if self.makeNewShip and (currentTime - self.shipTimer > 900):
             if self.life1.alive() or self.life2.alive() or self.life3.alive():
                 self.player = Ship(player_num=1)
+                self.player.bullet = None
+                self.player.canShoot = True  # Solo si tu clase Ship lo usa
+                self.player.lastShot = 0  # Si usás cooldown por tiempo
                 self.allSprites.add(self.player)
                 self.playerGroup.add(self.player)
                 self.makeNewShip = False
                 self.shipAlive = True
-                
+
         # Recrear nave del jugador 2 si es necesario
         if self.makeNewShip2 and (currentTime - self.ship2Timer > 900):
             if self.life1_p2.alive() or self.life2_p2.alive() or self.life3_p2.alive():
                 self.player2 = Ship(player_num=2)
+                self.player2.bullet = None
+                self.player2.canShoot = True
+                self.player2.lastShot = 0
                 self.allSprites.add(self.player2)
                 self.player2Group.add(self.player2)
                 self.makeNewShip2 = False
                 self.ship2Alive = True
+
 
     def create_game_over(self, currentTime): 
         self.screen.blit(self.background, (0, 0)) 

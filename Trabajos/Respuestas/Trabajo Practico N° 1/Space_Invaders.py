@@ -486,23 +486,15 @@ class SpaceInvaders(object):
 
             if e.type == KEYDOWN and self.startGame:
                 if e.key == K_SPACE:
-                    if len(self.bullets) == 0 and self.shipAlive:
+                    if len(self.bullets) == 0 and self.shipAlive:  # Solo se puede disparar si la nave está viva
                         if self.score < 1000:
-                            # Posiciones correctamente escaladas para la bala
-                            bullet = Bullet(self.player.rect.x + scale_value(23),
-                                            self.player.rect.y + scale_value(5), -1,
-                                            15, 'laser', 'center')
+                            bullet = Bullet(self.player.rect.x + scale_value(23), self.player.rect.y + scale_value(5), -1, 15, 'laser', 'center')
                             self.bullets.add(bullet)
                             self.allSprites.add(self.bullets)
                             self.sounds['shoot'].play()
                         else:
-                            # Posiciones correctamente escaladas para las balas dobles
-                            leftbullet = Bullet(self.player.rect.x + scale_value(8),
-                                                self.player.rect.y + scale_value(5), -1,
-                                                15, 'laser', 'left')
-                            rightbullet = Bullet(self.player.rect.x + scale_value(38),
-                                                self.player.rect.y + scale_value(5), -1,
-                                                15, 'laser', 'right')
+                            leftbullet = Bullet(self.player.rect.x + scale_value(8), self.player.rect.y + scale_value(5), -1, 15, 'laser', 'left')
+                            rightbullet = Bullet(self.player.rect.x + scale_value(38), self.player.rect.y + scale_value(5), -1, 15, 'laser', 'right')
                             self.bullets.add(leftbullet)
                             self.bullets.add(rightbullet)
                             self.allSprites.add(self.bullets)
@@ -555,12 +547,19 @@ class SpaceInvaders(object):
     def check_collisions(self):
         sprite.groupcollide(self.bullets, self.enemyBullets, True, True)
 
-        for enemy in sprite.groupcollide(self.enemies, self.bullets,
-                                        True, True).keys():
+        for enemy in sprite.groupcollide(self.enemies, self.bullets, True, True).keys():
             self.sounds['invaderkilled'].play()
             self.calculate_score(enemy.row)
             EnemyExplosion(enemy, self.explosionsGroup)
             self.gameTimer = time.get_ticks()
+
+        for player in sprite.groupcollide(self.playerGroup, self.enemyBullets, True, True).keys():
+            if not player.invulnerable:
+                self.handle_player_death(player)
+                self.sounds['shipexplosion'].play()
+                ShipExplosion(player, self.explosionsGroup)
+                self.shipAlive = False  # La nave está muerta, se desactiva el disparo
+                self.reset(0)  # Reiniciamos el juego o la nave después de la muerte
 
         for mystery in sprite.groupcollide(self.mysteryGroup, self.bullets,
                                         True, True).keys():
@@ -571,24 +570,6 @@ class SpaceInvaders(object):
             newShip = Mystery()
             self.allSprites.add(newShip)
             self.mysteryGroup.add(newShip)
-
-        for player in sprite.groupcollide(self.playerGroup, self.enemyBullets,
-                                        True, True).keys():
-            if not player.invulnerable:
-                if self.life3.alive():
-                    self.life3.kill()
-                elif self.life2.alive():
-                    self.life2.kill()
-                elif self.life1.alive():
-                    self.life1.kill()
-                else:
-                    self.gameOver = True
-                    self.startGame = False
-                self.sounds['shipexplosion'].play()
-                ShipExplosion(player, self.explosionsGroup)
-                self.makeNewShip = True
-                self.shipTimer = time.get_ticks()
-                self.shipAlive = False
 
         # Usar un valor escalado correctamente para el límite inferior
         if self.enemies.bottom >= scale_position_y(540):
@@ -606,11 +587,13 @@ class SpaceInvaders(object):
 
     def create_new_ship(self, createShip, currentTime):
         if createShip and (currentTime - self.shipTimer > 900):
-            self.player = Ship()
+            self.player = Ship()  # Creación de la nueva nave
             self.allSprites.add(self.player)
             self.playerGroup.add(self.player)
             self.makeNewShip = False
-            self.shipAlive = True
+            self.shipAlive = True  # La nave está viva
+            self.bullets = sprite.Group()  # Reiniciamos las balas para evitar que queden del anterior juego
+            self.allSprites.add(self.bullets)  # Aseguramos que las balas se añaden correctamente al grupo de sprites
 
     def create_game_over(self, currentTime):
         self.screen.blit(self.background, (0, 0))

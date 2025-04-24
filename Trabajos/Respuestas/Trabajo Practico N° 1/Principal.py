@@ -35,7 +35,7 @@ def main():
                 pass
             elif resultado == '2vsCpu':
                 # Modo 2 vs CPU
-                SCREEN = pygame.display.set_mode((config.GAME2_WIDTH, config.GAME2_HEIGHT))
+                SCREEN = pygame.display.set_mode((config.GAME2_WIDTH_BASE, config.GAME2_HEIGHT_BASE))
                 juego2 = nm.SpaceInvaders2()
                 estado = juego2.main2()  # Devuelve 'menu' si se quiere volver
             elif resultado == 'salir':

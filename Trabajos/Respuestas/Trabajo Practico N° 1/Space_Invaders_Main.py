@@ -89,51 +89,128 @@ def dibujar_boton(texto, x, y, ancho, alto, color_base, color_hover, pos_mouse):
 
 def abrir_menu_settings(): 
     corriendo = True
-    cambiando_izquierda = False
-    cambiando_derecha = False
+    cambiando_tecla = None
+    
+    # Escalado de botones y elementos
+    x_boton = scale_position_x(300)
+    w_boton = scale_value(250)  # Aumentado para que quepa el texto
+    h_boton = scale_value(40)
+    spacing = scale_value(60)  # Espacio entre botones
+    
+    # Título
+    fuente_titulo = pygame.font.SysFont(None, scale_value(48))
+    fuente = pygame.font.SysFont(None, scale_value(36))
+    
+    # Crear rectángulos para todos los botones
+    mute_rect = pygame.Rect(x_boton, scale_position_y(50), w_boton, h_boton)
+    
+    # Jugador 1
+    p1_titulo_rect = pygame.Rect(x_boton, scale_position_y(110), w_boton, h_boton)
+    p1_izquierda_rect = pygame.Rect(x_boton, scale_position_y(150), w_boton, h_boton)
+    p1_derecha_rect = pygame.Rect(x_boton, scale_position_y(190), w_boton, h_boton)
+    
+    # Jugador 2
+    p2_titulo_rect = pygame.Rect(x_boton, scale_position_y(250), w_boton, h_boton)
+    p2_izquierda_rect = pygame.Rect(x_boton, scale_position_y(290), w_boton, h_boton)
+    p2_derecha_rect = pygame.Rect(x_boton, scale_position_y(330), w_boton, h_boton)
+    
+    # Jugador 3
+    p3_titulo_rect = pygame.Rect(x_boton, scale_position_y(390), w_boton, h_boton)
+    p3_izquierda_rect = pygame.Rect(x_boton, scale_position_y(430), w_boton, h_boton)
+    p3_derecha_rect = pygame.Rect(x_boton, scale_position_y(470), w_boton, h_boton)
+    
+    # Botón volver
+    volver_rect = pygame.Rect(x_boton, scale_position_y(530), w_boton, h_boton)
 
     while corriendo:
         PANTALLA.fill((30, 30, 30))
         pos_mouse = pygame.mouse.get_pos()
 
-        fuente = pygame.font.SysFont(None, scale_value(36))
+        # Obtener nombres de teclas
         mute_texto = f"Mute: {'ON' if config.get_muteado() else 'OFF'}"
-        tecla_izq = pygame.key.name(config.get_izquierda()).upper()
-        tecla_der = pygame.key.name(config.get_derecha()).upper()
+        p1_tecla_izq = pygame.key.name(config.get_izquierda()).upper()
+        p1_tecla_der = pygame.key.name(config.get_derecha()).upper()
+        p2_tecla_izq = pygame.key.name(config.get_izquierda2()).upper()
+        p2_tecla_der = pygame.key.name(config.get_derecha2()).upper()
+        p3_tecla_izq = pygame.key.name(config.get_izquierda3()).upper()
+        p3_tecla_der = pygame.key.name(config.get_derecha3()).upper()
 
-        # Escalar las posiciones y tamaños de los botones
-        x_boton = scale_position_x(300)
-        w_boton = scale_value(200)
-        h_boton = scale_value(40)
-
-        mute_rect = pygame.Rect(x_boton, scale_position_y(200), w_boton, h_boton)
-        izquierda_rect = pygame.Rect(x_boton, scale_position_y(260), w_boton, h_boton)
-        derecha_rect = pygame.Rect(x_boton, scale_position_y(320), w_boton, h_boton)
-        volver_rect = pygame.Rect(x_boton, scale_position_y(380), w_boton, h_boton)
-
-        # Colores al pasar el ratón
+        # Colores para los distintos botones
         mute_color = (200, 0, 0) if mute_rect.collidepoint(pos_mouse) else (150, 0, 0)
-        izq_color = (0, 200, 0) if izquierda_rect.collidepoint(pos_mouse) else (0, 150, 0)
-        der_color = (0, 200, 0) if derecha_rect.collidepoint(pos_mouse) else (0, 150, 0)
+        
+        # Colores de jugador 1 (Azul)
+        p1_titulo_color = (0, 100, 200)
+        p1_izq_color = (0, 150, 200) if p1_izquierda_rect.collidepoint(pos_mouse) else (0, 100, 150)
+        p1_der_color = (0, 150, 200) if p1_derecha_rect.collidepoint(pos_mouse) else (0, 100, 150)
+        
+        # Colores de jugador 2 (Verde)
+        p2_titulo_color = (0, 150, 0)
+        p2_izq_color = (0, 200, 0) if p2_izquierda_rect.collidepoint(pos_mouse) else (0, 150, 0)
+        p2_der_color = (0, 200, 0) if p2_derecha_rect.collidepoint(pos_mouse) else (0, 150, 0)
+        
+        # Colores de jugador 3 (Rojo)
+        p3_titulo_color = (150, 0, 0)
+        p3_izq_color = (200, 0, 0) if p3_izquierda_rect.collidepoint(pos_mouse) else (150, 0, 0)
+        p3_der_color = (200, 0, 0) if p3_derecha_rect.collidepoint(pos_mouse) else (150, 0, 0)
+        
+        # Color botón volver
         volver_color = (150, 150, 255) if volver_rect.collidepoint(pos_mouse) else (100, 100, 255)
 
-        if cambiando_izquierda:
-            izq_color = (255, 255, 0)
-        if cambiando_derecha:
-            der_color = (255, 255, 0)
+        # Resaltar el botón activo durante la asignación de teclas
+        if cambiando_tecla == "p1_izq":
+            p1_izq_color = (255, 255, 0)
+        elif cambiando_tecla == "p1_der":
+            p1_der_color = (255, 255, 0)
+        elif cambiando_tecla == "p2_izq":
+            p2_izq_color = (255, 255, 0)
+        elif cambiando_tecla == "p2_der":
+            p2_der_color = (255, 255, 0)
+        elif cambiando_tecla == "p3_izq":
+            p3_izq_color = (255, 255, 0)
+        elif cambiando_tecla == "p3_der":
+            p3_der_color = (255, 255, 0)
 
-        # Dibujar rectángulos y textos escalados
+        # Título de la pantalla
+        titulo = fuente_titulo.render("CONFIGURACIÓN", True, (255, 255, 255))
+        PANTALLA.blit(titulo, (scale_position_x(280), scale_position_y(6)))
+
+        # Dibujar botón mute
         pygame.draw.rect(PANTALLA, mute_color, mute_rect)
         PANTALLA.blit(fuente.render(mute_texto, True, (255, 255, 255)), (mute_rect.x + scale_value(10), mute_rect.y + scale_value(5)))
 
-        pygame.draw.rect(PANTALLA, izq_color, izquierda_rect)
-        PANTALLA.blit(fuente.render(f"Tecla Izquierda: {tecla_izq}", True, (255, 255, 255)), (izquierda_rect.x + scale_value(10), izquierda_rect.y + scale_value(5)))
+        # Dibujar sección Jugador 1
+        pygame.draw.rect(PANTALLA, p1_titulo_color, p1_titulo_rect)
+        PANTALLA.blit(fuente.render("JUGADOR 1", True, (255, 255, 255)), (p1_titulo_rect.x + scale_value(10), p1_titulo_rect.y + scale_value(5)))
+        
+        pygame.draw.rect(PANTALLA, p1_izq_color, p1_izquierda_rect)
+        PANTALLA.blit(fuente.render(f"Izquierda: {p1_tecla_izq}", True, (255, 255, 255)), (p1_izquierda_rect.x + scale_value(10), p1_izquierda_rect.y + scale_value(5)))
+        
+        pygame.draw.rect(PANTALLA, p1_der_color, p1_derecha_rect)
+        PANTALLA.blit(fuente.render(f"Derecha: {p1_tecla_der}", True, (255, 255, 255)), (p1_derecha_rect.x + scale_value(10), p1_derecha_rect.y + scale_value(5)))
 
-        pygame.draw.rect(PANTALLA, der_color, derecha_rect)
-        PANTALLA.blit(fuente.render(f"Tecla Derecha: {tecla_der}", True, (255, 255, 255)), (derecha_rect.x + scale_value(10), derecha_rect.y + scale_value(5)))
+        # Dibujar sección Jugador 2
+        pygame.draw.rect(PANTALLA, p2_titulo_color, p2_titulo_rect)
+        PANTALLA.blit(fuente.render("JUGADOR 1", True, (255, 255, 255)), (p2_titulo_rect.x + scale_value(10), p2_titulo_rect.y + scale_value(5)))
+        
+        pygame.draw.rect(PANTALLA, p2_izq_color, p2_izquierda_rect)
+        PANTALLA.blit(fuente.render(f"Izquierda: {p2_tecla_izq}", True, (255, 255, 255)), (p2_izquierda_rect.x + scale_value(10), p2_izquierda_rect.y + scale_value(5)))
+        
+        pygame.draw.rect(PANTALLA, p2_der_color, p2_derecha_rect)
+        PANTALLA.blit(fuente.render(f"Derecha: {p2_tecla_der}", True, (255, 255, 255)), (p2_derecha_rect.x + scale_value(10), p2_derecha_rect.y + scale_value(5)))
 
+        # Dibujar sección Jugador 3
+        pygame.draw.rect(PANTALLA, p3_titulo_color, p3_titulo_rect)
+        PANTALLA.blit(fuente.render("JUGADOR 2", True, (255, 255, 255)), (p3_titulo_rect.x + scale_value(10), p3_titulo_rect.y + scale_value(5)))
+        
+        pygame.draw.rect(PANTALLA, p3_izq_color, p3_izquierda_rect)
+        PANTALLA.blit(fuente.render(f"Izquierda: {p3_tecla_izq}", True, (255, 255, 255)), (p3_izquierda_rect.x + scale_value(10), p3_izquierda_rect.y + scale_value(5)))
+        
+        pygame.draw.rect(PANTALLA, p3_der_color, p3_derecha_rect)
+        PANTALLA.blit(fuente.render(f"Derecha: {p3_tecla_der}", True, (255, 255, 255)), (p3_derecha_rect.x + scale_value(10), p3_derecha_rect.y + scale_value(5)))
+
+        # Botón volver
         pygame.draw.rect(PANTALLA, volver_color, volver_rect)
-        PANTALLA.blit(fuente.render("Volver", True, (255, 255, 255)), (volver_rect.x + scale_value(60), volver_rect.y + scale_value(5)))
+        PANTALLA.blit(fuente.render("Volver", True, (255, 255, 255)), (volver_rect.x + scale_value(80), volver_rect.y + scale_value(5)))
 
         pygame.display.flip()
 
@@ -144,23 +221,48 @@ def abrir_menu_settings():
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 if mute_rect.collidepoint(event.pos):
                     config.toggle_muteado()
-                elif izquierda_rect.collidepoint(event.pos):
-                    cambiando_izquierda = True
-                    cambiando_derecha = False
-                elif derecha_rect.collidepoint(event.pos):
-                    cambiando_derecha = True
-                    cambiando_izquierda = False
+                # Jugador 1
+                elif p1_izquierda_rect.collidepoint(event.pos):
+                    cambiando_tecla = "p1_izq"
+                elif p1_derecha_rect.collidepoint(event.pos):
+                    cambiando_tecla = "p1_der"
+                # Jugador 2
+                elif p2_izquierda_rect.collidepoint(event.pos):
+                    cambiando_tecla = "p2_izq"
+                elif p2_derecha_rect.collidepoint(event.pos):
+                    cambiando_tecla = "p2_der"
+                # Jugador 3
+                elif p3_izquierda_rect.collidepoint(event.pos):
+                    cambiando_tecla = "p3_izq"
+                elif p3_derecha_rect.collidepoint(event.pos):
+                    cambiando_tecla = "p3_der"
+                # Botón volver
                 elif volver_rect.collidepoint(event.pos):
                     corriendo = False
             elif event.type == pygame.KEYDOWN:
-                if cambiando_izquierda:
+                if cambiando_tecla == "p1_izq":
                     config.set_izquierda(event.key)
-                    cambiando_izquierda = False
-                elif cambiando_derecha:
+                    cambiando_tecla = None
+                elif cambiando_tecla == "p1_der":
                     config.set_derecha(event.key)
-                    cambiando_derecha = False
+                    cambiando_tecla = None
+                elif cambiando_tecla == "p2_izq":
+                    config.set_izquierda2(event.key)
+                    cambiando_tecla = None
+                elif cambiando_tecla == "p2_der":
+                    config.set_derecha2(event.key)
+                    cambiando_tecla = None
+                elif cambiando_tecla == "p3_izq":
+                    config.set_izquierda3(event.key)
+                    cambiando_tecla = None
+                elif cambiando_tecla == "p3_der":
+                    config.set_derecha3(event.key)
+                    cambiando_tecla = None
                 elif event.key == pygame.K_ESCAPE:
-                    corriendo = False
+                    if cambiando_tecla:
+                        cambiando_tecla = None
+                    else:
+                        corriendo = False
 
 def menu_principal():
     global PANTALLA
@@ -187,8 +289,8 @@ def menu_principal():
             boton_1_jugador = dibujar_boton("1 Jugador", scale_position_x(140), y_botones, scale_position_y(200), scale_value(60), AZUL, VERDE, pos_mouse)
             boton_multijugador = dibujar_boton("Multijugador", scale_position_x(460), y_botones, scale_position_y(200), scale_value(60), AZUL, VERDE, pos_mouse)
         else:
-            boton_1vs1 = dibujar_boton("1 vs 1", ANCHO_MENU // 2 - scale_position_x(260), y_botones, scale_position_y(200), scale_value(60), AZUL, VERDE, pos_mouse)
-            boton_2vsCpu = dibujar_boton("2 vs Cpu", ANCHO_MENU // 2 + scale_position_x(60), y_botones, scale_position_y(200), scale_value(60), AZUL, VERDE, pos_mouse)
+            """boton_1vs1 = dibujar_boton("1 vs 1", ANCHO_MENU // 2 - scale_position_x(260), y_botones, scale_position_y(200), scale_value(60), AZUL, VERDE, pos_mouse)
+            boton_2vsCpu = dibujar_boton("2 vs Cpu", ANCHO_MENU // 2 + scale_position_x(60), y_botones, scale_position_y(200), scale_value(60), AZUL, VERDE, pos_mouse)"""
 
         for evento in pygame.event.get():
             if evento.type == pygame.QUIT:
@@ -203,12 +305,14 @@ def menu_principal():
                     if boton_1_jugador.collidepoint(evento.pos):
                         return '1player'
                     if boton_multijugador.collidepoint(evento.pos):
-                        mostrar_submenu_multi = True
+                        return '2vsCpu'
+                        """mostrar_submenu_multi = True
                 else:
+                    return 
+                    
                     if boton_1vs1.collidepoint(evento.pos):
                         return '1vs1'
-                    if boton_2vsCpu.collidepoint(evento.pos):
-                        return '2vsCpu'
+                    if boton_2vsCpu.collidepoint(evento.pos):"""
 
             if evento.type == pygame.KEYDOWN and evento.key == pygame.K_ESCAPE:
                 if mostrar_submenu_multi:
