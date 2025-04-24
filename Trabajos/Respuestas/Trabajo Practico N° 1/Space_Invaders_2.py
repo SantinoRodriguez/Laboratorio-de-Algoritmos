@@ -637,53 +637,50 @@ class SpaceInvaders2(object): # Codigo del Juego
             self.mysteryGroup.add(newShip)
 
         # Colisiones entre balas enemigas y jugador 1
-        for player in sprite.groupcollide(self.playerGroup, self.enemyBullets, True, True).keys(): 
-            if not player.invulnerable: 
-                if self.life3.alive(): 
-                    self.life3.kill()
-                    self.livesRecoveredP1 -= 1 
-                elif self.life2.alive():
-                    self.life2.kill() 
-                    self.livesRecoveredP1 -= 1
-                elif self.life1.alive():
-                    self.life1.kill() 
-                    self.livesRecoveredP1 -= 1
-                self.sounds['shipexplosion'].play() 
-                ShipExplosion(player, self.explosionsGroup)
+        for player in sprite.groupcollide(self.playerGroup, self.enemyBullets, True, True).keys():  
+            if self.life3.alive(): 
+                self.life3.kill()
+                self.livesRecoveredP1 -= 1 
+            elif self.life2.alive():
+                self.life2.kill() 
+                self.livesRecoveredP1 -= 1
+            elif self.life1.alive():
+                self.life1.kill() 
+                self.livesRecoveredP1 -= 1
+            self.sounds['shipexplosion'].play() 
+            ShipExplosion(player, self.explosionsGroup)
 
-                # Verificar si aún tiene vidas
-                if self.life1.alive() or self.life2.alive() or self.life3.alive():
-                    self.makeNewShip = True
-                    self.shipTimer = time.get_ticks()
-                    self.shipAlive = False
-                else:
-                    self.makeNewShip = False
-                    self.shipAlive = False  # Aseguramos que no pueda disparar
+            # Verificar si aún tiene vidas
+            if self.life1.alive() or self.life2.alive() or self.life3.alive():
+                self.makeNewShip = True
+                self.shipTimer = time.get_ticks()
+                self.shipAlive = False
+            else:
+                self.makeNewShip = False
+                self.shipAlive = False  # Aseguramos que no pueda disparar
         
         # Colisiones entre balas enemigas y jugador 2
-        for player2 in sprite.groupcollide(self.player2Group, self.enemyBullets,
-                                        True, True).keys():
-            if not player2.invulnerable:
-                if self.life3_p2.alive():
-                    self.life3_p2.kill()
-                    self.livesRecoveredP2 -= 1
-                elif self.life2_p2.alive():
-                    self.life2_p2.kill()
-                    self.livesRecoveredP2 -= 1
-                elif self.life1_p2.alive():
-                    self.life1_p2.kill()
-                    self.livesRecoveredP2 -= 1
-                self.sounds['shipexplosion'].play()
-                ShipExplosion(player2, self.explosionsGroup)
+        for player2 in sprite.groupcollide(self.player2Group, self.enemyBullets, True, True).keys():
+            if self.life3_p2.alive():
+                self.life3_p2.kill()
+                self.livesRecoveredP2 -= 1
+            elif self.life2_p2.alive():
+                self.life2_p2.kill()
+                self.livesRecoveredP2 -= 1
+            elif self.life1_p2.alive():
+                self.life1_p2.kill()
+                self.livesRecoveredP2 -= 1
+            self.sounds['shipexplosion'].play()
+            ShipExplosion(player2, self.explosionsGroup)
                 
-                # Verificar si aún tiene vidas
-                if self.life1_p2.alive() or self.life2_p2.alive() or self.life3_p2.alive():
-                    self.makeNewShip2 = True
-                    self.ship2Timer = time.get_ticks()
-                    self.ship2Alive = False
-                else:
-                    self.makeNewShip2 = False
-                    self.ship2Alive = False  # Aseguramos que no pueda disparar
+            # Verificar si aún tiene vidas
+            if self.life1_p2.alive() or self.life2_p2.alive() or self.life3_p2.alive():
+                self.makeNewShip2 = True
+                self.ship2Timer = time.get_ticks()
+                self.ship2Alive = False
+            else:
+                self.makeNewShip2 = False
+                self.ship2Alive = False  # Aseguramos que no pueda disparar
 
         # Comprobar si ambos jugadores perdieron todas sus vidas (forma dinámica y segura)
         if not any(life.alive() for life in self.livesGroup) and not any(life.alive() for life in self.livesGroup2):
