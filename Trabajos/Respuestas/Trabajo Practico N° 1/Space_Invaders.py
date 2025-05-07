@@ -325,22 +325,25 @@ class EnemyExplosion(sprite.Sprite):
         if current_time - self.timer > 400:
             self.kill()
 
+<<<<<<< HEAD
 
 class MysteryExplosion(sprite.Sprite):
+=======
+class MysteryExplosion(sprite.Sprite): # Explosion de la nave misteriosa
+>>>>>>> 58afc2df4602ebb57376384316de825ec70cd737
     def __init__(self, mystery, score, *groups):
         super(MysteryExplosion, self).__init__(*groups)
-        self.text = Text(FONT, 20, str(score), WHITE,
-                         mystery.rect.x + scale_value(20), mystery.rect.y + scale_value(6))
-        self.timer = time.get_ticks()
+        self.text = Text(FONT, 20, str(score), WHITE, # Define un tipo de texto en la fuente, 20 de grande y color blanco
+                         mystery.rect.x + 20, mystery.rect.y + 6)
+        self.timer = time.get_ticks() # Guarda el tiempo de la explosion
 
-    def update(self, current_time, *args):
-        if args:
-            pantalla = args[-1]
-            passed = current_time - self.timer
-            if passed <= 200 or 400 < passed <= 600:
-                self.text.draw(pantalla)
-            elif 600 < passed:
-                self.kill()
+    def update(self, current_time):
+        passed = current_time - self.timer
+        if passed <= 200 or 400 < passed <= 600:
+            self.text.draw(display.get_surface())
+        elif 600 < passed:
+            self.kill()
+
 
 
 class ShipExplosion(sprite.Sprite):
@@ -589,6 +592,7 @@ class SpaceInvaders(object):
             self.gameTimer = time.get_ticks()
 
         for player in sprite.groupcollide(self.playerGroup, self.enemyBullets, True, True).keys():
+<<<<<<< HEAD
             if not player.invulnerable:
                 if self.life3.alive():
                     self.life3.kill()
@@ -604,6 +608,31 @@ class SpaceInvaders(object):
                 self.makeNewShip = True
                 self.shipTimer = time.get_ticks()
                 self.shipAlive = False
+=======
+            if self.life3.alive():
+                self.life3.kill()
+            elif self.life2.alive():
+                self.life2.kill()
+            elif self.life1.alive():
+                self.life1.kill()
+            else:
+                self.gameOver = True
+                self.startGame = False
+                self.sounds['shipexplosion'].play()
+            ShipExplosion(player, self.explosionsGroup)
+            self.makeNewShip = True
+            self.shipTimer = time.get_ticks()
+            self.shipAlive = False
+
+        # Usar un valor escalado correctamente para el límite inferior
+        if self.enemies.bottom >= scale_position_y(540):
+            sprite.groupcollide(self.enemies, self.playerGroup, True, True)
+            if not self.player.alive() or self.enemies.bottom >= scale_position_y(GAME_HEIGHT):
+                self.gameOver = True
+                self.startGame = False
+
+
+>>>>>>> 58afc2df4602ebb57376384316de825ec70cd737
 
         for mystery in sprite.groupcollide(self.mysteryGroup, self.bullets,
                                            True, True).keys():
