@@ -30,25 +30,22 @@ IMG_NAMES = ['ship', 'mystery',
              'explosionblue', 'explosiongreen', 'explosionpurple',
              'laser', 'enemylaser']
 IMAGES = {name: image.load(IMAGE_PATH + '{}.png'.format(name)).convert_alpha()
-          for name in IMG_NAMES}  # Cargado Automatico de Imagenes en un diccionario
+          for name in IMG_NAMES} # Cargado Automatico de Imagenes en un diccionario
 
 # Valores escalados de posiciones
 ENEMY_DEFAULT_POSITION = get_enemy_default_position()
 BLOCKERS_POSITION = get_blockers_position()
 ENEMY_MOVE_DOWN = get_enemy_move_down()
 
-
 class Ship(sprite.Sprite):
     def __init__(self):
         sprite.Sprite.__init__(self)
         self.image = IMAGES['ship']
         self.original_width, self.original_height = self.image.get_rect().size
-        self.image = transform.scale(self.image, scale_size(
-            self.original_width, self.original_height))
-
+        self.image = transform.scale(self.image, scale_size(self.original_width, self.original_height))
+        
         # Posición correctamente escalada con scale_position_x/y
-        self.rect = self.image.get_rect(
-            topleft=(scale_position_x(375), scale_position_y(540)))
+        self.rect = self.image.get_rect(topleft=(scale_position_x(375), scale_position_y(540)))
         self.invulnerable = True
         self.tiempoDeCreacion = time.get_ticks()
         self.speed = scale_value(5)
@@ -56,28 +53,25 @@ class Ship(sprite.Sprite):
     def update(self, keys, currentTime, pantalla):
         if self.invulnerable and (currentTime - self.tiempoDeCreacion > 1000):
             self.invulnerable = False
-
+        
         # Corregir los límites para que sean relativos a la zona de juego
         if keys[get_izquierda()] and self.rect.x > scale_position_x(10):
             self.rect.x -= self.speed
-
+        
         if keys[get_derecha()] and self.rect.x < scale_position_x(740):
             self.rect.x += self.speed
-
+        
         pantalla.blit(self.image, self.rect)
-
 
 class Bullet(sprite.Sprite):
     def __init__(self, xpos, ypos, direction, speed, filename, side):
         sprite.Sprite.__init__(self)
         self.image = IMAGES[filename]
         self.original_width, self.original_height = self.image.get_rect().size
-        self.image = transform.scale(self.image, scale_size(
-            self.original_width, self.original_height))
-
+        self.image = transform.scale(self.image, scale_size(self.original_width, self.original_height))
+        
         # Escalar la posición inicial de la bala con los nuevos métodos de posición
-        self.rect = self.image.get_rect(
-            topleft=(scale_position_x(xpos), scale_position_y(ypos)))
+        self.rect = self.image.get_rect(topleft=(scale_position_x(xpos), scale_position_y(ypos)))
         self.speed = scale_value(speed)
         self.direction = direction
         self.side = side
@@ -89,11 +83,10 @@ class Bullet(sprite.Sprite):
             pantalla.blit(self.image, self.rect)
         else:
             print("Advertencia: No se pasó pantalla correctamente a update()")
-
+        
         self.rect.y += self.speed * self.direction
-        if self.rect.y < scale_position_y(15) or self.rect.y > scale_position_y(1000):
+        if self.rect.y < scale_position_y(15) or self.rect.y > scale_position_y(GAME_HEIGHT):
             self.kill()
-
 
 class Enemy(sprite.Sprite):
     def __init__(self, row, column):
@@ -124,15 +117,13 @@ class Enemy(sprite.Sprite):
                   3: ['3_1', '3_2'],
                   4: ['3_1', '3_2'],
                   }
-
-        img1, img2 = (IMAGES['enemy{}'.format(img_num)]
-                      for img_num in images[self.row])
+        
+        img1, img2 = (IMAGES['enemy{}'.format(img_num)] for img_num in images[self.row])
         # Escalar con la nueva función de escalado
         escala = scale_size(40, 35)
 
         self.images.append(transform.scale(img1, escala))
         self.images.append(transform.scale(img2, escala))
-
 
 class EnemiesGroup(sprite.Group):
     def __init__(self, columns, rows, enemyPosition):
@@ -171,12 +162,11 @@ class EnemiesGroup(sprite.Group):
                     # Desplazamiento vertical adecuadamente escalado
                     enemy.rect.y += scale_value(ENEMY_MOVE_DOWN)
                     enemy.toggle_image()
-                    if self.bottom < enemy.rect.y + scale_value(35):
+                    if self.bottom < enemy.rect.y + scale_value(35): 
                         self.bottom = enemy.rect.y + scale_value(35)
             else:
                 # Velocidad horizontal adecuadamente escalada
-                velocity = scale_value(
-                    10) if self.direction == 1 else -scale_value(10)
+                velocity = scale_value(10) if self.direction == 1 else -scale_value(10)
                 for enemy in self:
                     enemy.rect.x += velocity
                     enemy.toggle_image()
@@ -228,7 +218,6 @@ class EnemiesGroup(sprite.Group):
                 self.leftAddMove += 5
                 is_column_dead = self.is_column_dead(self._leftAliveColumn)
 
-
 class Blocker(sprite.Sprite):
     def __init__(self, size, color, row, column):
         sprite.Sprite.__init__(self)
@@ -244,23 +233,21 @@ class Blocker(sprite.Sprite):
     def update(self, pantalla):
         pantalla.blit(self.image, self.rect)
 
-
 class Mystery(sprite.Sprite):
     def __init__(self):
         sprite.Sprite.__init__(self)
         self.image = IMAGES['mystery']
         self.image = transform.scale(self.image, scale_size(75, 35))
         # Posición inicial correctamente escalada
-        self.rect = self.image.get_rect(
-            topleft=(scale_position_x(-80), scale_position_y(45)))
+        self.rect = self.image.get_rect(topleft=(scale_position_x(-80), scale_position_y(45)))
         self.row = 5
         self.moveTime = 25000
         self.direction = 1
         self.timer = time.get_ticks()
-
+        
         self.mysteryEntered = mixer.Sound(SOUND_PATH + 'mysteryentered.wav')
         self.mysteryEntered.set_volume(0.0 if get_muteado() else 0.3)
-
+        
         self.playSound = True
 
     def update(self, keys, currentTime, *args):
@@ -287,7 +274,7 @@ class Mystery(sprite.Sprite):
             if self.rect.x > scale_position_x(830):
                 self.playSound = True
                 self.direction = -1
-                resetTimer = True
+                resetTimer = True 
             if self.rect.x < scale_position_x(-90):
                 self.playSound = True
                 self.direction = 1
@@ -295,14 +282,11 @@ class Mystery(sprite.Sprite):
             if passed > self.moveTime and resetTimer:
                 self.timer = currentTime
 
-
 class EnemyExplosion(sprite.Sprite):
     def __init__(self, enemy, *groups):
         super(EnemyExplosion, self).__init__(*groups)
-        self.image = transform.scale(
-            self.get_image(enemy.row), scale_size(40, 35))
-        self.image2 = transform.scale(
-            self.get_image(enemy.row), scale_size(50, 45))
+        self.image = transform.scale(self.get_image(enemy.row), scale_size(40, 35))
+        self.image2 = transform.scale(self.get_image(enemy.row), scale_size(50, 45))
         self.rect = self.image.get_rect(topleft=(enemy.rect.x, enemy.rect.y))
         self.timer = time.get_ticks()
 
@@ -320,17 +304,11 @@ class EnemyExplosion(sprite.Sprite):
             elif passed <= 200:
                 offset_x = scale_value(6)
                 offset_y = scale_value(6)
-                pantalla.blit(self.image2, (self.rect.x -
-                              offset_x, self.rect.y - offset_y))
+                pantalla.blit(self.image2, (self.rect.x - offset_x, self.rect.y - offset_y))
         if current_time - self.timer > 400:
             self.kill()
 
-<<<<<<< HEAD
-
-class MysteryExplosion(sprite.Sprite):
-=======
 class MysteryExplosion(sprite.Sprite): # Explosion de la nave misteriosa
->>>>>>> 58afc2df4602ebb57376384316de825ec70cd737
     def __init__(self, mystery, score, *groups):
         super(MysteryExplosion, self).__init__(*groups)
         self.text = Text(FONT, 20, str(score), WHITE, # Define un tipo de texto en la fuente, 20 de grande y color blanco
@@ -343,7 +321,6 @@ class MysteryExplosion(sprite.Sprite): # Explosion de la nave misteriosa
             self.text.draw(display.get_surface())
         elif 600 < passed:
             self.kill()
-
 
 
 class ShipExplosion(sprite.Sprite):
@@ -363,33 +340,28 @@ class ShipExplosion(sprite.Sprite):
         if current_time - self.timer > 900:
             self.kill()
 
-
-class Life(sprite.Sprite):
+class Life(sprite.Sprite): 
     def __init__(self, xpos, ypos):
         sprite.Sprite.__init__(self)
         self.image = IMAGES['ship']
         self.image = transform.scale(self.image, scale_size(23, 23))
         # Usar scale_position_x y scale_position_y para posicionar correctamente
-        self.rect = self.image.get_rect(
-            topleft=(scale_position_x(xpos), scale_position_y(ypos)))
+        self.rect = self.image.get_rect(topleft=(scale_position_x(xpos), scale_position_y(ypos)))
 
     def update(self, *args):
         if args and hasattr(args[-1], "blit"):
             pantalla = args[-1]
             pantalla.blit(self.image, self.rect)
 
-
 class Text(object):
     def __init__(self, textFont, size, message, color, xpos, ypos):
         self.font = font.Font(textFont, scale_value(size))
         self.surface = self.font.render(message, True, color)
         # Usar scale_position_x y scale_position_y para posicionar correctamente
-        self.rect = self.surface.get_rect(
-            topleft=(scale_position_x(xpos), scale_position_y(ypos)))
+        self.rect = self.surface.get_rect(topleft=(scale_position_x(xpos), scale_position_y(ypos)))
 
     def draw(self, surface):
         surface.blit(self.surface, self.rect)
-
 
 class SpaceInvaders(object):
     def __init__(self):
@@ -408,22 +380,20 @@ class SpaceInvaders(object):
         self.clock = time.Clock()
         self.caption = display.set_caption('Space Invaders')
         self.screen = SCREEN
-
+        
         # Cargar y escalar fondos
         self.menu = image.load(IMAGE_PATH + 'image_second.webp')
         self.menu = transform.scale(self.menu, (GAME_WIDTH, GAME_HEIGHT))
         self.background = image.load(IMAGE_PATH + 'background.jpg')
-        self.background = transform.scale(
-            self.background, (GAME_WIDTH, GAME_HEIGHT))
-
+        self.background = transform.scale(self.background, (GAME_WIDTH, GAME_HEIGHT))
+        
         self.startGame = False
         self.mainScreen = True
         self.gameOver = False
         self.enemyPosition = ENEMY_DEFAULT_POSITION
-
+        
         # Textos con posiciones escaladas
-        self.titleText2 = Text(
-            FONT, 25, 'Press any key to continue', WHITE, 201, 540)
+        self.titleText2 = Text(FONT, 25, 'Press any key to continue', WHITE, 201, 540)
         self.gameOverText = Text(FONT, 50, 'Game Over', WHITE, 250, 270)
         self.nextRoundText = Text(FONT, 50, 'Next Round', WHITE, 240, 270)
         self.scoreText = Text(FONT, 20, 'Score', WHITE, 5, 5)
@@ -462,10 +432,8 @@ class SpaceInvaders(object):
             for column in range(9):
                 blocker = Blocker(10, GREEN, row, column)
                 # Usar scale_position_x y scale_position_y para posicionar correctamente
-                blocker.rect.x = scale_position_x(
-                    50 + (200 * number) + (column * 10))
-                blocker.rect.y = scale_position_y(
-                    BLOCKERS_POSITION + (row * 10))
+                blocker.rect.x = scale_position_x(50 + (200 * number) + (column * 10))
+                blocker.rect.y = scale_position_y(BLOCKERS_POSITION + (row * 10))
                 blockerGroup.add(blocker)
         return blockerGroup
 
@@ -473,13 +441,11 @@ class SpaceInvaders(object):
         self.sounds = {}
 
         for SoundName in ['shoot', 'shoot2', 'invaderkilled', 'mysterykilled', 'shipexplosion']:
-            self.sounds[SoundName] = mixer.Sound(
-                SOUND_PATH + '{}.wav'.format(SoundName))
+            self.sounds[SoundName] = mixer.Sound(SOUND_PATH + '{}.wav'.format(SoundName))
             # Usar get_muteado() para obtener el estado actual
             self.sounds[SoundName].set_volume(0.0 if get_muteado() else 0.2)
 
-        self.musicNotes = [mixer.Sound(
-            SOUND_PATH + '{}.wav'.format(i)) for i in range(4)]
+        self.musicNotes = [mixer.Sound(SOUND_PATH + '{}.wav'.format(i)) for i in range(4)]
         for Sound in self.musicNotes:
             Sound.set_volume(0.0 if get_muteado() else 0.5)
 
@@ -519,19 +485,15 @@ class SpaceInvaders(object):
 
             if e.type == KEYDOWN and self.startGame:
                 if e.key == K_SPACE:
-                    # Solo se puede disparar si la nave está viva
-                    if len(self.bullets) == 0 and self.shipAlive:
+                    if len(self.bullets) == 0 and self.shipAlive:  # Solo se puede disparar si la nave está viva
                         if self.score < 1000:
-                            bullet = Bullet(self.player.rect.x + scale_value(
-                                23), self.player.rect.y + scale_value(5), -1, 15, 'laser', 'center')
+                            bullet = Bullet(self.player.rect.x + scale_value(23), self.player.rect.y + scale_value(5), -1, 15, 'laser', 'center')
                             self.bullets.add(bullet)
                             self.allSprites.add(self.bullets)
                             self.sounds['shoot'].play()
                         else:
-                            leftbullet = Bullet(self.player.rect.x + scale_value(
-                                8), self.player.rect.y + scale_value(5), -1, 15, 'laser', 'left')
-                            rightbullet = Bullet(self.player.rect.x + scale_value(
-                                38), self.player.rect.y + scale_value(5), -1, 15, 'laser', 'right')
+                            leftbullet = Bullet(self.player.rect.x + scale_value(8), self.player.rect.y + scale_value(5), -1, 15, 'laser', 'left')
+                            rightbullet = Bullet(self.player.rect.x + scale_value(38), self.player.rect.y + scale_value(5), -1, 15, 'laser', 'right')
                             self.bullets.add(leftbullet)
                             self.bullets.add(rightbullet)
                             self.allSprites.add(self.bullets)
@@ -546,8 +508,7 @@ class SpaceInvaders(object):
                 enemy = Enemy(row, column)
                 # Usar scale_position_x y scale_position_y para posicionar correctamente
                 enemy.rect.x = scale_position_x(157 + (column * 50))
-                enemy.rect.y = scale_position_y(
-                    self.enemyPosition + (row * 45))
+                enemy.rect.y = scale_position_y(self.enemyPosition + (row * 45))
                 enemies.add(enemy)
 
         self.enemies = enemies
@@ -558,9 +519,9 @@ class SpaceInvaders(object):
             if enemy:
                 # Posiciones correctamente escaladas para el disparo del enemigo
                 self.enemyBullets.add(
-                    Bullet(enemy.rect.x + scale_value(14),
-                           enemy.rect.y + scale_value(20), 1, 5,
-                           'enemylaser', 'center'))
+                    Bullet(enemy.rect.x + scale_value(14), 
+                        enemy.rect.y + scale_value(20), 1, 5,
+                        'enemylaser', 'center'))
                 self.allSprites.add(self.enemyBullets)
                 self.timer = time.get_ticks()
 
@@ -592,23 +553,6 @@ class SpaceInvaders(object):
             self.gameTimer = time.get_ticks()
 
         for player in sprite.groupcollide(self.playerGroup, self.enemyBullets, True, True).keys():
-<<<<<<< HEAD
-            if not player.invulnerable:
-                if self.life3.alive():
-                    self.life3.kill()
-                elif self.life2.alive():
-                    self.life2.kill()
-                elif self.life1.alive():
-                    self.life1.kill()
-                else:
-                    self.gameOver = True
-                    self.startGame = False
-                self.sounds['shipexplosion'].play()
-                ShipExplosion(player, self.explosionsGroup)
-                self.makeNewShip = True
-                self.shipTimer = time.get_ticks()
-                self.shipAlive = False
-=======
             if self.life3.alive():
                 self.life3.kill()
             elif self.life2.alive():
@@ -632,10 +576,9 @@ class SpaceInvaders(object):
                 self.startGame = False
 
 
->>>>>>> 58afc2df4602ebb57376384316de825ec70cd737
 
         for mystery in sprite.groupcollide(self.mysteryGroup, self.bullets,
-                                           True, True).keys():
+                                        True, True).keys():
             mystery.mysteryEntered.stop()
             self.sounds['mysterykilled'].play()
             score = self.calculate_score(mystery.row)
@@ -653,7 +596,7 @@ class SpaceInvaders(object):
 
         sprite.groupcollide(self.bullets, self.allBlockers, True, True)
         sprite.groupcollide(self.enemyBullets, self.allBlockers, True, True)
-
+        
         # Usar un valor escalado para BLOCKERS_POSITION
         if self.enemies.bottom >= scale_position_y(BLOCKERS_POSITION):
             sprite.groupcollide(self.enemies, self.allBlockers, False, True)
@@ -665,10 +608,8 @@ class SpaceInvaders(object):
             self.playerGroup.add(self.player)
             self.makeNewShip = False
             self.shipAlive = True  # La nave está viva
-            # Reiniciamos las balas para evitar que queden del anterior juego
-            self.bullets = sprite.Group()
-            # Aseguramos que las balas se añaden correctamente al grupo de sprites
-            self.allSprites.add(self.bullets)
+            self.bullets = sprite.Group()  # Reiniciamos las balas para evitar que queden del anterior juego
+            self.allSprites.add(self.bullets)  # Aseguramos que las balas se añaden correctamente al grupo de sprites
 
     def create_game_over(self, currentTime):
         self.screen.blit(self.background, (0, 0))
@@ -691,12 +632,12 @@ class SpaceInvaders(object):
     def main(self):
         # Ya no es necesario redefinir el tamaño de la pantalla aquí,
         # ya que se configuró correctamente en el inicio
-
+        
         while True:
             salir = self.check_input()
             if salir:
                 return 'menu'
-
+            
             if self.mainScreen:
                 self.screen.blit(self.background, (0, 0))
                 self.screen.blit(self.menu, (0, 0))
@@ -710,8 +651,7 @@ class SpaceInvaders(object):
                 if not self.enemies and not self.explosionsGroup:
                     if currentTime - self.gameTimer < 3000:
                         self.screen.blit(self.background, (0, 0))
-                        self.scoreText2 = Text(
-                            FONT, 20, str(self.score), GREEN, 85, 5)
+                        self.scoreText2 = Text(FONT, 20, str(self.score), GREEN, 85, 5)
                         self.scoreText.draw(self.screen)
                         self.scoreText2.draw(self.screen)
                         self.nextRoundText.draw(self.screen)
@@ -727,30 +667,24 @@ class SpaceInvaders(object):
                     self.play_main_music(currentTime)
                     self.screen.blit(self.background, (0, 0))
                     self.allBlockers.update(self.screen)
-                    self.scoreText2 = Text(
-                        FONT, 20, str(self.score), GREEN, 85, 5)
+                    self.scoreText2 = Text(FONT, 20, str(self.score), GREEN, 85, 5)
                     self.scoreText.draw(self.screen)
                     self.scoreText2.draw(self.screen)
                     self.livesText.draw(self.screen)
-                    self.enemies.update(currentTime)  # Mueve enemigos
-                    # Mueve jugador, balas, etc.
-                    self.allSprites.update(self.keys, currentTime, self.screen)
-                    self.explosionsGroup.update(
-                        currentTime)  # Actualiza explosiones
-                    self.check_collisions()  # Verifica colisiones entre elementos
-                    # Crea nave nueva si fue destruida
-                    self.create_new_ship(self.makeNewShip, currentTime)
-                    self.make_enemies_shoot()  # Los enemigos disparan
+                    self.enemies.update(currentTime) # Mueve enemigos
+                    self.allSprites.update(self.keys, currentTime, self.screen) # Mueve jugador, balas, etc.
+                    self.explosionsGroup.update(currentTime) # Actualiza explosiones
+                    self.check_collisions() # Verifica colisiones entre elementos
+                    self.create_new_ship(self.makeNewShip, currentTime) # Crea nave nueva si fue destruida
+                    self.make_enemies_shoot() # Los enemigos disparan
 
-            elif self.gameOver:  # Si el juego terminó
+            elif self.gameOver: # Si el juego terminó
                 currentTime = time.get_ticks()
-                self.enemyPosition = ENEMY_DEFAULT_POSITION  # Reinicia la posición de enemigos
-                # Muestra pantalla de Game Over
-                self.create_game_over(currentTime)
+                self.enemyPosition = ENEMY_DEFAULT_POSITION # Reinicia la posición de enemigos
+                self.create_game_over(currentTime) # Muestra pantalla de Game Over
 
-            display.update()  # Actualiza la pantalla
-            self.clock.tick(60)  # Limita la velocidad de fotogramas a 60 FPS
-
+            display.update() # Actualiza la pantalla
+            self.clock.tick(60) # Limita la velocidad de fotogramas a 60 FPS
 
 if __name__ == "__main__":
     game = SpaceInvaders()
