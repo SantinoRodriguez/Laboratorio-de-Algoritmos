@@ -108,31 +108,110 @@ main p {
     cursor: pointer;
 }
 
-/* Menú colapsable oculto por defecto */
+/* Menú colapsable a pantalla completa */
 .MenuColapsable {
     display: none;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
     background-color: #1f2937;
-    position: absolute;
-    top: 60px;
-    right: 40px;
-    border: 1px solid #374151;
-    padding: 10px;
-    z-index: 10;
+    z-index: 1000;
+    animation: Desplegar 0.3s ease forwards;
 }
 
 .MenuColapsable a {
     color: #d1d5db;
     text-decoration: none;
-    padding: 5px 0;
+    font-size: 1.5em;
+    padding: 15px 0;
 }
 
 .MenuColapsable a:hover {
     color: white;
 }
 
-/* Mostrar botón hamburguesa y ocultar sección central en pantallas pequeñas */
-@media (max-width: 768px) {
+/* Sección principal: ocupa toda la pantalla con el título centrado */
+.SeccionPrincipal {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #111827;
+}
+
+/* Estilo del título */
+.SeccionPrincipal h1 {
+    font-size: clamp(2em, 5vw, 3em);
+    color: #f3f4f6;
+    margin: 0;
+    text-align: center;
+}
+
+/* Sección de descripción en dos columnas */
+.SeccionDescripcion {
+    display: flex;
+    height: 100vh;
+    background-color: #1f2937;
+    padding: 40px;
+    box-sizing: border-box;
+}
+
+/* Columna izquierda: título pequeño */
+.ColumnaIzquierda {
+    width: 33.33%;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding-top: 20px;
+}
+
+.ColumnaIzquierda h4 {
+    color: #9ca3af;
+    font-size: clamp(0.9em, 1.5vw, 1em);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin: 0;
+}
+
+/* Columna derecha: texto centrado verticalmente */
+.ColumnaDerecha {
+    width: 66.66%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.ColumnaDerecha p {
+    font-size: clamp(1.4em, 3vw, 2em);
+    color: #f3f4f6;
+    text-align: left;
+    line-height: 1.6;
+    max-width: 90%;
+}
+
+
+
+/* Animación suave para el menú */
+@keyframes Desplegar {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Diseño responsive */
+@media (max-width: 1150px) {
+    /* Ocultar los enlaces centrales y mostrar hamburguesa */
     .SeccionCentral {
         display: none;
     }
@@ -140,4 +219,138 @@ main p {
     .BotonHamburguesa {
         display: block;
     }
+
+    /* Ocultar el logo cuando se ve la hamburguesa */
+    .SeccionDerecha img {
+        display: none;
+    }
+}
+
+/* Título principal */
+main h1 {
+    text-align: center;
+    margin-top: 80px;
+    font-size: 2.5em;
+    color: #f3f4f6;
+}
+
+/* Descripción */
+main p {
+    text-align: center;
+    font-size: 1.2em;
+    color: #d1d5db;
+}
+/* === Sección de Proyectos === */
+#proyectos {
+    padding: 60px 40px;
+    background-color: #1f2937;
+}
+
+#proyectos h2 {
+    color: #f3f4f6;
+    text-align: center;
+    margin-bottom: 40px;
+    font-size: clamp(1.5em, 4vw, 2.5em);
+}
+
+.TarjetasProyectos {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+.TarjetaProyecto {
+    width: 250px;
+    height: 200px;
+    background-color: #374151;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #f9fafb;
+    font-size: 1.2em;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.TarjetaProyecto:hover {
+    transform: translateY(-5px);
+    background-color: #4b5563;
+}
+
+/* === Sección de Contacto === */
+#contacto {
+    padding: 60px 40px;
+    background-color: #111827;
+}
+
+#contacto h2 {
+    color: #f3f4f6;
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: clamp(1.5em, 4vw, 2.5em);
+}
+
+form {
+    max-width: 600px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+form input,
+form textarea {
+    padding: 10px 15px;
+    border-radius: 5px;
+    border: none;
+    font-size: 1em;
+    background-color: #1f2937;
+    color: #f9fafb;
+    outline: none;
+    transition: background-color 0.2s ease;
+}
+
+form input:focus,
+form textarea:focus {
+    background-color: #374151;
+}
+
+form button {
+    padding: 12px;
+    background-color: #2563eb;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+form button:hover {
+    background-color: #1d4ed8;
+}
+
+/* === Sección de Habilidades === */
+#habilidades ul {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+}
+
+#habilidades li {
+    font-size: 1.2em;
+    padding: 10px 0;
+    color: #f9fafb;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#habilidades li::before {
+    content: "✔";
+    color: #10b981;
+    font-weight: bold;
 }

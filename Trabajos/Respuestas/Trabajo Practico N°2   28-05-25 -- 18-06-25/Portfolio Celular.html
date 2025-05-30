@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="Descripcion" content="Trabajo Práctico 2 Para Laboratorio De Algoritmos">
+    <title>Mi Portafolio - Desarrollador Web</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+            color: white;
+            background-color: #111827;
+        }
+
+        .BarraDeNavegacion {
+            position: relative;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 40px;
+            background-color: #1f2937;
+            border-bottom: 2px solid #374151;
+        }
+
+        .SeccionIzquierda h3 {
+            margin: 0;
+            font-size: clamp(1em, 2.5vw, 1.2em);
+            color: #f9fafb;
+        }
+
+        .SeccionCentral {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 25px;
+        }
+
+        .SeccionCentral a {
+            text-decoration: none;
+            color: #d1d5db;
+            font-size: clamp(0.9em, 2vw, 1em);
+            transition: color 0.3s ease;
+        }
+
+        .SeccionCentral a:hover {
+            color: #ffffff;
+        }
+
+        .SeccionDerecha img {
+            height: 30px;
+            transition: transform 0.3s ease;
+        }
+
+        .SeccionDerecha img:hover {
+            transform: scale(1.1);
+        }
+
+        main h1 {
+            text-align: center;
+            margin-top: 80px;
+            font-size: clamp(1.5em, 5vw, 2.5em);
+            color: #f3f4f6;
+        }
+
+        main p {
+            text-align: center;
+            font-size: clamp(1em, 2.5vw, 1.2em);
+            color: #d1d5db;
+        }
+
+        @media (max-width: 768px) {
+            .BarraDeNavegacion {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .SeccionCentral {
+                position: static;
+                transform: none;
+                margin-top: 10px;
+            }
+
+            .SeccionDerecha {
+                align-self: flex-end;
+                margin-top: 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .SeccionCentral {
+                display: none;
+            }
+        }
+
+        .BotonHamburguesa {
+            display: none;
+            font-size: 1.5em;
+            background: none;
+            border: none;
+            color: #f3f4f6;
+            cursor: pointer;
+        }
+
+        .MenuColapsable {
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: #1f2937;
+            z-index: 1000;
+            animation: Desplegar 0.3s ease forwards;
+        }
+
+        .MenuColapsable a {
+            color: #d1d5db;
+            text-decoration: none;
+            font-size: 1.5em;
+            padding: 15px 0;
+        }
+
+        .MenuColapsable a:hover {
+            color: white;
+        }
+
+        .SeccionPrincipal {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #111827;
+        }
+
+        .SeccionPrincipal h1 {
+            font-size: clamp(2em, 5vw, 3em);
+            color: #f3f4f6;
+            margin: 0;
+            text-align: center;
+        }
+
+        .SeccionDescripcion {
+            display: flex;
+            height: 100vh;
+            background-color: #1f2937;
+            padding: 40px;
+            box-sizing: border-box;
+        }
+
+        .ColumnaIzquierda {
+            width: 33.33%;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            padding-top: 20px;
+        }
+
+        .ColumnaIzquierda h4 {
+            color: #9ca3af;
+            font-size: clamp(0.9em, 1.5vw, 1em);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin: 0;
+        }
+
+        .ColumnaDerecha {
+            width: 66.66%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .ColumnaDerecha p {
+            font-size: clamp(1.4em, 3vw, 2em);
+            color: #f3f4f6;
+            text-align: left;
+            line-height: 1.6;
+            max-width: 90%;
+        }
+
+        @keyframes Desplegar {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 1150px) {
+            .SeccionCentral {
+                display: none;
+            }
+
+            .BotonHamburguesa {
+                display: block;
+            }
+
+            .SeccionDerecha img {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="BarraDeNavegacion">
+        <div class="SeccionIzquierda">
+            <h3>Santino Luciano Rodriguez Fuchs</h3>
+        </div>
+
+        <div class="SeccionCentral">
+            <a href="#">Inicio</a>
+            <a href="#">Sobre Mí</a>
+            <a href="#">Descargar</a>
+            <a href="#">Proyectos</a>
+            <a href="#">Contacto</a>
+        </div>
+
+        <div class="SeccionDerecha">
+            <a href="https://huergo.edu.ar/" target="_blank"><img src="LogoHuergo.PNG" alt="Logo Huergo"></a>
+            <button class="BotonHamburguesa" id="BotonMenu">☰</button>
+            <div class="MenuColapsable" id="MenuColapsable">
+                <a href="#">Inicio</a>
+                <a href="#">Sobre Mí</a>
+                <a href="#">Descargar</a>
+                <a href="#">Proyectos</a>
+                <a href="#">Contacto</a>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <section class="SeccionPrincipal">
+            <h1>Santino Rodriguez</h1>
+        </section>
+
+        <section class="SeccionDescripcion">
+            <div class="ColumnaIzquierda">
+                <h4>Breve Descripción General</h4>
+            </div>
+            <div class="ColumnaDerecha">
+                <p>
+                    Estudiante de 4° año en la Escuela Técnica Huergo, orientado en Informática. Apasionado por la programación, el desarrollo de software y los desafíos tecnológicos. Busco seguir creciendo mediante proyectos que me permitan aplicar y ampliar mis conocimientos.
+                </p>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        const BotonMenu = document.getElementById('BotonMenu');
+        const MenuColapsable = document.getElementById('MenuColapsable');
+
+        BotonMenu.addEventListener('click', () => {
+            if (MenuColapsable.style.display === 'flex') {
+                MenuColapsable.style.display = 'none';
+            } else {
+                MenuColapsable.style.display = 'flex';
+            }
+        });
+
+        const EnlacesMenu = MenuColapsable.querySelectorAll('a');
+        EnlacesMenu.forEach((Enlace) => {
+            Enlace.addEventListener('click', () => {
+                MenuColapsable.style.display = 'none';
+            });
+        });
+    </script>
+
+</body>
+</html>

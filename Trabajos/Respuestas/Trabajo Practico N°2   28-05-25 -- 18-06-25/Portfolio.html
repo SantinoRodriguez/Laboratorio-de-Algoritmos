@@ -5,8 +5,7 @@
     <meta name="Descripcion" content="Trabajo Práctico 2 Para Laboratorio De Algoritmos">
     <title>Mi Portafolio - Desarrollador Web</title>
     <link rel="stylesheet" href="estilos.css">
-    <!-- Vinculación del archivo JavaScript externo -->
-    <script src="script.js"></script>
+    <script src="script.js" defer></script>
 </head>
 <body style="background-color: #111827;">
 
@@ -18,33 +17,81 @@
         <div class="SeccionCentral">
             <a href="#">Inicio</a>
             <a href="#">Sobre Mí</a>
-            <a href="#">Descargar</a>
-            <a href="#">Proyectos</a>
-            <a href="#">Contacto</a>
+            <a href="#habilidades">Habilidades</a>
+            <a href="#proyectos">Proyectos</a>
+            <a href="#contacto">Contacto</a>
         </div>
 
         <div class="SeccionDerecha">
-            <img src="logo.png" alt="Logo">
-
-            <!-- Botón hamburguesa -->
-            <button class="BotonHamburguesa" id="BotonMenu">
-                ☰
-            </button>
-
-            <!-- Menú colapsable -->
+            <a href="https://huergo.edu.ar/" target="_blank"><img src="LogoHuergo.PNG" alt="Logo Huergo"></a>
+            <button class="BotonHamburguesa" id="BotonMenu">☰</button>
             <div class="MenuColapsable" id="MenuColapsable">
                 <a href="#">Inicio</a>
                 <a href="#">Sobre Mí</a>
-                <a href="#">Descargar</a>
-                <a href="#">Proyectos</a>
-                <a href="#">Contacto</a>
+                <a href="#habilidades">Habilidades</a>
+                <a href="#proyectos">Proyectos</a>
+                <a href="#contacto">Contacto</a>
             </div>
         </div>
     </nav>
 
     <main>
-        <h1>Santino Rodriguez</h1>
-        <p>Descripción</p>
+        <section class="SeccionPrincipal">
+            <h1>Santino Rodriguez</h1>
+        </section>
+
+        <section class="SeccionDescripcion">
+            <div class="ColumnaIzquierda">
+                <h4>Breve Descripción General</h4>
+            </div>
+            <div class="ColumnaDerecha">
+                <p>
+                    Estudiante de 4° año en la Escuela Técnica Huergo, orientado en Informática. Apasionado por la programación, el desarrollo de software y los desafíos tecnológicos. Busco seguir creciendo mediante proyectos que me permitan aplicar y ampliar mis conocimientos.
+                </p>
+            </div>
+        </section>
+
+        <!-- Sección Habilidades -->
+        <section id="habilidades" class="SeccionDescripcion">
+            <div class="ColumnaIzquierda">
+                <h4>Habilidades</h4>
+            </div>
+            <div class="ColumnaDerecha">
+                <ul style="list-style: none; padding-left: 0;">
+                    <li>HTML, CSS y JavaScript</li>
+                    <li>Lógica de Programación</li>
+                    <li>Python y Pygame</li>
+                    <li>Control de Versiones (Git)</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Sección Proyectos -->
+        <section id="proyectos" style="padding: 60px 40px; background-color: #1f2937;">
+            <h2 style="color: #f3f4f6; text-align: center; margin-bottom: 40px;">Proyectos</h2>
+            <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 20px;">
+                <div style="width: 250px; height: 200px; background-color: #374151; border-radius: 10px; display: flex; justify-content: center; align-items: center; color: #f9fafb; font-size: 1.2em; text-align: center;">
+                    Proyecto 1
+                </div>
+                <div style="width: 250px; height: 200px; background-color: #374151; border-radius: 10px; display: flex; justify-content: center; align-items: center; color: #f9fafb; font-size: 1.2em; text-align: center;">
+                    Proyecto 2
+                </div>
+                <div style="width: 250px; height: 200px; background-color: #374151; border-radius: 10px; display: flex; justify-content: center; align-items: center; color: #f9fafb; font-size: 1.2em; text-align: center;">
+                    Proyecto 3
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección Contacto -->
+        <section id="contacto" style="padding: 60px 40px; background-color: #111827;">
+            <h2 style="color: #f3f4f6; text-align: center; margin-bottom: 30px;">Contacto</h2>
+            <form style="max-width: 600px; margin: 0 auto; display: flex; flex-direction: column; gap: 15px;">
+                <input type="text" placeholder="Tu Nombre" style="padding: 10px; border-radius: 5px; border: none;">
+                <input type="email" placeholder="Tu Correo Electrónico" style="padding: 10px; border-radius: 5px; border: none;">
+                <textarea placeholder="Escribe tu mensaje" rows="5" style="padding: 10px; border-radius: 5px; border: none;"></textarea>
+                <button type="submit" style="padding: 12px; background-color: #2563eb; color: white; border: none; border-radius: 5px; cursor: pointer;">Enviar Mensaje</button>
+            </form>
+        </section>
     </main>
 
 </body>
