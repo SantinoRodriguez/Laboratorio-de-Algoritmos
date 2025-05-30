@@ -1,0 +1,143 @@
+/* Estilo general del cuerpo */
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    color: white;
+    background-color: #111827;
+}
+
+/* Estilo de la barra de navegación */
+.BarraDeNavegacion {
+    position: relative; /* Necesario para centrar la sección central */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 40px;
+    background-color: #1f2937;
+    border-bottom: 2px solid #374151;
+}
+
+/* Sección izquierda: nombre del desarrollador */
+.SeccionIzquierda h3 {
+    margin: 0;
+    font-size: clamp(1em, 2.5vw, 1.2em); /* Letra adaptable según ancho de pantalla */
+    color: #f9fafb;
+}
+
+/* Sección central: enlaces centrados en la página */
+.SeccionCentral {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 25px;
+}
+
+/* Estilo de los enlaces del menú central */
+.SeccionCentral a {
+    text-decoration: none;
+    color: #d1d5db;
+    font-size: clamp(0.9em, 2vw, 1em); /* Letra adaptable */
+    transition: color 0.3s ease;
+}
+
+.SeccionCentral a:hover {
+    color: #ffffff;
+}
+
+/* Sección derecha: imagen de logo */
+.SeccionDerecha img {
+    height: 30px;
+    transition: transform 0.3s ease;
+}
+
+.SeccionDerecha img:hover {
+    transform: scale(1.1);
+}
+
+/* Título principal del contenido principal */
+main h1 {
+    text-align: center;
+    margin-top: 80px;
+    font-size: clamp(1.5em, 5vw, 2.5em); /* Letra adaptable */
+    color: #f3f4f6;
+}
+
+/* Párrafo de descripción */
+main p {
+    text-align: center;
+    font-size: clamp(1em, 2.5vw, 1.2em); /* Letra adaptable */
+    color: #d1d5db;
+}
+
+/* Adaptación para pantallas pequeñas */
+@media (max-width: 768px) {
+    /* Se acomoda la barra en columna para móviles */
+    .BarraDeNavegacion {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    /* La sección central pasa a estar en bloque */
+    .SeccionCentral {
+        position: static;
+        transform: none;
+        margin-top: 10px;
+    }
+
+    /* Se alinea la sección derecha debajo */
+    .SeccionDerecha {
+        align-self: flex-end;
+        margin-top: 10px;
+    }
+}
+
+/* Pantallas muy pequeñas: se oculta la sección central */
+@media (max-width: 480px) {
+    .SeccionCentral {
+        display: none;
+    }
+}
+/* Botón hamburguesa oculto por defecto */
+.BotonHamburguesa {
+    display: none;
+    font-size: 1.5em;
+    background: none;
+    border: none;
+    color: #f3f4f6;
+    cursor: pointer;
+}
+
+/* Menú colapsable oculto por defecto */
+.MenuColapsable {
+    display: none;
+    flex-direction: column;
+    background-color: #1f2937;
+    position: absolute;
+    top: 60px;
+    right: 40px;
+    border: 1px solid #374151;
+    padding: 10px;
+    z-index: 10;
+}
+
+.MenuColapsable a {
+    color: #d1d5db;
+    text-decoration: none;
+    padding: 5px 0;
+}
+
+.MenuColapsable a:hover {
+    color: white;
+}
+
+/* Mostrar botón hamburguesa y ocultar sección central en pantallas pequeñas */
+@media (max-width: 768px) {
+    .SeccionCentral {
+        display: none;
+    }
+
+    .BotonHamburguesa {
+        display: block;
+    }
+}
