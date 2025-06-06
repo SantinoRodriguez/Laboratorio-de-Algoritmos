@@ -24,7 +24,7 @@
                 <a href="#habilidades" class="nav-link">Habilidades</a>
                 <a href="#proyectos" class="nav-link">Proyectos</a>
                 <a href="#contacto" class="nav-link">Contacto</a>
-                <button class="theme-toggle" id="theme-toggle" aria-label="Cambiar tema">
+                <button class="Tema" id="Tema" aria-label="Cambiar tema">
                     <i class="fas fa-moon"></i>
                 </button>
             </div>
@@ -423,7 +423,7 @@
             width: 100%;
         }
 
-        .theme-toggle {
+        .Tema {
             background: none;
             border: 2px solid var(--color-borde);
             border-radius: 50%;
@@ -437,7 +437,7 @@
             transition: var(--transicion);
         }
 
-        .theme-toggle:hover {
+        .Tema:hover {
             border-color: var(--color-principal);
             color: var(--color-principal);
             transform: rotate(180deg);
@@ -995,7 +995,7 @@
 
     <script>
         // Funcionalidad del tema oscuro/claro
-        const themeToggle = document.getElementById('theme-toggle');
+        const themeToggle = document.getElementById('Tema');
         const body = document.body;
         const themeIcon = themeToggle.querySelector('i');
 

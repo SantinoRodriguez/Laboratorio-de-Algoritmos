@@ -1,30 +1,52 @@
-/* Estilo general del cuerpo */
-body {
-    margin: 0;
-    font-family: 'Segoe UI', sans-serif;
-    color: white;
-    background-color: #111827;
+/* === Variables para Tema === */
+:root {
+    --color-fondo: #0f1115;
+    --color-texto: #e6e6e6;
+    --color-primario: #58a6ff;
+    --color-secundario: #1a1c22;
+    --color-borde: #2e3038;
+    --color-tarjeta: #2e3038;
+    --transicion: 0.3s ease;
 }
 
-/* Estilo de la barra de navegación */
+.claro {
+    --color-fondo: #ffffff;
+    --color-texto: #1a1a1a;
+    --color-primario: #1e90ff;
+    --color-secundario: #f3f3f3;
+    --color-borde: #cccccc;
+    --color-tarjeta: #e6e6e6;
+}
+
+/* === Estilo Global === */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: var(--color-fondo);
+    color: var(--color-texto);
+}
+
+/* === Navegación === */
 .BarraDeNavegacion {
-    position: relative; /* Necesario para centrar la sección central */
+    position: relative;
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 15px 40px;
-    background-color: #1f2937;
-    border-bottom: 2px solid #374151;
+    background-color: var(--color-secundario);
+    border-bottom: 2px solid var(--color-borde);
 }
 
-/* Sección izquierda: nombre del desarrollador */
 .SeccionIzquierda h3 {
-    margin: 0;
-    font-size: clamp(1em, 2.5vw, 1.2em); /* Letra adaptable según ancho de pantalla */
-    color: #f9fafb;
+    color: var(--color-texto);
+    font-size: clamp(1em, 2.5vw, 1.2em);
 }
 
-/* Sección central: enlaces centrados en la página */
 .SeccionCentral {
     position: absolute;
     left: 50%;
@@ -33,82 +55,61 @@ body {
     gap: 25px;
 }
 
-/* Estilo de los enlaces del menú central */
 .SeccionCentral a {
     text-decoration: none;
-    color: #d1d5db;
-    font-size: clamp(0.9em, 2vw, 1em); /* Letra adaptable */
-    transition: color 0.3s ease;
+    color: var(--color-texto);
+    font-size: clamp(0.9em, 2vw, 1em);
+    transition: color 0.3s;
 }
 
 .SeccionCentral a:hover {
     color: #ffffff;
 }
 
-/* Sección derecha: imagen de logo */
+.SeccionDerecha {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
 .SeccionDerecha img {
     height: 30px;
-    transition: transform 0.3s ease;
+    transition: transform 0.3s;
 }
 
 .SeccionDerecha img:hover {
     transform: scale(1.1);
 }
 
-/* Título principal del contenido principal */
-main h1 {
-    text-align: center;
-    margin-top: 80px;
-    font-size: clamp(1.5em, 5vw, 2.5em); /* Letra adaptable */
-    color: #f3f4f6;
+.Tema {
+    background: none;
+    border: 2px solid var(--color-borde);
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: var(--color-texto);
+    font-size: 1.1em;
+    transition: var(--transicion);
+    margin-bottom: 3px;
 }
 
-/* Párrafo de descripción */
-main p {
-    text-align: center;
-    font-size: clamp(1em, 2.5vw, 1.2em); /* Letra adaptable */
-    color: #d1d5db;
+.Tema:hover {
+    background-color: var(--color-borde);
 }
 
-/* Adaptación para pantallas pequeñas */
-@media (max-width: 768px) {
-    /* Se acomoda la barra en columna para móviles */
-    .BarraDeNavegacion {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    /* La sección central pasa a estar en bloque */
-    .SeccionCentral {
-        position: static;
-        transform: none;
-        margin-top: 10px;
-    }
-
-    /* Se alinea la sección derecha debajo */
-    .SeccionDerecha {
-        align-self: flex-end;
-        margin-top: 10px;
-    }
-}
-
-/* Pantallas muy pequeñas: se oculta la sección central */
-@media (max-width: 480px) {
-    .SeccionCentral {
-        display: none;
-    }
-}
-/* Botón hamburguesa oculto por defecto */
 .BotonHamburguesa {
     display: none;
     font-size: 1.5em;
     background: none;
     border: none;
-    color: #f3f4f6;
+    color: var(--color-texto);
     cursor: pointer;
 }
 
-/* Menú colapsable a pantalla completa */
 .MenuColapsable {
     display: none;
     flex-direction: column;
@@ -119,85 +120,268 @@ main p {
     left: 0;
     width: 100vw;
     height: 100vh;
-    background-color: #1f2937;
+    background-color: var(--color-secundario);
     z-index: 1000;
     animation: Desplegar 0.3s ease forwards;
 }
 
 .MenuColapsable a {
-    color: #d1d5db;
+    color: var(--color-texto);
     text-decoration: none;
     font-size: 1.5em;
     padding: 15px 0;
 }
 
 .MenuColapsable a:hover {
-    color: white;
+    color: #ffffff;
 }
 
-/* Sección principal: ocupa toda la pantalla con el título centrado */
-.SeccionPrincipal {
-    height: 100vh;
+/* === Clase base para secciones === */
+.SeccionFullPantalla {
+    min-height: 100vh;
+    padding: 80px 40px;
     display: flex;
+    flex-direction: column;
     justify-content: center;
-    align-items: center;
-    background-color: #111827;
-}
-
-/* Estilo del título */
-.SeccionPrincipal h1 {
-    font-size: clamp(2em, 5vw, 3em);
-    color: #f3f4f6;
-    margin: 0;
-    text-align: center;
-}
-
-/* Sección de descripción en dos columnas */
-.SeccionDescripcion {
-    display: flex;
-    height: 100vh;
-    background-color: #1f2937;
-    padding: 40px;
     box-sizing: border-box;
 }
 
-/* Columna izquierda: título pequeño */
-.ColumnaIzquierda {
-    width: 33.33%;
+/* === Sección Principal === */
+.SeccionPrincipal {
+    background-color: var(--color-fondo);
+}
+
+.SeccionPrincipal h1 {
+    font-size: clamp(2em, 5vw, 3em);
+    text-align: center;
+    color: var(--color-texto);
+}
+
+/* === Sección Descripción === */
+.SeccionDescripcion {
     display: flex;
-    align-items: flex-start;
+    flex-wrap: wrap;
+    background-color: var(--color-secundario);
+    gap: 20px;
+}
+
+.ColumnaIzquierda {
+    flex: 1;
+    min-width: 200px;
+    display: flex;
     justify-content: center;
-    padding-top: 20px;
+    align-items: flex-start;
 }
 
 .ColumnaIzquierda h4 {
-    color: #9ca3af;
+    color: #9ea0a5;
     font-size: clamp(0.9em, 1.5vw, 1em);
     text-transform: uppercase;
-    letter-spacing: 1px;
-    margin: 0;
 }
 
-/* Columna derecha: texto centrado verticalmente */
 .ColumnaDerecha {
-    width: 66.66%;
+    flex: 2;
+    min-width: 250px;
     display: flex;
-    align-items: center;
     justify-content: center;
-    padding: 20px;
+    align-items: center;
 }
 
 .ColumnaDerecha p {
-    font-size: clamp(1.4em, 3vw, 2em);
-    color: #f3f4f6;
-    text-align: left;
+    font-size: clamp(1.2em, 2.5vw, 1.5em);
+    color: var(--color-texto);
     line-height: 1.6;
-    max-width: 90%;
+}
+
+/* === Sección Habilidades === */
+.SeccionHabilidades {
+    background-color: var(--color-fondo);
+}
+
+.TituloSeccion {
+    color: var(--color-texto);
+    text-align: center;
+    margin-bottom: 40px;
+    font-size: clamp(1.5em, 4vw, 2.5em);
+}
+
+.ContenedorTarjetas {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 25px;
+}
+
+.TarjetaHabilidad {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100px;
+    height: 100px;
+    background-color: var(--color-tarjeta);
+    border-radius: 12px;
+    padding: 10px;
+    transition: transform 0.3s ease;
+}
+
+.TarjetaHabilidad:hover {
+    transform: scale(1.05);
+}
+
+.TarjetaHabilidad img {
+    max-width: 64px;
+    max-height: 64px;
+    object-fit: contain;
+}
+
+/* === Sección Proyectos === */
+.SeccionProyectos {
+    background-color: var(--color-secundario);
+}
+
+.ContenedorTarjetasProyectos {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+}
+
+.TarjetaProyecto {
+    background-color: var(--color-tarjeta);
+    border-radius: 12px;
+    width: 300px;
+    height: 220px;
+    padding: 20px;
+    color: var(--color-texto);
+    text-decoration: none;
+    transition: transform 0.3s ease;
+}
+
+.TarjetaProyecto:hover {
+    transform: scale(1.03);
+}
+
+/* === Sección Contacto === */
+.SeccionContacto {
+    background-color: var(--color-fondo);
+}
+
+.FormularioContacto {
+    max-width: 600px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    text-align: center;
+}
+
+.FormularioContacto input,
+.FormularioContacto textarea {
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    background-color: var(--color-tarjeta);
+    color: var(--color-texto);
+}
+
+.FormularioContacto button {
+    padding: 12px;
+    background-color: #4c51bf;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.FormularioContacto button:hover {
+    background-color: #6b72d8;
+}
+
+/* === Sección Final === */
+.SeccionFinal {
+    min-height: 80vh;
+    padding: 60px 30px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start; /* ← Alineación a la izquierda */
+    flex-wrap: wrap;
+    background-color: var(--color-secundario);
+    gap: 20px;
+    box-sizing: border-box;
+    color: var(--color-texto);
+}
+
+.TablaFinal a {
+    color: #8a8a8a;
+    text-decoration: none;
+    position: relative;
+    display: inline-block; /* Clave: que el ancho se ajuste al texto */
+    padding-bottom: 2px; /* Opcional, espacio para el subrayado */
+}
+
+.TablaFinal a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 2px;
+    width: 100%; /* Este 100% se refiere al ancho del texto, no del flex */
+    background-color: white;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+}
+
+.TablaFinal a:hover::after {
+    transform: scaleX(1);
+}
+
+.TablaFinal a:hover {
+    color: white;
+    font-weight: bold;
 }
 
 
 
-/* Animación suave para el menú */
+/* === Footer === */
+.Pie {
+    padding: 20px;
+    background-color: var(--color-fondo);
+    color: var(--color-texto);
+}
+
+/* === Responsividad === */
+@media (max-width: 1150px) {
+    .SeccionCentral {
+        display: none;
+    }
+
+    .BotonHamburguesa {
+        display: block;
+    }
+
+    .SeccionDerecha img {
+        display: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .BarraDeNavegacion {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .SeccionDescripcion {
+        flex-direction: column;
+    }
+
+    .ColumnaIzquierda,
+    .ColumnaDerecha {
+        width: 100%;
+    }
+}
+
 @keyframes Desplegar {
     from {
         opacity: 0;
@@ -207,150 +391,4 @@ main p {
         opacity: 1;
         transform: translateY(0);
     }
-}
-
-/* Diseño responsive */
-@media (max-width: 1150px) {
-    /* Ocultar los enlaces centrales y mostrar hamburguesa */
-    .SeccionCentral {
-        display: none;
-    }
-
-    .BotonHamburguesa {
-        display: block;
-    }
-
-    /* Ocultar el logo cuando se ve la hamburguesa */
-    .SeccionDerecha img {
-        display: none;
-    }
-}
-
-/* Título principal */
-main h1 {
-    text-align: center;
-    margin-top: 80px;
-    font-size: 2.5em;
-    color: #f3f4f6;
-}
-
-/* Descripción */
-main p {
-    text-align: center;
-    font-size: 1.2em;
-    color: #d1d5db;
-}
-/* === Sección de Proyectos === */
-#proyectos {
-    padding: 60px 40px;
-    background-color: #1f2937;
-}
-
-#proyectos h2 {
-    color: #f3f4f6;
-    text-align: center;
-    margin-bottom: 40px;
-    font-size: clamp(1.5em, 4vw, 2.5em);
-}
-
-.TarjetasProyectos {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 20px;
-}
-
-.TarjetaProyecto {
-    width: 250px;
-    height: 200px;
-    background-color: #374151;
-    border-radius: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #f9fafb;
-    font-size: 1.2em;
-    text-align: center;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-    transition: transform 0.3s ease, background-color 0.3s ease;
-}
-
-.TarjetaProyecto:hover {
-    transform: translateY(-5px);
-    background-color: #4b5563;
-}
-
-/* === Sección de Contacto === */
-#contacto {
-    padding: 60px 40px;
-    background-color: #111827;
-}
-
-#contacto h2 {
-    color: #f3f4f6;
-    text-align: center;
-    margin-bottom: 30px;
-    font-size: clamp(1.5em, 4vw, 2.5em);
-}
-
-form {
-    max-width: 600px;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
-
-form input,
-form textarea {
-    padding: 10px 15px;
-    border-radius: 5px;
-    border: none;
-    font-size: 1em;
-    background-color: #1f2937;
-    color: #f9fafb;
-    outline: none;
-    transition: background-color 0.2s ease;
-}
-
-form input:focus,
-form textarea:focus {
-    background-color: #374151;
-}
-
-form button {
-    padding: 12px;
-    background-color: #2563eb;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-form button:hover {
-    background-color: #1d4ed8;
-}
-
-/* === Sección de Habilidades === */
-#habilidades ul {
-    list-style: none;
-    padding-left: 0;
-    margin: 0;
-}
-
-#habilidades li {
-    font-size: 1.2em;
-    padding: 10px 0;
-    color: #f9fafb;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-#habilidades li::before {
-    content: "✔";
-    color: #10b981;
-    font-weight: bold;
 }

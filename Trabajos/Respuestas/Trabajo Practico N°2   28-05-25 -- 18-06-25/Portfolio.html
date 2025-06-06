@@ -2,45 +2,54 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="Descripcion" content="Trabajo Práctico 2 Para Laboratorio De Algoritmos">
+    <meta name="description" content="Trabajo Práctico 2 Para Laboratorio De Algoritmos">
     <title>Mi Portafolio - Desarrollador Web</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="estilos.css">
     <script src="script.js" defer></script>
 </head>
-<body style="background-color: #111827;">
+<body>
+    <header>
+        <nav id="inicio" class="BarraDeNavegacion">
+            <div class="SeccionIzquierda">
+                <h3>Santino Luciano Rodriguez Fuchs</h3>
+            </div>
 
-    <nav class="BarraDeNavegacion">
-        <div class="SeccionIzquierda">
-            <h3>Santino Luciano Rodriguez Fuchs</h3>
-        </div>
-
-        <div class="SeccionCentral">
-            <a href="#">Inicio</a>
-            <a href="#">Sobre Mí</a>
-            <a href="#habilidades">Habilidades</a>
-            <a href="#proyectos">Proyectos</a>
-            <a href="#contacto">Contacto</a>
-        </div>
-
-        <div class="SeccionDerecha">
-            <a href="https://huergo.edu.ar/" target="_blank"><img src="LogoHuergo.PNG" alt="Logo Huergo"></a>
-            <button class="BotonHamburguesa" id="BotonMenu">☰</button>
-            <div class="MenuColapsable" id="MenuColapsable">
+            <div class="SeccionCentral">
                 <a href="#">Inicio</a>
                 <a href="#">Sobre Mí</a>
                 <a href="#habilidades">Habilidades</a>
                 <a href="#proyectos">Proyectos</a>
                 <a href="#contacto">Contacto</a>
             </div>
-        </div>
-    </nav>
+
+            <div class="SeccionDerecha">
+                <button class="Tema" id="Tema" aria-label="Cambiar tema">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <a href="https://huergo.edu.ar/" target="_blank">
+                    <img src="LogoHuergo.PNG" alt="Logo Huergo">
+                </a>
+                <button class="BotonHamburguesa" id="BotonMenu">☰</button>
+                <div class="MenuColapsable" id="MenuColapsable">
+                    <a href="#">Inicio</a>
+                    <a href="#">Sobre Mí</a>
+                    <a href="#habilidades">Habilidades</a>
+                    <a href="#proyectos">Proyectos</a>
+                    <a href="#contacto">Contacto</a>
+                </div>
+            </div>
+        </nav>
+    </header>
 
     <main>
-        <section class="SeccionPrincipal">
+        <!-- Sección Principal -->
+        <section class="SeccionPrincipal SeccionFullPantalla">
             <h1>Santino Rodriguez</h1>
         </section>
 
-        <section class="SeccionDescripcion">
+        <!-- Descripción Personal -->
+        <section id="sobremi" class="SeccionDescripcion SeccionFullPantalla">
             <div class="ColumnaIzquierda">
                 <h4>Breve Descripción General</h4>
             </div>
@@ -51,48 +60,110 @@
             </div>
         </section>
 
-        <!-- Sección Habilidades -->
-        <section id="habilidades" class="SeccionDescripcion">
-            <div class="ColumnaIzquierda">
-                <h4>Habilidades</h4>
-            </div>
-            <div class="ColumnaDerecha">
-                <ul style="list-style: none; padding-left: 0;">
-                    <li>HTML, CSS y JavaScript</li>
-                    <li>Lógica de Programación</li>
-                    <li>Python y Pygame</li>
-                    <li>Control de Versiones (Git)</li>
-                </ul>
+        <!-- Habilidades Técnicas -->
+        <section id="habilidades" class="SeccionHabilidades SeccionFullPantalla">
+            <h2 class="TituloSeccion">Habilidades Técnicas</h2>
+            <div class="ContenedorTarjetas">
+                <a href="https://developer.mozilla.org/es/docs/Web/HTML" target="_blank" class="TarjetaHabilidad">
+                    <img 
+                        src="logos/html596.png"
+                        srcset="logos/html36.png 36w,logos/html48.png 48w,logos/html72.png 72w,logos/html96.png 96w,logos/html144.png 144w,logos/html192.png 192w,logos/html240.png 240w"
+                        sizes="(max-width: 400px) 36px,(max-width: 600px) 48px,(max-width: 800px) 72px,(max-width: 1000px) 96px,(max-width: 1200px) 144px,(max-width: 1400px) 192px,240px"alt="HTML5 Logo"
+                    >
+                </a>
+                <a href="https://developer.mozilla.org/es/docs/Web/CSS" target="_blank" class="TarjetaHabilidad">
+                    <img 
+                        src="logos/css396.png"
+                        srcset="logos/css36.png 36w,logos/css48.png 48w,logos/css72.png 72w,logos/css96.png 96w,logos/css144.png 144w,logos/css192.png 192w,logos/css240.png 240w"
+                        sizes="(max-width: 400px) 36px,(max-width: 600px) 48px,(max-width: 800px) 72px,(max-width: 1000px) 96px,(max-width: 1200px) 144px,(max-width: 1400px) 192px,240px"alt="CSS3 Logo"
+                    >
+                </a>
+                <a href="https://www.python.org/" target="_blank" class="TarjetaHabilidad">
+                    <img 
+                        src="logos/python96.png"
+                        srcset="logos/python36.png 36w,logos/python48.png 48w,logos/python72.png 72w,logos/python96.png 96w,logos/python144.png 144w,logos/python192.png 192w,logos/python240.png 240w"
+                        sizes="(max-width: 400px) 36px,(max-width: 600px) 48px,(max-width: 800px) 72px,(max-width: 1000px) 96px,(max-width: 1200px) 144px,(max-width: 1400px) 192px,240px"alt="Python Logo"
+                    >
+                </a>
+                <a href="https://git-scm.com/" target="_blank" class="TarjetaHabilidad">
+                    <img 
+                        src="logos/git96.png"
+                        srcset="logos/git36.png 36w,logos/git48.png 48w,logos/git72.png 72w,logos/git96.png 96w,logos/git144.png 144w,logos/git192.png 192w,logos/git240.png 240w"
+                        sizes="(max-width: 400px) 36px,(max-width: 600px) 48px,(max-width: 800px) 72px,(max-width: 1000px) 96px,(max-width: 1200px) 144px,(max-width: 1400px) 192px,240px"alt="Git Logo"
+                    >
+                </a>
+                <a href="https://www.mysql.com/" target="_blank" class="TarjetaHabilidad">
+                    <img 
+                        src="logos/mysql96.png"
+                        srcset="logos/mysql36.png 36w,logos/mysql48.png 48w,logos/mysql72.png 72w,logos/mysql96.png 96w,logos/mysql144.png 144w,logos/mysql192.png 192w,logos/mysql240.png 240w"
+                        sizes="(max-width: 400px) 36px,(max-width: 600px) 48px,(max-width: 800px) 72px,(max-width: 1000px) 96px,(max-width: 1200px) 144px,(max-width: 1400px) 192px,240px"alt="MySQL Logo"
+                    >
+                </a>
+                <a href="https://www.adobe.com/products/photoshop.html" target="_blank" class="TarjetaHabilidad">
+                    <img 
+                        src="logos/photoshop96.png"
+                        srcset="logos/photoshop36.png 36w,logos/photoshop48.png 48w,logos/photoshop72.png 72w,logos/photoshop96.png 96w,logos/photoshop144.png 144w,logos/photoshop192.png 192w,logos/photoshop240.png 240w"
+                        sizes="(max-width: 400px) 36px,(max-width: 600px) 48px,(max-width: 800px) 72px,(max-width: 1000px) 96px,(max-width: 1200px) 144px,(max-width: 1400px) 192px,240px"alt="Adobe Photoshop Logo"
+                    >
+                </a>
             </div>
         </section>
 
-        <!-- Sección Proyectos -->
-        <section id="proyectos" style="padding: 60px 40px; background-color: #1f2937;">
-            <h2 style="color: #f3f4f6; text-align: center; margin-bottom: 40px;">Proyectos</h2>
-            <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 20px;">
-                <div style="width: 250px; height: 200px; background-color: #374151; border-radius: 10px; display: flex; justify-content: center; align-items: center; color: #f9fafb; font-size: 1.2em; text-align: center;">
-                    Proyecto 1
-                </div>
-                <div style="width: 250px; height: 200px; background-color: #374151; border-radius: 10px; display: flex; justify-content: center; align-items: center; color: #f9fafb; font-size: 1.2em; text-align: center;">
-                    Proyecto 2
-                </div>
-                <div style="width: 250px; height: 200px; background-color: #374151; border-radius: 10px; display: flex; justify-content: center; align-items: center; color: #f9fafb; font-size: 1.2em; text-align: center;">
-                    Proyecto 3
-                </div>
+
+
+        <!-- Proyectos -->
+        <section id="proyectos" class="SeccionProyectos SeccionFullPantalla">
+            <h2 class="TituloSeccion">Mis Proyectos</h2>
+            <div class="ContenedorTarjetasProyectos">
+                <a href="https://tulink-aqui.com" target="_blank" class="TarjetaProyecto">
+                    <div>
+                        <h3>Juego en Pygame</h3>
+                        <p>Juego interactivo en 2D con animaciones, sonidos y niveles.</p>
+                    </div>
+                </a>
+                <a href="https://tulink-aqui.com" target="_blank" class="TarjetaProyecto">
+                    <div>
+                        <h3>Web Personal</h3>
+                        <p>Portfolio responsivo con HTML, CSS y JavaScript puro.</p>
+                    </div>
+                </a>
+                <a href="https://tulink-aqui.com" target="_blank" class="TarjetaProyecto">
+                    <div>
+                        <h3>App de Tareas</h3>
+                        <p>Organizador de tareas con guardado local, hecha en JavaScript.</p>
+                    </div>
+                </a>
             </div>
         </section>
 
-        <!-- Sección Contacto -->
-        <section id="contacto" style="padding: 60px 40px; background-color: #111827;">
-            <h2 style="color: #f3f4f6; text-align: center; margin-bottom: 30px;">Contacto</h2>
-            <form style="max-width: 600px; margin: 0 auto; display: flex; flex-direction: column; gap: 15px;">
-                <input type="text" placeholder="Tu Nombre" style="padding: 10px; border-radius: 5px; border: none;">
-                <input type="email" placeholder="Tu Correo Electrónico" style="padding: 10px; border-radius: 5px; border: none;">
-                <textarea placeholder="Escribe tu mensaje" rows="5" style="padding: 10px; border-radius: 5px; border: none;"></textarea>
-                <button type="submit" style="padding: 12px; background-color: #2563eb; color: white; border: none; border-radius: 5px; cursor: pointer;">Enviar Mensaje</button>
+        <!-- Contacto -->
+        <section id="contacto" class="SeccionContacto SeccionFullPantalla">
+            <h2 class="TituloSeccion">Contacto</h2>
+            <form class="FormularioContacto">
+                <input type="text" placeholder="Tu Nombre">
+                <input type="email" placeholder="Tu Correo Electrónico">
+                <textarea placeholder="Escribe tu mensaje" rows="5"></textarea>
+                <button type="submit">Enviar Mensaje</button>
             </form>
         </section>
-    </main>
 
+        <hr>
+        <section id="cierre" class="SeccionFinal">
+            <div class="TablaFinal">
+                <p><strong>Navegacion</strong></p>
+                <br><br><br>
+                <a href="#inicio">Inicio</a><br><br>
+                <a href="#sobremi">Sobre Mí</a><br><br>
+                <a href="#habilidades">Habilidades</a><br><br>
+                <a href="#proyectos">Proyectos</a><br><br>
+                <a href="#contacto">Contacto</a>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <div class="Pie">
+            <p>Copyright &copy; Santino Rodriguez 2025.</p>
+        </div>
+    </footer>
 </body>
 </html>

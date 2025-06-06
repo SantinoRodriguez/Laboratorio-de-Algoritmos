@@ -5,27 +5,53 @@
     <meta name="Descripcion" content="Trabajo Práctico 2 Para Laboratorio De Algoritmos">
     <title>Mi Portafolio - Desarrollador Web</title>
     <style>
-        body {
-            margin: 0;
-            font-family: 'Segoe UI', sans-serif;
-            color: white;
-            background-color: #111827;
+        /* === Variables para Tema === */
+        :root {
+            --color-fondo: #0f1115;
+            --color-texto: #e6e6e6;
+            --color-primario: #58a6ff;
+            --color-secundario: #1a1c22;
+            --color-borde: #2e3038;
+            --color-tarjeta: #2e3038;
+            --transicion: 0.3s ease;
         }
 
+        .claro {
+            --color-fondo: #ffffff;
+            --color-texto: #1a1a1a;
+            --color-primario: #1e90ff;
+            --color-secundario: #f3f3f3;
+            --color-borde: #cccccc;
+            --color-tarjeta: #e6e6e6;
+        }
+
+        /* === Estilo Global === */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: var(--color-fondo);
+            color: var(--color-texto);
+        }
+
+        /* === Navegación === */
         .BarraDeNavegacion {
             position: relative;
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 15px 40px;
-            background-color: #1f2937;
-            border-bottom: 2px solid #374151;
+            background-color: var(--color-secundario);
+            border-bottom: 2px solid var(--color-borde);
         }
 
         .SeccionIzquierda h3 {
-            margin: 0;
+            color: var(--color-texto);
             font-size: clamp(1em, 2.5vw, 1.2em);
-            color: #f9fafb;
         }
 
         .SeccionCentral {
@@ -38,59 +64,48 @@
 
         .SeccionCentral a {
             text-decoration: none;
-            color: #d1d5db;
+            color: var(--color-texto);
             font-size: clamp(0.9em, 2vw, 1em);
-            transition: color 0.3s ease;
+            transition: color 0.3s;
         }
 
         .SeccionCentral a:hover {
             color: #ffffff;
         }
 
+        .SeccionDerecha {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
         .SeccionDerecha img {
             height: 30px;
-            transition: transform 0.3s ease;
+            transition: transform 0.3s;
         }
 
         .SeccionDerecha img:hover {
             transform: scale(1.1);
         }
 
-        main h1 {
-            text-align: center;
-            margin-top: 80px;
-            font-size: clamp(1.5em, 5vw, 2.5em);
-            color: #f3f4f6;
+        .Tema {
+            background: none;
+            border: 2px solid var(--color-borde);
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: var(--color-texto);
+            font-size: 1.1em;
+            transition: var(--transicion);
+            margin-bottom: 3px;
         }
 
-        main p {
-            text-align: center;
-            font-size: clamp(1em, 2.5vw, 1.2em);
-            color: #d1d5db;
-        }
-
-        @media (max-width: 768px) {
-            .BarraDeNavegacion {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-
-            .SeccionCentral {
-                position: static;
-                transform: none;
-                margin-top: 10px;
-            }
-
-            .SeccionDerecha {
-                align-self: flex-end;
-                margin-top: 10px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .SeccionCentral {
-                display: none;
-            }
+        .Tema:hover {
+            background-color: var(--color-borde);
         }
 
         .BotonHamburguesa {
@@ -98,7 +113,7 @@
             font-size: 1.5em;
             background: none;
             border: none;
-            color: #f3f4f6;
+            color: var(--color-texto);
             cursor: pointer;
         }
 
@@ -112,88 +127,238 @@
             left: 0;
             width: 100vw;
             height: 100vh;
-            background-color: #1f2937;
+            background-color: var(--color-secundario);
             z-index: 1000;
             animation: Desplegar 0.3s ease forwards;
         }
 
         .MenuColapsable a {
-            color: #d1d5db;
+            color: var(--color-texto);
             text-decoration: none;
             font-size: 1.5em;
             padding: 15px 0;
         }
 
         .MenuColapsable a:hover {
-            color: white;
+            color: #ffffff;
         }
 
-        .SeccionPrincipal {
-            height: 100vh;
+        /* === Clase base para secciones === */
+        .SeccionFullPantalla {
+            min-height: 100vh;
+            padding: 80px 40px;
             display: flex;
+            flex-direction: column;
             justify-content: center;
-            align-items: center;
-            background-color: #111827;
+            box-sizing: border-box;
+        }
+
+        /* === Sección Principal === */
+        .SeccionPrincipal {
+            background-color: var(--color-fondo);
         }
 
         .SeccionPrincipal h1 {
             font-size: clamp(2em, 5vw, 3em);
-            color: #f3f4f6;
-            margin: 0;
             text-align: center;
+            color: var(--color-texto);
         }
 
+        /* === Sección Descripción === */
         .SeccionDescripcion {
             display: flex;
-            height: 100vh;
-            background-color: #1f2937;
-            padding: 40px;
-            box-sizing: border-box;
+            flex-wrap: wrap;
+            background-color: var(--color-secundario);
+            gap: 20px;
         }
 
         .ColumnaIzquierda {
-            width: 33.33%;
+            flex: 1;
+            min-width: 200px;
             display: flex;
-            align-items: flex-start;
             justify-content: center;
-            padding-top: 20px;
+            align-items: flex-start;
         }
 
         .ColumnaIzquierda h4 {
-            color: #9ca3af;
+            color: #9ea0a5;
             font-size: clamp(0.9em, 1.5vw, 1em);
             text-transform: uppercase;
-            letter-spacing: 1px;
-            margin: 0;
         }
 
         .ColumnaDerecha {
-            width: 66.66%;
+            flex: 2;
+            min-width: 250px;
             display: flex;
-            align-items: center;
             justify-content: center;
-            padding: 20px;
+            align-items: center;
         }
 
         .ColumnaDerecha p {
-            font-size: clamp(1.4em, 3vw, 2em);
-            color: #f3f4f6;
-            text-align: left;
+            font-size: clamp(1.2em, 2.5vw, 1.5em);
+            color: var(--color-texto);
             line-height: 1.6;
-            max-width: 90%;
         }
 
-        @keyframes Desplegar {
-            from {
-                opacity: 0;
-                transform: translateY(-10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        /* === Sección Habilidades === */
+        .SeccionHabilidades {
+            background-color: var(--color-fondo);
         }
 
+        .TituloSeccion {
+            color: var(--color-texto);
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: clamp(1.5em, 4vw, 2.5em);
+        }
+
+        .ContenedorTarjetas {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 25px;
+        }
+
+        .TarjetaHabilidad {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100px;
+            height: 100px;
+            background-color: var(--color-tarjeta);
+            border-radius: 12px;
+            padding: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .TarjetaHabilidad:hover {
+            transform: scale(1.05);
+        }
+
+        .TarjetaHabilidad img {
+            max-width: 64px;
+            max-height: 64px;
+            object-fit: contain;
+        }
+
+        /* === Sección Proyectos === */
+        .SeccionProyectos {
+            background-color: var(--color-secundario);
+        }
+
+        .ContenedorTarjetasProyectos {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+        }
+
+        .TarjetaProyecto {
+            background-color: var(--color-tarjeta);
+            border-radius: 12px;
+            width: 300px;
+            height: 220px;
+            padding: 20px;
+            color: var(--color-texto);
+            text-decoration: none;
+            transition: transform 0.3s ease;
+        }
+
+        .TarjetaProyecto:hover {
+            transform: scale(1.03);
+        }
+
+        /* === Sección Contacto === */
+        .SeccionContacto {
+            background-color: var(--color-fondo);
+        }
+
+        .FormularioContacto {
+            max-width: 600px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            text-align: center;
+        }
+
+        .FormularioContacto input,
+        .FormularioContacto textarea {
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+            background-color: var(--color-tarjeta);
+            color: var(--color-texto);
+        }
+
+        .FormularioContacto button {
+            padding: 12px;
+            background-color: #4c51bf;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .FormularioContacto button:hover {
+            background-color: #6b72d8;
+        }
+
+        /* === Sección Final === */
+        .SeccionFinal {
+            min-height: 80vh;
+            padding: 60px 30px;
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-start; /* ← Alineación a la izquierda */
+            flex-wrap: wrap;
+            background-color: var(--color-secundario);
+            gap: 20px;
+            box-sizing: border-box;
+            color: var(--color-texto);
+        }
+
+        .TablaFinal a {
+            color: #8a8a8a;
+            text-decoration: none;
+            position: relative;
+            display: inline-block; /* Clave: que el ancho se ajuste al texto */
+            padding-bottom: 2px; /* Opcional, espacio para el subrayado */
+        }
+
+        .TablaFinal a::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            height: 2px;
+            width: 100%; /* Este 100% se refiere al ancho del texto, no del flex */
+            background-color: white;
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s ease;
+        }
+
+        .TablaFinal a:hover::after {
+            transform: scaleX(1);
+        }
+
+        .TablaFinal a:hover {
+            color: white;
+            font-weight: bold;
+        }
+
+
+
+        /* === Footer === */
+        .Pie {
+            padding: 20px;
+            background-color: var(--color-fondo);
+            color: var(--color-texto);
+        }
+
+        /* === Responsividad === */
         @media (max-width: 1150px) {
             .SeccionCentral {
                 display: none;
@@ -207,42 +372,77 @@
                 display: none;
             }
         }
+
+        @media (max-width: 768px) {
+            .BarraDeNavegacion {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .SeccionDescripcion {
+                flex-direction: column;
+            }
+
+            .ColumnaIzquierda,
+            .ColumnaDerecha {
+                width: 100%;
+            }
+        }
+
+        @keyframes Desplegar {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
     </style>
 </head>
 <body>
+    <header>
+        <nav id="inicio" class="BarraDeNavegacion">
+            <div class="SeccionIzquierda">
+                <h3>Santino Luciano Rodriguez Fuchs</h3>
+            </div>
 
-    <nav class="BarraDeNavegacion">
-        <div class="SeccionIzquierda">
-            <h3>Santino Luciano Rodriguez Fuchs</h3>
-        </div>
-
-        <div class="SeccionCentral">
-            <a href="#">Inicio</a>
-            <a href="#">Sobre Mí</a>
-            <a href="#">Descargar</a>
-            <a href="#">Proyectos</a>
-            <a href="#">Contacto</a>
-        </div>
-
-        <div class="SeccionDerecha">
-            <a href="https://huergo.edu.ar/" target="_blank"><img src="LogoHuergo.PNG" alt="Logo Huergo"></a>
-            <button class="BotonHamburguesa" id="BotonMenu">☰</button>
-            <div class="MenuColapsable" id="MenuColapsable">
+            <div class="SeccionCentral">
                 <a href="#">Inicio</a>
                 <a href="#">Sobre Mí</a>
-                <a href="#">Descargar</a>
-                <a href="#">Proyectos</a>
-                <a href="#">Contacto</a>
+                <a href="#habilidades">Habilidades</a>
+                <a href="#proyectos">Proyectos</a>
+                <a href="#contacto">Contacto</a>
             </div>
-        </div>
-    </nav>
+
+            <div class="SeccionDerecha">
+                <button class="Tema" id="Tema" aria-label="Cambiar tema">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <a href="https://huergo.edu.ar/" target="_blank">
+                    <img src="LogoHuergo.PNG" alt="Logo Huergo">
+                </a>
+                <button class="BotonHamburguesa" id="BotonMenu">☰</button>
+                <div class="MenuColapsable" id="MenuColapsable">
+                    <a href="#">Inicio</a>
+                    <a href="#">Sobre Mí</a>
+                    <a href="#habilidades">Habilidades</a>
+                    <a href="#proyectos">Proyectos</a>
+                    <a href="#contacto">Contacto</a>
+                </div>
+            </div>
+        </nav>
+    </header>
 
     <main>
-        <section class="SeccionPrincipal">
+        <!-- Sección Principal -->
+        <section class="SeccionPrincipal SeccionFullPantalla">
             <h1>Santino Rodriguez</h1>
         </section>
 
-        <section class="SeccionDescripcion">
+        <!-- Descripción Personal -->
+        <section id="sobremi" class="SeccionDescripcion SeccionFullPantalla">
             <div class="ColumnaIzquierda">
                 <h4>Breve Descripción General</h4>
             </div>
@@ -252,13 +452,121 @@
                 </p>
             </div>
         </section>
+
+        <!-- Habilidades Técnicas -->
+        <section id="habilidades" class="SeccionHabilidades SeccionFullPantalla">
+            <h2 class="TituloSeccion">Habilidades Técnicas</h2>
+            <div class="ContenedorTarjetas">
+                <a href="https://developer.mozilla.org/es/docs/Web/HTML" target="_blank" class="TarjetaHabilidad">
+                    <img 
+                        src="logos/html596.png"
+                        srcset="logos/html36.png 36w,logos/html48.png 48w,logos/html72.png 72w,logos/html96.png 96w,logos/html144.png 144w,logos/html192.png 192w,logos/html240.png 240w"
+                        sizes="(max-width: 400px) 36px,(max-width: 600px) 48px,(max-width: 800px) 72px,(max-width: 1000px) 96px,(max-width: 1200px) 144px,(max-width: 1400px) 192px,240px"alt="HTML5 Logo"
+                    >
+                </a>
+                <a href="https://developer.mozilla.org/es/docs/Web/CSS" target="_blank" class="TarjetaHabilidad">
+                    <img 
+                        src="logos/css396.png"
+                        srcset="logos/css36.png 36w,logos/css48.png 48w,logos/css72.png 72w,logos/css96.png 96w,logos/css144.png 144w,logos/css192.png 192w,logos/css240.png 240w"
+                        sizes="(max-width: 400px) 36px,(max-width: 600px) 48px,(max-width: 800px) 72px,(max-width: 1000px) 96px,(max-width: 1200px) 144px,(max-width: 1400px) 192px,240px"alt="CSS3 Logo"
+                    >
+                </a>
+                <a href="https://www.python.org/" target="_blank" class="TarjetaHabilidad">
+                    <img 
+                        src="logos/python96.png"
+                        srcset="logos/python36.png 36w,logos/python48.png 48w,logos/python72.png 72w,logos/python96.png 96w,logos/python144.png 144w,logos/python192.png 192w,logos/python240.png 240w"
+                        sizes="(max-width: 400px) 36px,(max-width: 600px) 48px,(max-width: 800px) 72px,(max-width: 1000px) 96px,(max-width: 1200px) 144px,(max-width: 1400px) 192px,240px"alt="Python Logo"
+                    >
+                </a>
+                <a href="https://git-scm.com/" target="_blank" class="TarjetaHabilidad">
+                    <img 
+                        src="logos/git96.png"
+                        srcset="logos/git36.png 36w,logos/git48.png 48w,logos/git72.png 72w,logos/git96.png 96w,logos/git144.png 144w,logos/git192.png 192w,logos/git240.png 240w"
+                        sizes="(max-width: 400px) 36px,(max-width: 600px) 48px,(max-width: 800px) 72px,(max-width: 1000px) 96px,(max-width: 1200px) 144px,(max-width: 1400px) 192px,240px"alt="Git Logo"
+                    >
+                </a>
+                <a href="https://www.mysql.com/" target="_blank" class="TarjetaHabilidad">
+                    <img 
+                        src="logos/mysql96.png"
+                        srcset="logos/mysql36.png 36w,logos/mysql48.png 48w,logos/mysql72.png 72w,logos/mysql96.png 96w,logos/mysql144.png 144w,logos/mysql192.png 192w,logos/mysql240.png 240w"
+                        sizes="(max-width: 400px) 36px,(max-width: 600px) 48px,(max-width: 800px) 72px,(max-width: 1000px) 96px,(max-width: 1200px) 144px,(max-width: 1400px) 192px,240px"alt="MySQL Logo"
+                    >
+                </a>
+                <a href="https://www.adobe.com/products/photoshop.html" target="_blank" class="TarjetaHabilidad">
+                    <img 
+                        src="logos/photoshop96.png"
+                        srcset="logos/photoshop36.png 36w,logos/photoshop48.png 48w,logos/photoshop72.png 72w,logos/photoshop96.png 96w,logos/photoshop144.png 144w,logos/photoshop192.png 192w,logos/photoshop240.png 240w"
+                        sizes="(max-width: 400px) 36px,(max-width: 600px) 48px,(max-width: 800px) 72px,(max-width: 1000px) 96px,(max-width: 1200px) 144px,(max-width: 1400px) 192px,240px"alt="Adobe Photoshop Logo"
+                    >
+                </a>
+            </div>
+        </section>
+
+
+
+        <!-- Proyectos -->
+        <section id="proyectos" class="SeccionProyectos SeccionFullPantalla">
+            <h2 class="TituloSeccion">Mis Proyectos</h2>
+            <div class="ContenedorTarjetasProyectos">
+                <a href="https://tulink-aqui.com" target="_blank" class="TarjetaProyecto">
+                    <div>
+                        <h3>Juego en Pygame</h3>
+                        <p>Juego interactivo en 2D con animaciones, sonidos y niveles.</p>
+                    </div>
+                </a>
+                <a href="https://tulink-aqui.com" target="_blank" class="TarjetaProyecto">
+                    <div>
+                        <h3>Web Personal</h3>
+                        <p>Portfolio responsivo con HTML, CSS y JavaScript puro.</p>
+                    </div>
+                </a>
+                <a href="https://tulink-aqui.com" target="_blank" class="TarjetaProyecto">
+                    <div>
+                        <h3>App de Tareas</h3>
+                        <p>Organizador de tareas con guardado local, hecha en JavaScript.</p>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        <!-- Contacto -->
+        <section id="contacto" class="SeccionContacto SeccionFullPantalla">
+            <h2 class="TituloSeccion">Contacto</h2>
+            <form class="FormularioContacto">
+                <input type="text" placeholder="Tu Nombre">
+                <input type="email" placeholder="Tu Correo Electrónico">
+                <textarea placeholder="Escribe tu mensaje" rows="5"></textarea>
+                <button type="submit">Enviar Mensaje</button>
+            </form>
+        </section>
+
+        <hr>
+        <section id="cierre" class="SeccionFinal">
+            <div class="TablaFinal">
+                <p><strong>Navegacion</strong></p>
+                <br><br><br>
+                <a href="#inicio">Inicio</a><br><br>
+                <a href="#sobremi">Sobre Mí</a><br><br>
+                <a href="#habilidades">Habilidades</a><br><br>
+                <a href="#proyectos">Proyectos</a><br><br>
+                <a href="#contacto">Contacto</a>
+            </div>
+        </section>
     </main>
+    <footer>
+        <div class="Pie">
+            <p>Copyright &copy; Santino Rodriguez 2025.</p>
+        </div>
+    </footer>
 
     <script>
+        // Obtener referencias
         const BotonMenu = document.getElementById('BotonMenu');
         const MenuColapsable = document.getElementById('MenuColapsable');
 
+        // Evento para mostrar u ocultar el menú
         BotonMenu.addEventListener('click', () => {
+            // Alternar visibilidad usando clases
             if (MenuColapsable.style.display === 'flex') {
                 MenuColapsable.style.display = 'none';
             } else {
@@ -266,11 +574,29 @@
             }
         });
 
+        // Cerrar el menú si se hace clic en un enlace
         const EnlacesMenu = MenuColapsable.querySelectorAll('a');
         EnlacesMenu.forEach((Enlace) => {
             Enlace.addEventListener('click', () => {
                 MenuColapsable.style.display = 'none';
             });
+        });
+
+
+        const BotonTema = document.getElementById("Tema");
+        const Body = document.body;
+
+        // Al cargar, aplicar tema guardado
+        if (localStorage.getItem("tema") === "claro") {
+            Body.classList.add("claro");
+            BotonTema.textContent = "🌙";
+        }
+
+        BotonTema.addEventListener("click", () => {
+            Body.classList.toggle("claro");
+            const TemaActual = Body.classList.contains("claro") ? "claro" : "oscuro";
+            BotonTema.textContent = TemaActual === "claro" ? "🌙" : "☀️";
+            localStorage.setItem("tema", TemaActual);
         });
     </script>
 

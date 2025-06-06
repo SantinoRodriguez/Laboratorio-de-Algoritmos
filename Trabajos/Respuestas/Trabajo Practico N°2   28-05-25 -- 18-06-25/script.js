@@ -19,3 +19,22 @@ EnlacesMenu.forEach((Enlace) => {
         MenuColapsable.style.display = 'none';
     });
 });
+
+
+const BotonTema = document.getElementById("Tema");
+const Body = document.body;
+
+// Al cargar, aplicar tema guardado
+if (localStorage.getItem("tema") === "claro") {
+    Body.classList.add("claro");
+    BotonTema.textContent = "🌙";
+}
+
+BotonTema.addEventListener("click", () => {
+    Body.classList.toggle("claro");
+    const TemaActual = Body.classList.contains("claro") ? "claro" : "oscuro";
+    BotonTema.textContent = TemaActual === "claro" ? "🌙" : "☀️";
+    localStorage.setItem("tema", TemaActual);
+});
+
+
