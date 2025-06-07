@@ -4,20 +4,22 @@
     <meta charset="UTF-8">
     <meta name="description" content="Trabajo Práctico 2 Para Laboratorio De Algoritmos">
     <title>Mi Portafolio - Desarrollador Web</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="estilos.css">
     <script src="script.js" defer></script>
 </head>
 <body>
     <header>
-        <nav id="inicio" class="BarraDeNavegacion">
+        <nav id="Barra" class="BarraDeNavegacion">
             <div class="SeccionIzquierda">
-                <h3>Santino Luciano Rodriguez Fuchs</h3>
+                <a href="#inicio">
+                    <h3>Santino Luciano Rodriguez Fuchs</h3>
+                </a>
             </div>
 
             <div class="SeccionCentral">
-                <a href="#">Inicio</a>
-                <a href="#">Sobre Mí</a>
+                <a href="#sobremi">Sobre Mí</a>
                 <a href="#habilidades">Habilidades</a>
                 <a href="#proyectos">Proyectos</a>
                 <a href="#contacto">Contacto</a>
@@ -25,15 +27,15 @@
 
             <div class="SeccionDerecha">
                 <button class="Tema" id="Tema" aria-label="Cambiar tema">
-                    <i class="fas fa-moon"></i>
-                </button>
+                    <i id="IconoTema" class="fas fa-moon"></i>
+                </button>  
                 <a href="https://huergo.edu.ar/" target="_blank">
                     <img src="LogoHuergo.PNG" alt="Logo Huergo">
                 </a>
                 <button class="BotonHamburguesa" id="BotonMenu">☰</button>
                 <div class="MenuColapsable" id="MenuColapsable">
-                    <a href="#">Inicio</a>
-                    <a href="#">Sobre Mí</a>
+                    <a href="#inicio">Inicio</a>
+                    <a href="#sobremi">Sobre Mí</a>
                     <a href="#habilidades">Habilidades</a>
                     <a href="#proyectos">Proyectos</a>
                     <a href="#contacto">Contacto</a>
@@ -44,7 +46,7 @@
 
     <main>
         <!-- Sección Principal -->
-        <section class="SeccionPrincipal SeccionFullPantalla">
+        <section id="inicio" class="SeccionPrincipal SeccionFullPantalla">
             <h1>Santino Rodriguez</h1>
         </section>
 
@@ -64,14 +66,14 @@
         <section id="habilidades" class="SeccionHabilidades SeccionFullPantalla">
             <h2 class="TituloSeccion">Habilidades Técnicas</h2>
             <div class="ContenedorTarjetas">
-                <a href="https://developer.mozilla.org/es/docs/Web/HTML" target="_blank" class="TarjetaHabilidad">
+                <a href="https://HTML5.com" target="_blank" class="TarjetaHabilidad">
                     <img 
                         src="logos/html596.png"
                         srcset="logos/html36.png 36w,logos/html48.png 48w,logos/html72.png 72w,logos/html96.png 96w,logos/html144.png 144w,logos/html192.png 192w,logos/html240.png 240w"
                         sizes="(max-width: 400px) 36px,(max-width: 600px) 48px,(max-width: 800px) 72px,(max-width: 1000px) 96px,(max-width: 1200px) 144px,(max-width: 1400px) 192px,240px"alt="HTML5 Logo"
                     >
                 </a>
-                <a href="https://developer.mozilla.org/es/docs/Web/CSS" target="_blank" class="TarjetaHabilidad">
+                <a href="https://css3.com/" target="_blank" class="TarjetaHabilidad">
                     <img 
                         src="logos/css396.png"
                         srcset="logos/css36.png 36w,logos/css48.png 48w,logos/css72.png 72w,logos/css96.png 96w,logos/css144.png 144w,logos/css192.png 192w,logos/css240.png 240w"
@@ -109,28 +111,26 @@
             </div>
         </section>
 
-
-
         <!-- Proyectos -->
         <section id="proyectos" class="SeccionProyectos SeccionFullPantalla">
             <h2 class="TituloSeccion">Mis Proyectos</h2>
             <div class="ContenedorTarjetasProyectos">
-                <a href="https://tulink-aqui.com" target="_blank" class="TarjetaProyecto">
+                <a href="https://github.com/SantinoRodriguez" target="_blank" class="TarjetaProyecto">
                     <div>
                         <h3>Juego en Pygame</h3>
-                        <p>Juego interactivo en 2D con animaciones, sonidos y niveles.</p>
+                        <p>Juego interactivo en 2D con animaciones, sonidos y niveles progresivos. Desarrollado con Python y Pygame, implementando mecánicas de colisión y sistema de puntuación.</p>
                     </div>
                 </a>
-                <a href="https://tulink-aqui.com" target="_blank" class="TarjetaProyecto">
+                <a href="https://github.com/SantinoRodriguez" target="_blank" class="TarjetaProyecto">
                     <div>
                         <h3>Web Personal</h3>
-                        <p>Portfolio responsivo con HTML, CSS y JavaScript puro.</p>
+                        <p>Portfolio responsivo con HTML, CSS y JavaScript puro. Diseño moderno con modo oscuro/claro, animaciones CSS y navegación fluida.</p>
                     </div>
                 </a>
-                <a href="https://tulink-aqui.com" target="_blank" class="TarjetaProyecto">
+                <a href="https://github.com/SantinoRodriguez" target="_blank" class="TarjetaProyecto">
                     <div>
                         <h3>App de Tareas</h3>
-                        <p>Organizador de tareas con guardado local, hecha en JavaScript.</p>
+                        <p>Organizador de tareas con almacenamiento local, hecha en JavaScript. Funcionalidades de crear, editar, eliminar y marcar como completadas.</p>
                     </div>
                 </a>
             </div>
@@ -139,30 +139,68 @@
         <!-- Contacto -->
         <section id="contacto" class="SeccionContacto SeccionFullPantalla">
             <h2 class="TituloSeccion">Contacto</h2>
-            <form class="FormularioContacto">
-                <input type="text" placeholder="Tu Nombre">
-                <input type="email" placeholder="Tu Correo Electrónico">
-                <textarea placeholder="Escribe tu mensaje" rows="5"></textarea>
+            <form class="FormularioContacto" id="FormularioContacto">
+                <input type="text" placeholder="Tu Nombre" required>
+                <input type="email" placeholder="Tu Correo Electrónico" required>
+                <textarea placeholder="Escribe tu mensaje" rows="5" required></textarea>
                 <button type="submit">Enviar Mensaje</button>
             </form>
         </section>
 
-        <hr>
+        <hr style="border: none; border-top: 2px solid var(--color-borde); margin: 0;">
+        
         <section id="cierre" class="SeccionFinal">
             <div class="TablaFinal">
-                <p><strong>Navegacion</strong></p>
-                <br><br><br>
-                <a href="#inicio">Inicio</a><br><br>
-                <a href="#sobremi">Sobre Mí</a><br><br>
-                <a href="#habilidades">Habilidades</a><br><br>
-                <a href="#proyectos">Proyectos</a><br><br>
+                <p><strong>Navegación</strong></p>
+                <a href="#inicio">Inicio</a>
+                <a href="#sobremi">Sobre Mí</a>
+                <a href="#habilidades">Habilidades</a>
+                <a href="#proyectos">Proyectos</a>
                 <a href="#contacto">Contacto</a>
+            </div>
+            
+            <div class="InformacionContacto">
+                <p><strong>Información de Contacto</strong></p>
+                <div class="InfoItem">
+                    <i class="fas fa-graduation-cap"></i>
+                    <span>Escuela Técnica Huergo</span>
+                </div>
+                <div class="InfoItem">
+                    <i class="fas fa-code"></i>
+                    <span>Orientación en Informática</span>
+                </div>
+                <div class="InfoItem">
+                    <i class="fas fa-calendar-alt"></i>
+                    <span>4° Año - 2025</span>
+                </div>
+                <div class="InfoItem">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>Buenos Aires, Argentina</span>
+                </div>
             </div>
         </section>
     </main>
+    
     <footer>
         <div class="Pie">
-            <p>Copyright &copy; Santino Rodriguez 2025.</p>
+            <div class="CopyrightInfo">
+                <p>&copy; 2025 Santino Rodriguez. Todos los derechos reservados.</p>
+            </div>
+            <div class="Volver">
+                <a href="#inicio">Back to Top</a>
+            </div>
+            <div class="RedesSociales">
+                <span>Sígueme:</span>
+                <a href="https://github.com/SantinoRodriguez" target="_blank" class="BotonRedSocial" aria-label="GitHub" title="GitHub">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="https://linkedin.com/in/santino-rodriguez" target="_blank" class="BotonRedSocial" aria-label="LinkedIn" title="LinkedIn">
+                    <i class="fab fa-linkedin-in"></i>
+                </a>
+                <a href="https://www.credly.com/users/santino-luciano-rodriguez-fuchs/edit" target="_blank" class="BotonRedSocial" aria-label="Credly" title="Credly">
+                    <i class="fas fa-certificate"></i>
+                </a>
+            </div>
         </div>
     </footer>
 </body>
