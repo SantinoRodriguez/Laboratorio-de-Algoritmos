@@ -1,6 +1,6 @@
 # Laboratorio de Algoritmos
 
-Este repositorio es una bitácora personal y académica donde registro mis aprendizajes, prácticas y proyectos desarrollados durante mi formación en informática en el Instituto Industrial Luis A. Huergo. Está dividido en dos grandes secciones: **material de estudio** y **proyectos aplicados**, abarcando desde ejercicios básicos de Python hasta desarrollos web y videojuegos en Pygame.
+Este repositorio es una bitácora personal y académica donde registro mis aprendizajes, prácticas y proyectos desarrollados durante mi formación en informática en el Instituto Industrial Luis A. Huergo. Está dividido en dos grandes secciones: **material de estudio** y **proyectos aplicados**, abarcando desde teoría y apuntes hasta desarrollos prácticos como videojuegos y páginas web.
 
 ---
 
@@ -8,17 +8,22 @@ Este repositorio es una bitácora personal y académica donde registro mis apren
 
 ### 1. Carpeta de Información
 
-En esta sección encontrarás apuntes, ejercicios resueltos y prácticas orientadas a fortalecer los fundamentos de la programación, especialmente en **Python**.
+En esta sección encontrarás apuntes, documentación, teoría y recursos para el estudio de programación y ciencias de la computación. Ideal para consulta y profundización teórica.
 
-- **Repaso de Python:** Contiene ejercicios esenciales para afianzar la lógica de programación y la sintaxis del lenguaje. Incluye resoluciones comentadas, ideales para el aprendizaje autónomo y la práctica reflexiva.
+- **Apuntes y teoría:** Conceptos, definiciones, ejemplos y explicaciones detalladas.
+- **Material de lectura:** Documentos, guías y referencias para fortalecer fundamentos.
 
 ---
 
 ### 2. Carpeta de Proyectos
 
-Aquí se encuentran los trabajos más importantes realizados hasta el momento, que ponen en práctica lo aprendido a través de desarrollos funcionales:
+Aquí se encuentran los trabajos prácticos y ejercicios resueltos que ponen en práctica lo aprendido:
 
-#### Proyecto 1: Space Invaders (Replica en Pygame)
+#### Ejercicios de Repaso de Python
+
+Ejercicios resueltos y comentados para practicar la lógica y sintaxis de Python. Este material está orientado a la práctica activa y el aprendizaje autónomo.
+
+#### Proyecto 1: Space Invaders (Réplica en Pygame)
 
 Una recreación personalizada y ampliada del clásico juego *Space Invaders*, desarrollada en Python utilizando la biblioteca **Pygame**. Implementa:
 
@@ -54,7 +59,7 @@ Desarrollo de un sitio web personal tipo portafolio, diseñado con HTML, CSS y J
 
 Mi nombre es **Santino Luciano Rodriguez Fuchs**, soy estudiante de 4° año en el Instituto Industrial Luis A. Huergo, con orientación en informática. Este repositorio refleja mi compromiso con el aprendizaje autodidacta, la exploración tecnológica y la construcción de proyectos sólidos y creativos.
 
-Contacto:
+Contacto:  
 - Email: srodriguez@alumno.huergo.edu.ar  
 - [GitHub](https://github.com/SantinoRodriguez) | [LinkedIn](https://linkedin.com/in/santino-rodriguez) | [Credly](https://www.credly.com/users/santino-luciano-rodriguez-fuchs/edit)
 
