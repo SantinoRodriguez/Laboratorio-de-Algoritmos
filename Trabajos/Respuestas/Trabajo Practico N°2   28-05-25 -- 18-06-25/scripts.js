@@ -152,3 +152,38 @@
                 document.body.style.opacity = '1';
             }, 100);
         });
+
+document.addEventListener('DOMContentLoaded', () => {
+    const Contenedor = document.querySelector('.ContenedorTarjetasProyectos2');
+    const PrevBtn = document.getElementById('.PrevBtn');
+    const NextBtn = document.getElementById('.NextBtn');
+
+    if (!Contenedor || !PrevBtn || !NextBtn) {
+        console.error('No se encontraron los elementos para el carrusel.');
+        return;
+    }
+
+    function toggleBotonesCarrusel() {
+        const Desborda = Contenedor.scrollWidth > Contenedor.clientWidth + 1;
+        PrevBtn.style.display = Desborda ? 'block' : 'none';
+        NextBtn.style.display = Desborda ? 'block' : 'none';
+        actualizarEstadoBotones();
+    }
+
+    function actualizarEstadoBotones() {
+        PrevBtn.disabled = Contenedor.scrollLeft <= 0;
+        NextBtn.disabled = Contenedor.scrollLeft + Contenedor.clientWidth >= Contenedor.scrollWidth - 1;
+    }
+
+    PrevBtn.addEventListener('click', () => {
+        Contenedor.scrollBy({ left: -340, behavior: 'smooth' });
+    });
+
+    NextBtn.addEventListener('click', () => {
+        Contenedor.scrollBy({ left: 340, behavior: 'smooth' });
+    });
+
+    window.addEventListener('load', toggleBotonesCarrusel);
+    window.addEventListener('resize', toggleBotonesCarrusel);
+    Contenedor.addEventListener('scroll', actualizarEstadoBotones);
+});

@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="Descripcion" content="Presentación del Trabajo Practivo N°1 - Space Invaders">
+    <title>Proyecto Space Invaders - Réplica con Pygame</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.7;
+            color: #e5e7eb;
+            background: #0a0a0a;
+            overflow-x: hidden;
+        }
+
+        a{
+            text-decoration: none;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: rgb(35, 35, 213);
+            text-align: justify;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 50%, #0d1117 100%);
+            color: #f8fafc;
+            text-align: center;
+            padding: 120px 60px;
+            position: relative;
+            overflow: hidden;
+            border-bottom: 1px solid #21262d;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><circle cx="20" cy="20" r="1.5" fill="rgba(99,102,241,0.3)"/><circle cx="180" cy="40" r="1" fill="rgba(168,85,247,0.2)"/><circle cx="40" cy="180" r="2" fill="rgba(59,130,246,0.3)"/><circle cx="190" cy="190" r="1" fill="rgba(147,51,234,0.2)"/><circle cx="10" cy="120" r="1" fill="rgba(79,70,229,0.3)"/><circle cx="160" cy="80" r="1.5" fill="rgba(139,92,246,0.2)"/></svg>');
+            animation: stars 30s linear infinite;
+        }
+
+        @keyframes stars {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            100% { transform: translate(-50px, -50px) rotate(360deg); }
+        }
+
+        .header h1 {
+            font-size: 4.5rem;
+            margin-bottom: 30px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #a855f7 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            position: relative;
+            z-index: 1;
+            letter-spacing: -0.02em;
+        }
+
+        .header .subtitle {
+            font-size: 1.5rem;
+            opacity: 0.8;
+            font-weight: 400;
+            position: relative;
+            z-index: 1;
+            color: #94a3b8;
+        }
+
+        /* Navigation */
+        .nav {
+            background: rgba(15, 15, 15, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid #21262d;
+            padding: 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .nav li {
+            margin: 0;
+        }
+
+        .nav a {
+            display: block;
+            color: #e5e7eb;
+            text-decoration: none;
+            padding: 20px 30px;
+            transition: all 0.3s ease;
+            border-bottom: 3px solid transparent;
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+
+        .nav a:hover {
+            background: rgba(99, 102, 241, 0.1);
+            border-bottom-color: #6366f1;
+            color: #f8fafc;
+        }
+
+        /* Content Container */
+        .main-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+
+        /* Content Sections */
+        .section {
+            padding: 100px 0;
+            border-bottom: 1px solid #21262d;
+        }
+
+        .section:last-child {
+            border-bottom: none;
+        }
+
+        .section h2 {
+            font-size: 3rem;
+            margin-bottom: 60px;
+            color: #f8fafc;
+            text-align: center;
+            position: relative;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        .section h2::after {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, #6366f1, #8b5cf6, #a855f7);
+            border-radius: 2px;
+        }
+
+        .content{
+            align-items: center;
+            margin-top: 80px;
+        }
+
+        .content-flex {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+            margin-top: 80px;
+        }
+
+        .content-flex2 {
+            display: flex;
+            gap: 80px;
+            align-items: center;
+            margin-top: 80px;
+        }
+
+        .content-flex2 > div:first-child {
+            flex: 0 0 60%;
+        }
+
+        .content-flex2 > div:last-child {
+            flex: 0 0 35%;
+        }
+
+        .content-flex2.reverse {
+            grid-template-columns: 1fr 1fr;
+        }
+
+        .content-flex2.reverse .text-content {
+            order: 2;
+        }
+
+        .content-flex2.reverse .image-placeholder {
+            order: 1;
+        }
+
+        .content-flex.reverse {
+            grid-template-columns: 1fr 1fr;
+        }
+
+        .content-flex.reverse .text-content {
+            order: 2;
+        }
+
+        .content-flex.reverse .image-placeholder {
+            order: 1;
+        }
+
+        .text-content {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #cbd5e1;
+        }
+
+        .text-content p {
+            margin-bottom: 24px;
+            text-align: justify;
+        }
+
+        .image-placeholder {
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #e2e8f0;
+            font-size: 1.1rem;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            border: 1px solid #374151;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .image-placeholder:hover {
+            transition: 0.5s;
+            transform: scale(1.02);
+        }
+
+        .image-placeholder::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent 30%, rgba(8, 12, 224, 0.1) 50%, transparent 70%);
+            animation: shimmer 10s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .full-width-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-top: 60px;
+            color: #cbd5e1;
+            text-align: justify;
+        }
+
+        .full-width-text p {
+            margin-bottom: 24px;
+        }
+
+        /* Stats Section */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+            margin: 80px 0;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+            padding: 40px;
+            border-radius: 16px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border: 1px solid #374151;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #6366f1, #8b5cf6, #a855f7);
+        }
+
+        .stat-card h3 {
+            color: #f8fafc;
+            margin-bottom: 20px;
+            font-size: 1.4rem;
+            font-weight: 600;
+        }
+
+        .stat-card p {
+            color: #94a3b8;
+            line-height: 1.6;
+            font-size: 1rem;
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            margin: 80px 0;
+            padding: 0 40px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(to bottom, #6366f1, #8b5cf6, #a855f7);
+            border-radius: 2px;
+        }
+
+        .timeline-item {
+            display: flex;
+            margin: 60px 0;
+            position: relative;
+        }
+
+        .timeline-item:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .timeline-content {
+            flex: 1;
+            background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+            padding: 40px;
+            border-radius: 16px;
+            margin: 0 50px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            position: relative;
+            border: 1px solid #374151;
+        }
+
+        .timeline-content h3 {
+            color: #f8fafc;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+
+        .timeline-content p {
+            color: #94a3b8;
+            line-height: 1.6;
+        }
+
+        .timeline-item:nth-child(odd) .timeline-content::after {
+            content: '';
+            position: absolute;
+            right: -20px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 0;
+            height: 0;
+            border: 12px solid transparent;
+            border-left-color: #334155;
+        }
+
+        .timeline-item:nth-child(even) .timeline-content::after {
+            content: '';
+            position: absolute;
+            left: -20px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 0;
+            height: 0;
+            border: 12px solid transparent;
+            border-right-color: #334155;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 20px;
+            background: #6366f1;
+            border-radius: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            border: 4px solid #0a0a0a;
+            box-shadow: 0 0 20px rgba(99, 102, 241, 0.5);
+            z-index: 10;
+        }
+
+        .mechanics-gallery-large {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 40px;
+            margin-top: 30px;
+        }
+
+        .mechanics-gallery-large figure {
+            width: 90%;
+            max-width: 1000px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .mechanics-gallery-large img {
+            width: 100%;
+            height: auto;
+            border-radius: 16px;
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .mechanics-gallery-large img:hover {
+            transform: scale(1.02);
+        }
+
+        .mechanics-gallery-large figcaption {
+            margin-top: 12px;
+            font-size: 1.05rem;
+            color: #333;
+        }
+
+
+        /* Footer */
+        .footer {
+            background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 100%);
+            color: #e5e7eb;
+            text-align: center;
+            padding: 80px 40px;
+            border-top: 1px solid #21262d;
+        }
+
+        .footer p {
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+
+        .footer p:first-child {
+            font-weight: 600;
+            color: #f8fafc;
+            font-size: 1.2rem;
+        }
+
+        .footer p:last-child {
+            color: #94a3b8;
+            font-size: 1rem;
+        }
+
+        /* === Footer === */
+        .Pie {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 30px 40px;
+            color: var(--color-texto);
+            flex-wrap: wrap;
+            gap: 20px;
+            background: rgba(15, 15, 15, 0.95);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid #21262d;
+            position: sticky;
+        }
+
+        .CopyrightInfo {
+            display: flex;
+            align-items: center;
+            margin-left: 12.5%;
+        }
+
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .main-container {
+                padding: 0 30px;
+            }
+            
+            .content-flex {
+                gap: 60px;
+            }
+            
+            .stats {
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                gap: 30px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                padding: 80px 30px;
+            }
+
+            .header h1 {
+                font-size: 3rem;
+            }
+
+            .header .subtitle {
+                font-size: 1.2rem;
+            }
+
+            .main-container {
+                padding: 0 20px;
+            }
+
+            .section {
+                padding: 60px 0;
+            }
+
+            .section h2 {
+                font-size: 2.2rem;
+                margin-bottom: 40px;
+            }
+
+            .content-flex {
+                grid-template-columns: 1fr;
+                gap: 40px;
+                margin-top: 40px;
+            }
+
+            .content-flex.reverse .text-content,
+            .content-flex.reverse .image-placeholder {
+                order: unset;
+            }
+
+            .image-placeholder {
+                width: 532px;
+                height: 800px;
+                padding: 30px;
+            }
+
+            .nav a {
+                padding: 15px 20px;
+                font-size: 0.9rem;
+            }
+
+            .timeline {
+                padding: 0 20px;
+            }
+
+            .timeline::before {
+                left: 30px;
+            }
+
+            .timeline-item {
+                flex-direction: column;
+                margin-left: 60px;
+            }
+
+            .timeline-item:nth-child(even) {
+                flex-direction: column;
+            }
+
+            .timeline-content {
+                margin: 0;
+                padding: 30px;
+            }
+
+            .timeline-dot {
+                left: 30px;
+            }
+
+            .timeline-content::after {
+                display: none;
+            }
+
+            .stats {
+                grid-template-columns: 1fr;
+                gap: 25px;
+                margin: 50px 0;
+            }
+
+            .stat-card {
+                padding: 30px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header h1 {
+                font-size: 2.5rem;
+            }
+
+            .section h2 {
+                font-size: 1.8rem;
+            }
+
+            .main-container {
+                padding: 0 15px;
+            }
+
+            .nav ul {
+                flex-direction: column;
+            }
+
+            .nav a {
+                padding: 12px 15px;
+            }
+        }
+
+        /* Scroll behavior */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #1a1a1a;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #374151;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #4b5563;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <h1>Space Invaders</h1>
+        <p class="subtitle">Réplica desarrollada con Python y Pygame</p>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="nav">
+        <ul>
+            <li><a href="#introduccion">Introducción</a></li>
+            <li><a href="#contexto">Contexto Histórico</a></li>
+            <li><a href="#arquitectura">Arquitectura</a></li>
+            <li><a href="#mecanicas">Mecánicas</a></li>
+            <li><a href="#escalabilidad">Escalabilidad</a></li>
+            <li><a href="#conclusion">Conclusión</a></li>
+            <li><a href="#link">Codigo Fuente</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-container">
+        <!-- Introducción al Proyecto -->
+        <section id="introduccion" class="section">
+            <h2>Introducción al Proyecto</h2>
+            <div class="content-flex">
+                <div class="text-content">
+                    <p>El presente proyecto consiste en la implementación detallada de una réplica del clásico videojuego Space Invaders, desarrollado utilizando la biblioteca Pygame en el lenguaje de programación Python. Este juego, que combina elementos básicos de arcade con una lógica estructurada y adaptable, simula con alta fidelidad la experiencia original del título lanzado en 1978, incorporando a su vez mejoras modernas orientadas a la escalabilidad gráfica, personalización de controles y mantenimiento del código.</p>
+                    <p>La estructura del programa está organizada bajo un enfoque orientado a objetos, lo que permite una gestión clara de los elementos que conforman el juego: la nave del jugador, los enemigos, los proyectiles, los bloqueadores, los textos y los diferentes estados del juego.</p>
+                    <p>Uno de los aspectos más destacados del código es su sistema avanzado de escalado automático para diferentes resoluciones de pantalla. Basado en una resolución de referencia (1920x1080 píxeles), el juego calcula un factor de escala uniforme que adapta todos los gráficos, posiciones y dimensiones a la resolución nativa del dispositivo en ejecución. Esta funcionalidad garantiza una experiencia visual consistente independientemente del hardware utilizado.</p>
+                    <p>El juego también cuenta con un sistema persistente de configuración, almacenado en un archivo config.json, que permite guardar y recuperar preferencias del usuario como las teclas de movimiento (para hasta tres jugadores), el estado de audio (activado o silenciado) y la resolución de pantalla. Esta funcionalidad es especialmente útil para conservar ajustes personalizados entre sesiones, y permite una mayor flexibilidad y accesibilidad para el usuario.</p>
+                </div>
+                <div class="image-placeholder" style="width: 532px;height: 828px;">
+                    <img src="../Fotos/Portada.png" alt="Inicio del Juego">
+                </div>
+            </div>
+            <div class="full-width-text">
+                <p>La música y los efectos de sonido están integrados de manera condicional, con control total desde el menú o mediante teclas rápidas. El sistema de sonido está cuidadosamente diseñado para respetar la lógica del juego, reproduciendo melodías específicas en cada ronda y sonidos únicos durante eventos como disparos, impactos o destrucción de enemigos.</p>
+            </div>
+        </section>
+
+        <!-- Contexto Histórico -->
+        <section id="contexto" class="section">
+            <h2>Contexto Histórico de Space Invaders</h2>
+            <div class="content-flex2 reverse">
+                <div class="text-content">
+                    <p>Space Invaders es uno de los videojuegos más emblemáticos y trascendentales en la historia de la industria del entretenimiento digital. Creado por el diseñador japonés Tomohiro Nishikado y lanzado originalmente en 1978 por la empresa Taito, este título marcó un antes y un después en la evolución de los videojuegos arcade, no solo por su jugabilidad innovadora, sino también por su impacto cultural y tecnológico a nivel mundial. La propuesta básica del juego consiste en defender a la humanidad de una invasión extraterrestre mediante una nave espacial ubicada en la parte inferior de la pantalla, que debe eliminar oleadas sucesivas de enemigos mientras se protege de sus ataques.</p>
+                    <p>Desde un punto de vista técnico, Space Invaders fue pionero en la introducción de nuevas mecánicas y dinámicas de juego. Su diseño simple, pero altamente adictivo, combinó elementos como el movimiento horizontal restringido del jugador, disparos limitados y enemigos que avanzan lentamente hacia abajo en formación, generando un creciente sentido de tensión y desafío. La particularidad de que la velocidad de desplazamiento de los invasores aumentara conforme disminuía su número fue una innovación clave, intensificando el ritmo del juego y la necesidad de estrategias más precisas y rápidas. Esta mecánica también dio origen a un género completo dentro de los shooters arcade: el shooter “de oleadas” o “shoot ‘em up”.</p>
+                    <p>Históricamente, Space Invaders se lanzó en un momento donde la industria de los videojuegos aún estaba en su infancia. Su éxito fue inmediato y abrumador, impulsando la popularización de las salas arcade en Japón y, poco tiempo después, en Estados Unidos y el resto del mundo. Se convirtió en un fenómeno cultural y comercial, generando enormes ingresos, y sentando las bases para futuros desarrollos en hardware y software de videojuegos. Además, estableció muchos estándares técnicos y estéticos, incluyendo gráficos en 2D con sprites, música y efectos sonoros simples pero efectivos, y una interfaz clara y accesible para jugadores de todas las edades.</p>
+                    <p>El juego no solo se limitó a entretener, sino que influyó en la cultura popular y en la percepción del medio digital, posicionándose como símbolo de la era dorada de los arcades. Su diseño de niveles, con oleadas de enemigos que se vuelven más difíciles progresivamente, sirvió de modelo para numerosos títulos posteriores. Asimismo, la figura de los invasores —las icónicas formas pixeladas— y la nave espacial del jugador se convirtieron en símbolos visuales reconocibles globalmente.</p>
+                </div>
+                <div class="image-placeholder" style="width: 475px;height: 800px; padding: 10px;">
+                    <img src="../Fotos/Original.png" alt="Juego Original">
+                </div>
+            </div>
+
+            <div class="stats">
+                <div class="stat-card">
+                    <h3>Innovación Técnica</h3>
+                    <p>Desarrollado sobre un procesador Intel 8080 de 8 bits, utilizaba sprites optimizados y overlays de color físicas para simular gráficos a color. Su arquitectura técnica fue revolucionaria para la época, estableciendo estándares que perduran hasta hoy.</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Mecánica Revolucionaria</h3>
+                    <p>Implementó la velocidad creciente de enemigos conforme disminuía su número, intensificando el desafío progresivamente. Esta mecánica de dificultad adaptativa se convirtió en un estándar de la industria.</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Legado Cultural</h3>
+                    <p>Estableció el concepto de "high score" y sentó las bases para el género shoot 'em up. Su influencia trasciende los videojuegos, impactando la cultura popular y el arte contemporáneo a nivel mundial.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Arquitectura Base -->
+        <section id="arquitectura" class="section">
+            <h2>Arquitectura Base del Proyecto</h2>
+            <div class="content">
+                <div class="text-content">
+                    <p>La arquitectura interna del proyecto está diseñada bajo un enfoque modular y orientado a objetos, lo que facilita tanto la legibilidad del código como su mantenimiento y expansión futura. El núcleo del juego se sostiene sobre una clase principal que gestiona el ciclo principal de ejecución, la cual interactúa con diversas subclases que representan entidades específicas del juego, tales como la nave del jugador, los enemigos invasores, las balas, y los efectos visuales como las explosiones. Cada una de estas clases está diseñada para manejar sus propias responsabilidades, implementando métodos claros para actualización de estado, renderizado y manejo de eventos.</p>
+                    <p>El sistema de sprites de Pygame es utilizado exhaustivamente para representar objetos móviles en pantalla. Esto permite aprovechar funcionalidades integradas para la detección eficiente de colisiones entre objetos, fundamental para el desarrollo del gameplay, donde las balas disparadas por el jugador deben interactuar con los enemigos y obstáculos. Además, este enfoque facilita la actualización sincronizada de las posiciones y la visualización de todos los elementos en cada frame, manteniendo una fluidez esencial para la experiencia del jugador.</p>
+                    <p>El código también incluye un manejo detallado de los estados del juego, lo que garantiza que la experiencia se mantenga coherente y estructurada. Por ejemplo, existen estados claramente diferenciados para la pantalla de menú principal, el desarrollo de la partida, y la pantalla de “Game Over”. Cada estado posee su propia lógica para la presentación gráfica y la gestión de entrada de usuario, con temporizadores internos que regulan la duración de ciertas animaciones o la espera para reiniciar el juego, creando una transición suave entre fases y evitando interrupciones abruptas.</p>
+                    <p>En cuanto a la jugabilidad, se implementa un sistema de movimiento para la nave del jugador que responde a las teclas asignadas para desplazarse lateralmente, junto con la capacidad de disparar proyectiles. El manejo de enemigos reproduce fielmente el patrón clásico de desplazamiento lateral con descenso gradual, aumentando la presión sobre el jugador conforme avanza el juego. Este movimiento está gestionado mediante variables que controlan la posición base de los invasores y el desplazamiento vertical progresivo, replicando la sensación de avance y amenaza constante. Adicionalmente, el código permite que los enemigos disparen de manera controlada, añadiendo un nivel de dificultad y dinamismo al juego.</p>
+                    <p>La implementación también contempla un sistema de puntuación que actualiza y muestra en tiempo real el avance del jugador, junto con un contador de vidas restantes, elementos visuales esenciales para el seguimiento del progreso y la tensión del gameplay. Se incorporan textos dinámicos y gráficos que se actualizan acorde a la situación actual del juego, garantizando una interfaz clara y funcional.</p>
+                    <p>Un aspecto destacado es la incorporación de un sistema de configuración que permite la personalización de controles y ajuste automático de resolución, lo cual no solo mejora la accesibilidad del juego a diferentes usuarios y dispositivos, sino que también demuestra un enfoque profesional hacia el desarrollo de software, donde la experiencia del usuario final es prioridad. Esta configuración se mantiene persistente mediante archivos externos, permitiendo que las preferencias se conserven entre sesiones.</p>
+                    <p>Finalmente, el proyecto incluye una serie de mejoras técnicas respecto al juego original, tales como la gestión eficiente de los recursos gráficos y sonoros, el soporte para múltiples jugadores con controles personalizados, y la adaptación visual a distintas resoluciones sin perder la proporción ni calidad gráfica. Estas características reflejan una interpretación moderna del clásico, combinando fidelidad con funcionalidad contemporánea.</p>
+                </div>
+            </div>
+
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3>Inicialización del Sistema</h3>
+                        <p>Configuración del entorno de desarrollo, carga de recursos multimedia y establecimiento de parámetros iniciales del juego. Esta fase incluye la verificación de dependencias y la preparación del contexto de ejecución.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3>Bucle Principal de Ejecución</h3>
+                        <p>Gestión continua de eventos del usuario, actualización de estados de objetos y renderizado de elementos gráficos. Este ciclo se ejecuta a 60 FPS para garantizar fluidez y responsividad.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3>Sistema de Colisiones</h3>
+                        <p>Implementación de un sistema eficiente de detección de colisiones entre proyectiles, enemigos y elementos defensivos. Utiliza algoritmos optimizados para mantener el rendimiento.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3>Finalización y Limpieza</h3>
+                        <p>Gestión del fin de partida, guardado de configuraciones de usuario y limpieza de recursos del sistema. Incluye manejo de excepciones y liberación de memoria.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Mecánicas Implementadas -->
+        <section id="mecanicas" class="section">
+            <h2>Mecánicas Implementadas</h2>
+            <div class="content-flex reverse">
+                <div class="text-content">
+                    <p>La gestión de eventos y la entrada del usuario constituyen uno de los pilares fundamentales para la interacción fluida y precisa dentro del juego. Este sistema se basa en el uso del bucle principal del programa, donde se procesan continuamente todos los eventos generados por el entorno, en particular aquellos relacionados con el teclado y el ratón. Se implementa un mecanismo robusto para detectar y responder a las pulsaciones y liberaciones de teclas, que controlan el movimiento lateral de la nave del jugador y la acción de disparo. Esto se logra mediante el uso de funciones que verifican el estado actual de las teclas, permitiendo un control responsivo y sin retardos perceptibles, clave para mantener la sensación de control absoluto que caracteriza al juego original.</p>
+                    <p>El sistema de eventos también gestiona la interacción con los menús del juego, tales como el menú principal y las pantallas de pausa o final de partida. Cada uno de estos estados de interfaz cuenta con su propio conjunto de controles que se activan o desactivan según corresponda, previniendo conflictos y asegurando que las acciones del jugador tengan el efecto deseado en el momento correcto. La estructura modular del código facilita la extensión futura de estos sistemas, pudiendo incluir fácilmente nuevas opciones o modos de juego sin alterar la lógica central.</p>
+                    <p>En cuanto al sistema de colisiones, se ha implementado una detección precisa y eficiente que es vital para la mecánica del juego. Aprovechando las funcionalidades de Pygame, las colisiones entre balas y enemigos, así como entre los invasores y la nave del jugador, se detectan mediante el uso de máscaras y rectángulos delimitadores (hitboxes). Este método asegura que la interacción entre objetos no sea solo visualmente coherente sino también rigurosa desde el punto de vista lógico, evitando situaciones donde un disparo “pase” a través de un enemigo sin registrarse.</p>
+                    <p>Cuando se detecta una colisión, el sistema activa una serie de respuestas predefinidas: se reproduce un efecto sonoro característico, se muestra una animación de explosión y se actualizan las variables que controlan la puntuación y el estado del enemigo involucrado, que es removido de la pantalla. Esta secuencia de acciones está diseñada para proporcionar una retroalimentación inmediata y satisfactoria al jugador, reforzando la sensación de logro y dinamismo.</p>
+                </div>
+                <div class="mechanics-gallery-large" width="800px" height="600px">
+                    <figure>
+                        <img src="../Fotos/Coliciones.png" width="110%" height="110%" alt="Coliciones entre balas y enemigos">
+                        <figcaption>Colisión entre balas y enemigos</figcaption>
+                    </figure>
+                    <figure>
+                        <img src="../Fotos/MenuPrincipal.png" width="110%" height="110%" alt="Gestion de opciones">
+                        <figcaption>Menu principal con gestion de opciones</figcaption>
+                    </figure>
+                </div>
+            </div>
+            <div class="full-width-text">
+                <p>Asimismo, el sistema contempla la gestión de colisiones entre enemigos y las barreras defensivas, replicando fielmente el diseño original donde estas estructuras actúan como protección temporal para la nave. Estas barreras se degradan progresivamente a medida que reciben impactos, implementándose mediante estados que representan distintos niveles de daño, visibles en la interfaz mediante cambios gráficos. Este detalle incrementa la profundidad táctica del juego, obligando al jugador a cuidar no solo su propia posición sino también el estado de sus defensas.</p>
+                <p>Finalmente, la combinación armoniosa entre la gestión de eventos y el sistema de colisiones crea una experiencia de juego coherente y fiel al espíritu del Space Invaders original, adaptada a las posibilidades que ofrece el desarrollo con Pygame. Esta integración garantiza que la interacción sea ágil, justa y entretenida, factores fundamentales para mantener la atención y motivación del usuario a lo largo de cada partida.</p>
+            </div>
+        </section>
+
+        <!-- Adaptación y Escalabilidad -->
+        <section id="escalabilidad" class="section">
+            <h2>Adaptación y Escalabilidad</h2>
+                <div class="full-width-text">
+                    <p>Entre los aspectos técnicos más destacados de este proyecto se encuentra la cuidadosa estructuración del código, que sigue una organización modular para facilitar su mantenimiento y escalabilidad. La división en módulos especializados permite separar claramente las responsabilidades, como el control de la nave, la lógica de los enemigos, el manejo de las balas y la gestión de las interfaces de usuario, lo que simplifica la depuración y futuras ampliaciones. Esta estructura también facilita la implementación de funciones específicas sin interferir con otras áreas del programa, fomentando un desarrollo ordenado y profesional.</p>
+                    <p>La elección de Pygame como biblioteca principal para el desarrollo no solo proporciona una plataforma eficiente para la creación de juegos en 2D, sino que también ofrece una extensa gama de herramientas para la gestión de gráficos, sonidos y eventos. Se aprovechan plenamente las capacidades de Pygame para manejar sprites, animaciones y colisiones, lo que contribuye a una ejecución fluida y sin demoras perceptibles, incluso en equipos con recursos limitados. Además, la utilización de funciones integradas como pygame.sprite.Group() permite agrupar y actualizar múltiples objetos simultáneamente, optimizando el rendimiento y simplificando la lógica de actualización y dibujo.</p>
+                    <p>Otro aspecto técnico relevante es el sistema de escalado automático implementado para adaptar el juego a distintas resoluciones de pantalla. A través de funciones específicas que ajustan las posiciones y tamaños relativos de todos los elementos gráficos, el juego conserva su aspecto original y proporciones sin importar la resolución del dispositivo en el que se ejecute. Esto se logra calculando factores de escala en función del tamaño de pantalla detectado y aplicándolos a cada coordenada y dimensión, lo que garantiza una experiencia visual coherente y agradable en monitores grandes o pequeños.</p>
+                    <p>El manejo del frame rate es otro punto clave dentro del proyecto. Se controla rigurosamente mediante el uso del reloj interno de Pygame, limitando la velocidad de actualización a un valor constante para evitar variaciones bruscas en la velocidad del juego que puedan afectar la jugabilidad o la experiencia del usuario. Este control garantiza que las animaciones y movimientos de los objetos se perciban suaves y uniformes, manteniendo la precisión en la detección de eventos y colisiones.</p>
+                    <p>Desde el punto de vista de la interacción con el jugador, se ha implementado un sistema de eventos basado en el polling continuo, que detecta en tiempo real las pulsaciones de teclas y acciones del mouse. Esta técnica asegura que el juego responda instantáneamente a las órdenes del usuario, permitiendo movimientos fluidos y disparos precisos. Asimismo, se han previsto condiciones para evitar la repetición no deseada de acciones, como limitar la velocidad de disparo mediante temporizadores, asegurando así un equilibrio en la dinámica de juego.</p>
+                    <p>Finalmente, la gestión de recursos externos, como imágenes y sonidos, se realiza de manera eficiente, cargándolos al inicio del programa para minimizar tiempos de espera durante la ejecución. La correcta organización de estos archivos y su acceso mediante rutas relativas garantizan que el proyecto pueda ser trasladado o distribuido sin problemas de dependencia, aspecto fundamental para la presentación y posterior desarrollo del juego.</p>
+            </div>
+
+            <div class="stats">
+                <div class="stat-card">
+                    <h3>Configuración Persistente</h3>
+                    <p>Implementación de un sistema robusto de archivos JSON para guardar preferencias de usuario, controles personalizados y configuraciones de audio. Permite la persistencia de datos entre sesiones de juego.</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Rendimiento Optimizado</h3>
+                    <p>Control riguroso del frame rate y gestión eficiente de recursos para garantizar fluidez en cualquier dispositivo. Incluye optimizaciones de memoria y procesamiento adaptativo.</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Modularidad Avanzada</h3>
+                    <p>Estructura orientada a objetos que facilita el mantenimiento, testing automatizado y futuras expansiones del proyecto. Permite la reutilización de código y la integración de nuevos módulos.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Conclusión -->
+        <section id="conclusion" class="section">
+            <h2>Conclusión y Posibilidades Futuras</h2>
+            <div class="content-flex">
+                <div class="text-content">
+                    <p>En conclusión, este proyecto representa una fiel réplica del clásico Space Invaders, desarrollada con una estructura de código sólida y modular que permite no solo reproducir la experiencia original del juego, sino también sentar las bases para futuras ampliaciones y mejoras. La implementación cuidada de los diferentes componentes —desde la lógica de movimiento y disparo hasta el escalado automático y la gestión eficiente de recursos— demuestra la capacidad del proyecto para ofrecer una experiencia jugable fluida y accesible en una amplia variedad de dispositivos. Esta recreación no solo rinde homenaje a un hito histórico del mundo de los videojuegos, sino que también constituye un ejercicio técnico valioso que consolida conceptos fundamentales de programación orientada a objetos, manejo de eventos y optimización gráfica.</p>
+                </div>
+                <div class="image-placeholder" style="width: 640px; height: 427px;">
+                    <img src="../Fotos/Futuro.jpg" alt="Futuro de Space Invaders" style="width: 640px; height: 427px; object-fit: cover;">
+                </div>
+            </div>
+            <div class="full-width-text">
+                <p>Respecto a las posibilidades futuras, el proyecto abre un abanico considerable de opciones para su expansión y enriquecimiento. Entre las mejoras más inmediatas se encuentran la incorporación de niveles adicionales con enemigos de comportamientos variados y patrones de ataque más complejos, lo que aumentaría la dificultad y la profundidad estratégica del juego. La integración de un sistema de puntuación más elaborado, con tablas de clasificación y premios visuales, podría incrementar la motivación del jugador y fomentar la competitividad. Asimismo, la inclusión de efectos sonoros dinámicos y música ambiental adaptativa mejoraría notablemente la inmersión y la atmósfera general del juego.</p>
+                <p>En términos técnicos, resulta posible extender la inteligencia artificial básica que actualmente controla el movimiento y ataque de los invasores, incorporando algoritmos que ajusten su dificultad en función del desempeño del jugador, creando así una experiencia más personalizada y desafiante. Otra línea de desarrollo interesante consiste en la adaptación del juego para plataformas móviles, donde la interfaz táctil y la gestión del rendimiento presentan nuevos desafíos que pueden ser abordados mediante técnicas específicas de optimización y diseño responsivo.</p>
+                <p>Finalmente, este proyecto puede servir como punto de partida para la creación de un motor de juego propio basado en Pygame, permitiendo la reutilización de módulos y funciones para futuros desarrollos, así como la exploración de nuevos géneros y mecánicas. De este modo, la réplica del Space Invaders no solo se limita a ser una obra de emulación, sino que se transforma en una plataforma educativa y creativa con amplias posibilidades de evolución.</p>
+            </div>
+        </section>
+
+        <!-- Conclusión -->
+        <section id="link" class="section">
+            <h2>Accedé al proyecto completo en GitHub</h2>
+            <div class="full-width-text">
+                <p>El código fuente completo de este proyecto, junto con todos los recursos necesarios para su ejecución —incluyendo imágenes, sonidos, módulos organizados y documentación adicional— se encuentra disponible en un repositorio público de GitHub. Allí, los interesados pueden explorar la estructura interna del juego, estudiar su funcionamiento, proponer mejoras o incluso contribuir activamente a su desarrollo. Este repositorio ha sido organizado cuidadosamente para facilitar su comprensión y reutilización, sirviendo tanto como material de estudio para otros desarrolladores como base para futuras expansiones.
+                Se puede acceder al mismo a través del siguiente enlace: <a href="https://github.com/SantinoRodriguez/Space-Invaders" target="_blank" title="Codigo Fuente">https://github.com/SantinoRodriguez/Space-Invaders</a></p><br><hr><br><br>
+                <p>Para utilizar el juego, primero es necesario descargar el archivo comprimido (.zip) que contiene todos los archivos del proyecto. Una vez descargado, se debe descomprimir el contenido en una carpeta de fácil acceso, asegurándose de que todos los archivos y carpetas queden dentro de esta misma ubicación para mantener la integridad de las referencias internas.</p>
+                <p>Se recomienda utilizar un entorno de desarrollo integrado como Visual Studio Code (VS Code), que puede descargarse gratuitamente desde su sitio oficial: <a href="https://code.visualstudio.com/" target="_blank">https://code.visualstudio.com/</a>. Dentro de VS Code, es recomendable instalar la extensión oficial de Python para aprovechar funcionalidades como ejecución de código, autocompletado y depuración. La extensión se puede encontrar directamente en el marketplace de VS Code o desde aquí: <a href="https://marketplace.visualstudio.com/items?itemName=ms-python.python" target="_blank">https://visualstudio.com/python</a>.</p>
+                <p>Además, el juego utiliza la biblioteca Pygame, que debe estar instalada en el entorno Python donde se ejecutará el proyecto. Para instalar Pygame, se puede abrir la terminal integrada de VS Code o una consola de sistema y ejecutar el siguiente comando: <code>pip install pygame</code>, Si no se cuenta con Python instalado, se recomienda descargarlo desde <a href="//www.python.org/downloads/" target="_blank">//www.python.org/downloads/</a> e instalar la versión más reciente compatible con el sistema operativo.</p>
+                <p>Con todo listo, se debe abrir la carpeta donde se descomprimió el proyecto desde VS Code. Allí, localizar el archivo principal llamado principal.py y ejecutarlo directamente desde la consola integrada o usando el botón de ejecución de VS Code para iniciar el juego.</p>
+                <p>Para asegurar una experiencia óptima y evitar posibles problemas de visualización, se recomienda ajustar la resolución de pantalla del dispositivo a una configuración Full HD (1920 x 1080 píxeles). Esto es importante porque el juego fue desarrollado y probado con esta resolución base, y resoluciones superiores podrían generar incompatibilidades o desajustes visuales que afectan la jugabilidad.</p>
+        </section>
+    </main>
+    <footer>
+        <div class="Pie">
+            <div class="CopyrightInfo">
+                <p>&copy; 2025 Santino Rodriguez. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

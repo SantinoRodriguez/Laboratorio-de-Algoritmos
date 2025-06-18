@@ -34,6 +34,13 @@ body {
     scroll-behavior: smooth;
 }
 
+a:focus,
+a:active,
+a:focus-visible {
+    outline: none !important;
+    box-shadow: none !important;
+}
+
 /* === Navegación === */
 .BarraDeNavegacion {
     position: fixed; /* Hace que quede fija al hacer scroll */
@@ -52,6 +59,7 @@ body {
 }
 
 .SeccionIzquierda h3, a {
+    outline: none;
     text-decoration: none;
     color: var(--color-texto);
     font-size: clamp(em, 2.5vw, 1.2em);
@@ -67,6 +75,7 @@ body {
 }
 
 .SeccionCentral a {
+    outline: none;
     text-decoration: none;
     color: var(--color-texto);
     font-size: clamp(0.9em, 2vw, 1em);
@@ -193,6 +202,7 @@ body {
 }
 
 .MenuColapsable a {
+    outline: none;
     color: var(--color-texto);
     text-decoration: none;
     font-size: 1.5em;
@@ -249,22 +259,26 @@ body {
 
 /* === Sección Descripción === */
 .SeccionDescripcion {
+    min-height: 100vh;
+    padding: 100px 40px 80px;
     display: flex;
+    flex-direction: row;
     flex-wrap: wrap;
     background-color: var(--color-secundario);
     gap: 40px;
-    align-items: center;
 }
 
-.ColumnaIzquierda {
+.ColumnaIzquierda2 {
     flex: 1;
+    flex-direction: column;
     min-width: 200px;
     display: flex;
-    justify-content: center;
+    gap: 5rem;
+    margin-top: 10rem;
     align-items: flex-start;
 }
 
-.ColumnaIzquierda h4 {
+.ColumnaIzquierda2 h4 {
     color: var(--color-primario);
     font-size: clamp(0.9em, 1.5vw, 1em);
     text-transform: uppercase;
@@ -272,7 +286,7 @@ body {
     letter-spacing: 2px;
 }
 
-.ColumnaDerecha {
+.ColumnaDerecha2 {
     flex: 2;
     min-width: 250px;
     display: flex;
@@ -280,7 +294,7 @@ body {
     align-items: center;
 }
 
-.ColumnaDerecha p {
+.ColumnaDerecha2 p {
     font-size: clamp(1.2em, 2.5vw, 1.5em);
     color: var(--color-texto);
     line-height: 1.7;
@@ -343,6 +357,24 @@ body {
     background-color: var(--color-secundario);
 }
 
+.LinkProyecto {
+    position: absolute;       /* Fija la posición respecto a la ventana */
+    right: 20px;           /* 20px desde el borde derecho */
+    top: 392vh;  /* A 80% de la altura de la ventana */
+    background-color: #007bff;  /* Color de fondo azul (puede cambiar) */
+    color: white;          /* Color del texto */
+    padding: 10px 15px;    /* Espaciado interno */
+    border-radius: 5px;    /* Bordes redondeados */
+    text-decoration: none; /* Sin subrayado */
+    font-weight: 600;      /* Texto en negrita */
+    box-shadow: 0 2px 6px rgba(0,0,0,0.3); /* Sombra sutil */
+    transition: background-color 0.3s ease;
+}
+
+.LinkProyecto:hover {
+    background-color: #0056b3;  /* Color azul más oscuro al pasar el mouse */
+}
+
 .ContenedorTarjetasProyectos {
     display: flex;
     flex-wrap: wrap;
@@ -403,6 +435,61 @@ body {
     background-color: var(--color-fondo);
 }
 
+.ContenedorContacto {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+    justify-content: center;
+    align-items: flex-start;
+    margin-top: 40px;
+}
+
+.DatosContacto {
+    flex: 1 1 300px;
+    color: var(--color-texto);
+    font-size: 1.1em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 20px;
+}
+
+.DatosContacto .TituloSeccion {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+    text-align: left;
+}
+
+.ListaContacto {
+    list-style: none;
+    padding: 0;
+    margin-top: 2rem;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    text-align: left; /* texto alineado a la izquierda */
+}
+
+.ListaContacto li {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 1em;
+}
+
+.ListaContacto i {
+    color: var(--color-primario);
+    font-size: 1.2em;
+    min-width: 24px;
+}
+
+.FormularioWrapper {
+    flex: 1 1 400px;
+}
+
 .FormularioContacto {
     max-width: 600px;
     margin: 0 auto;
@@ -410,6 +497,7 @@ body {
     flex-direction: column;
     gap: 20px;
     text-align: center;
+    margin-top: 3rem;
 }
 
 .FormularioContacto input,
@@ -479,6 +567,7 @@ body {
 }
 
 .TablaFinal a {
+    outline: none;
     color: var(--color-link);
     text-decoration: none;
     position: relative;
@@ -550,6 +639,7 @@ body {
 }
 
 .Volver a {
+    outline: none;
     align-items: center;
     gap: 10px;
     text-decoration: none;
@@ -570,6 +660,314 @@ body {
 .RedesSociales span {
     color: var(--color-primario);
     font-weight: 600;
+}
+
+/* Html Sobre mí */
+/* Sección contenedora */
+.SeccionFullPantalla2 {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+    height: auto;
+    min-height: 100vh;
+    padding: 100px 40px 80px;
+    box-sizing: border-box;
+    gap: 40px;
+    background-color: var(--color-fondo);
+}
+
+/* Columnas izquierda y derecha */
+.ColumnaIzquierda, .ColumnaDerecha {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 20px;
+}
+
+.ColumnaIzquierda3, .ColumnaDerecha3 {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 20px;
+    background-color: var(--color-tarjeta);
+}
+
+
+.ContenidoCentro {
+    width: 100%;
+    max-width: 800px;
+    text-align: center;
+}
+
+/* Título de sección */
+.EducacionTitulo {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    color: var(--color-titulo);
+}
+
+/* Texto introductorio */
+.EducacionTexto {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: var(--color-texto);
+}
+
+/* Estilo para cada tarjeta educativa */
+.Lugares {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    background-color: var(--color-tarjeta);
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 20px 30px;
+    margin-top: 30px;
+    transition: transform 0.3s ease;
+    gap: 20px;
+}
+
+.Lugares:hover {
+    transform: scale(1.02);
+}
+
+/* Punto de timeline */
+.Lugares::before {
+    content: '';
+    position: absolute;
+    left: -25px;
+    top: 20px;
+    width: 14px;
+    height: 14px;
+    background-color: var(--color-acento);
+    border-radius: 50%;
+}
+
+/* Fecha del estudio */
+.LugaresNombre {
+    flex: 0.2;
+    font-size: 0.75rem;
+    font-weight: bold;
+    text-align: center;
+    color: var(--color-secundario);
+}
+
+/* Nombre de la institución */
+.LugaresTitulo {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: var(--color-titulo);
+}
+
+/* Descripción de la formación */
+.LugaresDescripcion {
+    flex: 0.8;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-size: 0.5rem;
+    color: var(--color-texto);
+    text-align: left;
+}
+
+/* Lista de logros o habilidades */
+.LogrosEducacion {
+    margin-top: 10px;
+    padding-left: 20px;
+    list-style-type: disc;
+    font-size: 1rem;
+    color: var(--color-texto);
+}
+
+.full-width-text {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    margin-top: 60px;
+    color: #cbd5e1;
+    text-align: justify;
+}
+
+.full-width-text p {
+    margin-bottom: 24px;
+}
+
+/* Responsive: columna única en mobile 
+@media (max-width: 768px) {
+    .SeccionFullPantalla2 {
+        flex-direction: column;
+        padding: 60px 20px;
+    }
+
+    .ColumnaIzquierda, .ColumnaDerecha {
+        padding: 10px;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .Lugares {
+        flex-direction: column;
+        padding: 20px;
+    }
+
+    .Lugares::before {
+        left: -10px;
+    }
+
+    .LugaresDescripcion {
+        text-align: center;
+    }
+
+    .LogrosEducacion {
+        text-align: left;
+    }
+}
+*/
+
+/* Html Proyectos */
+.CarruselContenedor {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    overflow: hidden;
+    padding: 0 40px; /* margen lateral para los botones */
+}
+
+.CarruselContenedor::before,
+.CarruselContenedor::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 40px;
+    z-index: 1;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.CarruselContenedor::before {
+    left: 0;
+    background: linear-gradient(to right, var(--color-fondo), transparent);
+}
+
+.CarruselContenedor::after {
+    right: 0;
+    background: linear-gradient(to left, var(--color-fondo), transparent);
+}
+
+/* === Contenedor de las tarjetas === */
+.ContenedorTarjetasProyectos2 {
+    display: flex;
+    flex-wrap: nowrap; /* mantiene todas las tarjetas en una sola fila */
+    overflow-x: auto;
+    overflow-y: hidden;
+    gap: 20px;
+    scroll-behavior: smooth;
+    padding: 20px 0;
+    scrollbar-width: none; /* Oculta scrollbar en Firefox */
+}
+
+/* === Oculta scrollbar en navegadores WebKit === */
+.ContenedorTarjetasProyectos2::-webkit-scrollbar {
+    display: none;
+}
+
+/* Deslisable con el dedo*/
+.ContenedorTarjetasProyectos2 {
+    -webkit-overflow-scrolling: touch;
+    touch-action: pan-x;
+}
+
+/* === Tarjeta de proyecto con estilo adaptado === */
+.TarjetaProyecto2 {
+    flex: 0 0 auto;
+    background-color: var(--color-tarjeta);
+    border-radius: 16px;
+    width: 320px;
+    height: 240px;
+    padding: 25px;
+    color: var(--color-texto);
+    text-decoration: none;
+    transition: all 0.4s ease;
+    border: 2px solid transparent;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+/* Efecto de gradiente al pasar el mouse */
+.TarjetaProyecto2::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(88, 166, 255, 0.1), transparent);
+    transition: left 0.5s ease;
+}
+
+.TarjetaProyecto2:hover::before {
+    left: 100%;
+}
+
+.TarjetaProyecto2:hover {
+    transform: translateY(-10px);
+    border-color: var(--color-primario);
+    box-shadow: 0 15px 40px rgba(88, 166, 255, 0.2);
+    transform: scale(1.02) translateY(-6px);
+}
+
+/* === Títulos y texto dentro de la tarjeta === */
+.TarjetaProyecto2 h3 {
+    font-size: 1.3em;
+    margin-bottom: 15px;
+    color: var(--color-primario);
+    font-weight: 600;
+}
+
+.TarjetaProyecto2 p {
+    font-size: 1em;
+    line-height: 1.6;
+    color: var(--color-texto);
+}
+
+/* === Botones de navegación del carrusel === */
+.BotonCarrusel {
+    background: none;
+    border: none;
+    font-size: 2rem;
+    cursor: pointer;
+    padding: 10px;
+    z-index: 2;
+    color: #333;
+    transition: color 0.3s;
+}
+
+/* === Estilo al pasar el mouse sobre los botones === */
+.BotonCarrusel:hover {
+    color: #000;
+}
+
+.BotonCarrusel:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+/* === Posicionamiento específico de los botones === */
+#PrevBtn {
+    position: absolute;
+    left: 0;
+}
+
+#NextBtn {
+    position: absolute;
+    right: 0;
 }
 
 /* === Scroll suave === */
