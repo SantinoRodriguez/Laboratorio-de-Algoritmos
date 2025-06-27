@@ -34,14 +34,14 @@ Una recreación personalizada y ampliada del clásico juego *Space Invaders*, de
 - Escalado automático a la resolución del dispositivo.
 
 > Presentación completa del juego en:  
-> [`Space_Invaders_Presentacion.html`](Html's%20Secundarios/Space_Invaders_Presentacion.html)
+> [`Space_Invaders_Presentacion.html`](Trabajos/Respuestas/Trabajo%20Practico%20N°%202%2028-05-25%20--%2018-06-25/Html's%20Secundarios/Space_Invaders_Presentacion.html)
 
 #### Proyecto 2: Portfolio Web Profesional
 
 Desarrollo de un sitio web personal tipo portafolio, diseñado con HTML, CSS y JavaScript. En él presento mis habilidades, proyectos y medios de contacto de forma atractiva y responsiva. Este portfolio está pensado para crecer conmigo y acompañarme en mi desarrollo profesional.
 
 > Podés previsualizar el código desde:  
-> [`Index.html`](Index.html)
+> [`Index.html`](Trabajos/Respuestas/Trabajo%20Practico%20N°%202%2028-05-25%20--%2018-06-25/Index.html)
 
 ---
 
