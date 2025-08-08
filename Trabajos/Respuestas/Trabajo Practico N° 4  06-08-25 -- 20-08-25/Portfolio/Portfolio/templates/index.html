@@ -1,0 +1,42 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block titulo %}Mi Portfolio{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'portfolio/css/estilo.css' %}">
+    <!-- Espacio para CSS extra (Recomendado por el Chaty)--> 
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <header>
+        <div class="Barra">
+            <h1>Mi Portfolio</h1>
+            <nav>
+                <ul>
+                    <li><a href="{% url 'Inicio' %}">Inicio</a></li>
+                    <li><a href="{% url 'SobreMi' %}">Sobre mí</a></li>
+                    <li><a href="{% url 'Proyectos' %}">Proyectos</a></li>
+                    <li><a href="{% url 'Contacto' %}">Contacto</a></li>
+                    <li><a href="{% url 'Blog' %}">Blog</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        {% block contenido %}{% endblock %}
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; {{ year }} Mi Portfolio - Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="{% static 'portfolio/js/main.js' %}"></script>
+    <!-- Espacio para JS extra (Otra recomendación) -->
+    {% block extra_js %}{% endblock %}
+</body>
+</html>
