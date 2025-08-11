@@ -1,0 +1,903 @@
+{% extends 'portfolio/base.html' %}
+
+{% block titulo %}Inicio - Santino Rodriguez | Desarrollador Full Stack{% endblock %}
+
+{% block contenido %}
+    <!-- Sección de bienvenida -->
+    <section class="Bienvenida" id="inicio">
+        <div class="Contenedor">
+            <div class="Presentacion">
+                <div class="Texto">
+                    <div class="Etiqueta">
+                        <span class="Punto"></span>
+                        <span>Disponible para proyectos</span>
+                    </div>
+                    
+                    <h1 class="Titulo">
+                        Hola, soy 
+                        <span class="Destacado">Santino Rodriguez</span>
+                    </h1>
+                    
+                    <h2 class="Subtitulo">
+                        Desarrollador 
+                        <span class="Rotativo" id="textoRotativo">Full Stack</span>
+                    </h2>
+                    
+                    <p class="Descripcion">
+                        Estudiante de programación apasionado por crear experiencias digitales 
+                        excepcionales. Me especializo en el desarrollo web moderno con Python, 
+                        JavaScript y las últimas tecnologías del ecosistema.
+                    </p>
+                    
+                    <div class="Estadisticas">
+                        <div class="Estadistica">
+                            <span class="Numero" data-target="15">0</span>
+                            <span class="Label">Proyectos completados</span>
+                        </div>
+                        <div class="Estadistica">
+                            <span class="Numero" data-target="3">0</span>
+                            <span class="Label">Años de experiencia</span>
+                        </div>
+                        <div class="Estadistica">
+                            <span class="Numero" data-target="100">0</span>
+                            <span class="Label">% Dedicación</span>
+                        </div>
+                    </div>
+                    
+                    <div class="Acciones">
+                        <a href="#proyectos" class="Boton primario">
+                            <span>Ver mis proyectos</span>
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="m9 18 6-6-6-6"/>
+                            </svg>
+                        </a>
+                        <a href="#contacto" class="Boton secundario">
+                            <span>Contactar</span>
+                        </a>
+                        <a href="/static/portfolio/documents/cv-santino-rodriguez.pdf" class="Boton terciario" download>
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                                <polyline points="14,2 14,8 20,8"/>
+                                <line x1="16" y1="13" x2="8" y2="13"/>
+                                <line x1="16" y1="17" x2="8" y2="17"/>
+                                <polyline points="10,9 9,9 8,9"/>
+                            </svg>
+                            <span>Descargar CV</span>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="Visual">
+                    <div class="Marco">
+                        <div class="Decoracion">
+                            <div class="Circulo"></div>
+                            <div class="Circulo"></div>
+                            <div class="Circulo"></div>
+                        </div>
+                        <img class="Foto" src="/static/portfolio/images/Messi-1280x720.jpg" alt="Santino Rodriguez - Desarrollador Full Stack">
+                        <div class="Overlay">
+                            <div class="Info">
+                                <span class="Estado">
+                                    <span class="Indicador"></span>
+                                    Desarrollando el futuro
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Elementos flotantes decorativos -->
+                    <div class="Flotantes">
+                        <div class="Flotante tech">
+                            <svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M1.5 0h21l-1.91 21.563L11.977 24l-8.564-2.438L1.5 0zm7.031 9.75l-.232-2.718 10.059.003.23-2.622L5.412 4.41l.698 8.01h9.126l-.326 3.426-2.91.804-2.955-.81-.188-2.11H6.248l.33 4.171L12 19.351l5.379-1.443.744-8.157H8.531z"/>
+                            </svg>
+                        </div>
+                        <div class="Flotante design">
+                            <svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M23.15 2.587L18.21.21a1.494 1.494 0 0 0-1.705.29l-9.46 8.63-4.12-3.128a.999.999 0 0 0-1.276.057L.327 7.261A1 1 0 0 0 .326 8.74L3.899 12 .326 15.26a1 1 0 0 0 .001 1.479L1.65 17.94a.999.999 0 0 0 1.276.057l4.12-3.128 9.46 8.63a1.492 1.492 0 0 0 1.704.29l4.942-2.377A1.5 1.5 0 0 0 24 20.06V3.939a1.5 1.5 0 0 0-.85-1.352zm-5.146 14.861L10.826 12l7.178-5.448v10.896z"/>
+                            </svg>
+                        </div>
+                        <div class="Flotante mobile">
+                            <svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M17 2H7c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM7 4h10v13H7V4zm5 16c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Scroll indicator -->
+        <div class="Scroll">
+            <p>Explorar</p>
+            <div class="Flecha">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="m6 9 6 6 6-6"/>
+                </svg>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección sobre mí -->
+    <section class="Sobre" id="sobre">
+        <div class="Contenedor">
+            <div class="Encabezado">
+                <div class="Badge">
+                    <span>¿Quién soy?</span>
+                </div>
+                <h2 class="Titulo">Sobre mí</h2>
+                <p class="Descripcion">
+                    Conoce más sobre mi experiencia, pasión por la tecnología y lo que me motiva cada día.
+                </p>
+            </div>
+            
+            <div class="Contenido">
+                <div class="Historia">
+                    <div class="Parrafo">
+                        <h3>Mi historia con la programación</h3>
+                        <p>
+                            Todo comenzó con curiosidad. Desde pequeño me fascinaba entender cómo funcionaban 
+                            las cosas, y cuando descubrí la programación, supe que había encontrado mi vocación. 
+                            Lo que empezó como un pasatiempo se convirtió en una pasión que me impulsa a crear 
+                            soluciones innovadoras cada día.
+                        </p>
+                    </div>
+                    
+                    <div class="Parrafo">
+                        <h3>Enfoque y metodología</h3>
+                        <p>
+                            Creo firmemente en el desarrollo centrado en el usuario y en la importancia de 
+                            escribir código limpio y mantenible. Mi enfoque combina las mejores prácticas 
+                            técnicas con creatividad para entregar productos que no solo funcionen, sino 
+                            que brinden experiencias excepcionales.
+                        </p>
+                    </div>
+                    
+                    <div class="Parrafo">
+                        <h3>Crecimiento continuo</h3>
+                        <p>
+                            La tecnología evoluciona constantemente, y yo evoluciono con ella. Dedico tiempo 
+                            regularmente al aprendizaje de nuevas tecnologías, contribución a proyectos 
+                            open source y participación en la comunidad de desarrolladores.
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="Caracteristicas">
+                    <div class="Caracteristica">
+                        <div class="Icono">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+                            </svg>
+                        </div>
+                        <h4>Innovación</h4>
+                        <p>Busco constantemente nuevas formas de resolver problemas y mejorar procesos.</p>
+                    </div>
+                    
+                    <div class="Caracteristica">
+                        <div class="Icono">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="3"/>
+                                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+                            </svg>
+                        </div>
+                        <h4>Precisión</h4>
+                        <p>Atención al detalle y calidad en cada línea de código que escribo.</p>
+                    </div>
+                    
+                    <div class="Caracteristica">
+                        <div class="Icono">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                                <circle cx="9" cy="7" r="4"/>
+                                <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                                <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                            </svg>
+                        </div>
+                        <h4>Colaboración</h4>
+                        <p>Trabajo efectivamente en equipo y comunico ideas de forma clara.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección de habilidades -->
+    <section class="Habilidades" id="habilidades">
+        <div class="Contenedor">
+            <div class="Encabezado">
+                <div class="Badge">
+                    <span>Competencias</span>
+                </div>
+                <h2 class="Titulo">Habilidades Técnicas</h2>
+                <p class="Descripcion">
+                    Tecnologías y herramientas que domino para crear soluciones completas e innovadoras.
+                </p>
+            </div>
+            
+            <div class="Categorias">
+                <div class="Categoria">
+                    <div class="CategoriaHeader">
+                        <div class="CategoriaIcono">
+                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="16 18 22 12 16 6"/>
+                                <polyline points="8 6 2 12 8 18"/>
+                            </svg>
+                        </div>
+                        <h3 class="CategoriaTitulo">Frontend</h3>
+                    </div>
+                    <div class="Tecnologias">
+                        <div class="Tecnologia">
+                            <div class="TecnologiaIcono html"></div>
+                            <span>HTML5</span>
+                            <div class="Nivel">
+                                <div class="Progreso" style="width: 95%"></div>
+                            </div>
+                        </div>
+                        <div class="Tecnologia">
+                            <div class="TecnologiaIcono css"></div>
+                            <span>CSS3</span>
+                            <div class="Nivel">
+                                <div class="Progreso" style="width: 90%"></div>
+                            </div>
+                        </div>
+                        <div class="Tecnologia">
+                            <div class="TecnologiaIcono js"></div>
+                            <span>JavaScript</span>
+                            <div class="Nivel">
+                                <div class="Progreso" style="width: 85%"></div>
+                            </div>
+                        </div>
+                        <div class="Tecnologia">
+                            <div class="TecnologiaIcono react"></div>
+                            <span>React</span>
+                            <div class="Nivel">
+                                <div class="Progreso" style="width: 80%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="Categoria">
+                    <div class="CategoriaHeader">
+                        <div class="CategoriaIcono">
+                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+                                <line x1="8" y1="21" x2="16" y2="21"/>
+                                <line x1="12" y1="17" x2="12" y2="21"/>
+                            </svg>
+                        </div>
+                        <h3 class="CategoriaTitulo">Backend</h3>
+                    </div>
+                    <div class="Tecnologias">
+                        <div class="Tecnologia">
+                            <div class="TecnologiaIcono python"></div>
+                            <span>Python</span>
+                            <div class="Nivel">
+                                <div class="Progreso" style="width: 88%"></div>
+                            </div>
+                        </div>
+                        <div class="Tecnologia">
+                            <div class="TecnologiaIcono django"></div>
+                            <span>Django</span>
+                            <div class="Nivel">
+                                <div class="Progreso" style="width: 82%"></div>
+                            </div>
+                        </div>
+                        <div class="Tecnologia">
+                            <div class="TecnologiaIcono nodejs"></div>
+                            <span>Node.js</span>
+                            <div class="Nivel">
+                                <div class="Progreso" style="width: 75%"></div>
+                            </div>
+                        </div>
+                        <div class="Tecnologia">
+                            <div class="TecnologiaIcono sql"></div>
+                            <span>PostgreSQL</span>
+                            <div class="Nivel">
+                                <div class="Progreso" style="width: 78%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="Categoria">
+                    <div class="CategoriaHeader">
+                        <div class="CategoriaIcono">
+                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
+                            </svg>
+                        </div>
+                        <h3 class="CategoriaTitulo">Herramientas</h3>
+                    </div>
+                    <div class="Tecnologias">
+                        <div class="Tecnologia">
+                            <div class="TecnologiaIcono git"></div>
+                            <span>Git & GitHub</span>
+                            <div class="Nivel">
+                                <div class="Progreso" style="width: 92%"></div>
+                            </div>
+                        </div>
+                        <div class="Tecnologia">
+                            <div class="TecnologiaIcono vscode"></div>
+                            <span>VS Code</span>
+                            <div class="Nivel">
+                                <div class="Progreso" style="width: 95%"></div>
+                            </div>
+                        </div>
+                        <div class="Tecnologia">
+                            <div class="TecnologiaIcono figma"></div>
+                            <span>Figma</span>
+                            <div class="Nivel">
+                                <div class="Progreso" style="width: 70%"></div>
+                            </div>
+                        </div>
+                        <div class="Tecnologia">
+                            <div class="TecnologiaIcono docker"></div>
+                            <span>Docker</span>
+                            <div class="Nivel">
+                                <div class="Progreso" style="width: 65%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección de proyectos -->
+    <section class="Proyectos" id="proyectos">
+        <div class="Contenedor">
+            <div class="Encabezado">
+                <div class="Badge">
+                    <span>Portfolio</span>
+                </div>
+                <h2 class="Titulo">Proyectos Destacados</h2>
+                <p class="Descripcion">
+                    Una selección de mis trabajos más representativos que muestran mi evolución y capacidades técnicas.
+                </p>
+            </div>
+            
+            <div class="Filtros">
+                <button class="Filtro activo" data-filter="todos">Todos los proyectos</button>
+                <button class="Filtro" data-filter="web">Desarrollo Web</button>
+                <button class="Filtro" data-filter="mobile">Mobile Apps</button>
+                <button class="Filtro" data-filter="backend">Backend</button>
+            </div>
+            
+            <div class="Galeria">
+                <article class="Proyecto destacado" data-categoria="web">
+                    <div class="ProyectoImagen">
+                        <img src="/static/portfolio/images/proyecto-ecommerce.jpg" alt="E-commerce Platform" loading="lazy">
+                        <div class="ProyectoOverlay">
+                            <div class="ProyectoAcciones">
+                                <a href="https://github.com/santinorodriguez/ecommerce" class="Accion" target="_blank" rel="noopener">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                                    </svg>
+                                </a>
+                                <a href="https://ecommerce-demo.santinorodriguez.com" class="Accion" target="_blank" rel="noopener">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                                        <polyline points="15,3 21,3 21,9"/>
+                                        <line x1="10" y1="14" x2="21" y2="3"/>
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ProyectoContenido">
+                        <div class="ProyectoHeader">
+                            <h3 class="ProyectoTitulo">E-commerce Platform</h3>
+                            <span class="ProyectoBadge destacado">Destacado</span>
+                        </div>
+                        <p class="ProyectoDescripcion">
+                            Plataforma completa de comercio electrónico desarrollada con Django y React. 
+                            Incluye sistema de pagos, gestión de inventario, panel administrativo y 
+                            experiencia de usuario optimizada para conversiones.
+                        </p>
+                        <div class="ProyectoTecnologias">
+                            <span class="Tecnologia">Django</span>
+                            <span class="Tecnologia">React</span>
+                            <span class="Tecnologia">PostgreSQL</span>
+                            <span class="Tecnologia">Stripe</span>
+                            <span class="Tecnologia">Redis</span>
+                        </div>
+                        <div class="ProyectoStats">
+                            <div class="Stat">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polygon points="12 2 15.09 8.26 22 9 17 14.74 18.18 21.02 12 17.77 5.82 21.02 7 14.74 2 9 8.91 8.26 12 2"/>
+                                </svg>
+                                <span>127 stars</span>
+                            </div>
+                            <div class="Stat">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/>
+                                    <rect x="8" y="2" width="8" height="4" rx="1" ry="1"/>
+                                </svg>
+                                <span>45 forks</span>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+                
+                <article class="Proyecto" data-categoria="web">
+                    <div class="ProyectoImagen">
+                        <img src="/static/portfolio/images/proyecto-blog.jpg" alt="Blog Personal" loading="lazy">
+                        <div class="ProyectoOverlay">
+                            <div class="ProyectoAcciones">
+                                <a href="https://github.com/santinorodriguez/blog-personal" class="Accion" target="_blank" rel="noopener">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                                    </svg>
+                                </a>
+                                <a href="https://blog.santinorodriguez.com" class="Accion" target="_blank" rel="noopener">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                                        <polyline points="15,3 21,3 21,9"/>
+                                        <line x1="10" y1="14" x2="21" y2="3"/>
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ProyectoContenido">
+                        <div class="ProyectoHeader">
+                            <h3 class="ProyectoTitulo">Blog Técnico Personal</h3>
+                        </div>
+                        <p class="ProyectoDescripcion">
+                            Blog personal donde comparto artículos sobre desarrollo web, tutoriales 
+                            técnicos y reflexiones sobre la industria. Desarrollado con foco en 
+                            performance y experiencia de lectura.
+                        </p>
+                        <div class="ProyectoTecnologias">
+                            <span class="Tecnologia">Django</span>
+                            <span class="Tecnologia">JavaScript</span>
+                            <span class="Tecnologia">Markdown</span>
+                            <span class="Tecnologia">SEO</span>
+                        </div>
+                    </div>
+                </article>
+                
+                <article class="Proyecto" data-categoria="mobile">
+                    <div class="ProyectoImagen">
+                        <img src="/static/portfolio/images/proyecto-task-manager.jpg" alt="Task Manager App" loading="lazy">
+                        <div class="ProyectoOverlay">
+                            <div class="ProyectoAcciones">
+                                <a href="https://github.com/santinorodriguez/task-manager" class="Accion" target="_blank" rel="noopener">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ProyectoContenido">
+                        <div class="ProyectoHeader">
+                            <h3 class="ProyectoTitulo">Task Manager PWA</h3>
+                        </div>
+                        <p class="ProyectoDescripción">
+                            Aplicación web progresiva para gestión de tareas con funcionalidad offline, 
+                            notificaciones push y sincronización en la nube. Diseño centrado en 
+                            productividad y simplicidad.
+                        </p>
+                        <div class="ProyectoTecnologias">
+                            <span class="Tecnologia">React</span>
+                            <span class="Tecnologia">PWA</span>
+                            <span class="Tecnologia">Service Workers</span>
+                            <span class="Tecnologia">IndexedDB</span>
+                        </div>
+                    </div>
+                </article>
+                
+                <article class="Proyecto" data-categoria="backend">
+                    <div class="ProyectoImagen">
+                        <img src="/static/portfolio/images/proyecto-api.jpg" alt="REST API" loading="lazy">
+                        <div class="ProyectoOverlay">
+                            <div class="ProyectoAcciones">
+                                <a href="https://github.com/santinorodriguez/api-rest" class="Accion" target="_blank" rel="noopener">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                                    </svg>
+                                </a>
+                                <a href="https://api.santinorodriguez.com/docs" class="Accion" target="_blank" rel="noopener">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                                        <polyline points="15,3 21,3 21,9"/>
+                                        <line x1="10" y1="14" x2="21" y2="3"/>
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ProyectoContenido">
+                        <div class="ProyectoHeader">
+                            <h3 class="ProyectoTitulo">REST API Escalable</h3>
+                        </div>
+                        <p class="ProyectoDescripcion">
+                            API REST robusta y escalable con autenticación JWT, documentación automática, 
+                            rate limiting y monitoreo. Diseñada siguiendo las mejores prácticas de 
+                            arquitectura de software.
+                        </p>
+                        <div class="ProyectoTecnologias">
+                            <span class="Tecnologia">Django REST</span>
+                            <span class="Tecnologia">JWT</span>
+                            <span class="Tecnologia">Swagger</span>
+                            <span class="Tecnologia">Redis</span>
+                            <span class="Tecnologia">Docker</span>
+                        </div>
+                    </div>
+                </article>
+                
+                <article class="Proyecto" data-categoria="web">
+                    <div class="ProyectoImagen">
+                        <img src="/static/portfolio/images/proyecto-dashboard.jpg" alt="Analytics Dashboard" loading="lazy">
+                        <div class="ProyectoOverlay">
+                            <div class="ProyectoAcciones">
+                                <a href="https://github.com/santinorodriguez/analytics-dashboard" class="Accion" target="_blank" rel="noopener">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.30.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ProyectoContenido">
+                        <div class="ProyectoHeader">
+                            <h3 class="ProyectoTitulo">Dashboard Analítico</h3>
+                        </div>
+                        <p class="ProyectoDescripcion">
+                            Dashboard interactivo para visualización de datos con gráficos en tiempo real, 
+                            filtros avanzados y reportes exportables. Optimizado para grandes volúmenes de información.
+                        </p>
+                        <div class="ProyectoTecnologias">
+                            <span class="Tecnologia">React</span>
+                            <span class="Tecnologia">D3.js</span>
+                            <span class="Tecnologia">Python</span>
+                            <span class="Tecnologia">WebSockets</span>
+                        </div>
+                    </div>
+                </article>
+                
+                <article class="Proyecto" data-categoria="backend">
+                    <div class="ProyectoImagen">
+                        <img src="/static/portfolio/images/proyecto-microservices.jpg" alt="Microservices Architecture" loading="lazy">
+                        <div class="ProyectoOverlay">
+                            <div class="ProyectoAcciones">
+                                <a href="https://github.com/santinorodriguez/microservices" class="Accion" target="_blank" rel="noopener">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ProyectoContenido">
+                        <div class="ProyectoHeader">
+                            <h3 class="ProyectoTitulo">Arquitectura Microservicios</h3>
+                        </div>
+                        <p class="ProyectoDescripcion">
+                            Sistema distribuido basado en microservicios con gateway API, service discovery, 
+                            circuit breakers y monitoreo centralizado. Implementación de patrones de arquitectura moderna.
+                        </p>
+                        <div class="ProyectoTecnologias">
+                            <span class="Tecnologia">Docker</span>
+                            <span class="Tecnologia">Kubernetes</span>
+                            <span class="Tecnologia">MongoDB</span>
+                            <span class="Tecnologia">RabbitMQ</span>
+                        </div>
+                    </div>
+                </article>
+            </div>
+            
+            <div class="ProyectosAccion">
+                <a href="https://github.com/santinorodriguez" class="Boton secundario" target="_blank" rel="noopener">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                    </svg>
+                    <span>Ver todos en GitHub</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección de experiencia -->
+    <section class="Experiencia" id="experiencia">
+        <div class="Contenedor">
+            <div class="Encabezado">
+                <div class="Badge">
+                    <span>Trayectoria</span>
+                </div>
+                <h2 class="Titulo">Experiencia & Educación</h2>
+                <p class="Descripcion">
+                    Mi recorrido profesional y académico, destacando los momentos clave de mi crecimiento como desarrollador.
+                </p>
+            </div>
+            
+            <div class="Linea">
+                <div class="Evento">
+                    <div class="EventoFecha">
+                        <span class="Año">2024</span>
+                        <span class="Mes">Presente</span>
+                    </div>
+                    <div class="EventoMarcador"></div>
+                    <div class="EventoContenido">
+                        <div class="EventoHeader">
+                            <h3 class="EventoTitulo">Desarrollador Full Stack Freelance</h3>
+                            <span class="EventoTipo trabajo">Trabajo</span>
+                        </div>
+                        <p class="EventoEmpresa">Proyectos independientes</p>
+                        <p class="EventoDescripcion">
+                            Desarrollo de aplicaciones web personalizadas para diversos clientes, 
+                            desde startups hasta pequeñas empresas. Especialización en soluciones 
+                            escalables con Django, React y tecnologías modernas.
+                        </p>
+                        <ul class="EventoLogros">
+                            <li>Completé más de 12 proyectos exitosos</li>
+                            <li>Incrementé la eficiencia de los clientes en un 40% promedio</li>
+                            <li>Mantuve una calificación de 5 estrellas en todas las colaboraciones</li>
+                        </ul>
+                        <div class="EventoTecnologias">
+                            <span>Python</span>
+                            <span>Django</span>
+                            <span>React</span>
+                            <span>PostgreSQL</span>
+                            <span>Docker</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="Evento">
+                    <div class="EventoFecha">
+                        <span class="Año">2023</span>
+                        <span class="Mes">2024</span>
+                    </div>
+                    <div class="EventoMarcador"></div>
+                    <div class="EventoContenido">
+                        <div class="EventoHeader">
+                            <h3 class="EventoTitulo">Desarrollador Junior</h3>
+                            <span class="EventoTipo trabajo">Trabajo</span>
+                        </div>
+                        <p class="EventoEmpresa">TechSolutions Argentina</p>
+                        <p class="EventoDescripcion">
+                            Mi primera experiencia profesional formal donde participé en el desarrollo 
+                            de sistemas internos y aplicaciones cliente. Trabajé en equipo siguiendo 
+                            metodologías ágiles y buenas prácticas de desarrollo.
+                        </p>
+                        <ul class="EventoLogros">
+                            <li>Contribuí en 8 proyectos de diferentes escalas</li>
+                            <li>Reduje bugs en producción en un 25%</li>
+                            <li>Mentoré a 2 nuevos desarrolladores junior</li>
+                        </ul>
+                        <div class="EventoTecnologias">
+                            <span>JavaScript</span>
+                            <span>Node.js</span>
+                            <span>MongoDB</span>
+                            <span>Git</span>
+                            <span>AWS</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="Evento">
+                    <div class="EventoFecha">
+                        <span class="Año">2022</span>
+                        <span class="Mes">2024</span>
+                    </div>
+                    <div class="EventoMarcador"></div>
+                    <div class="EventoContenido">
+                        <div class="EventoHeader">
+                            <h3 class="EventoTitulo">Tecnicatura en Programación</h3>
+                            <span class="EventoTipo educacion">Educación</span>
+                        </div>
+                        <p class="EventoEmpresa">Universidad Tecnológica Nacional</p>
+                        <p class="EventoDescripcion">
+                            Formación integral en desarrollo de software, algoritmos, estructuras de datos, 
+                            bases de datos y ingeniería de software. Enfoque práctico con proyectos reales 
+                            y metodologías modernas de desarrollo.
+                        </p>
+                        <ul class="EventoLogros">
+                            <li>Promedio académico: 8.7/10</li>
+                            <li>Proyecto final: Sistema de gestión hospitalaria</li>
+                            <li>Participación en hackathons universitarios</li>
+                        </ul>
+                        <div class="EventoTecnologias">
+                            <span>Java</span>
+                            <span>C++</span>
+                            <span>SQL</span>
+                            <span>Algoritmos</span>
+                            <span>UML</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="Evento">
+                    <div class="EventoFecha">
+                        <span class="Año">2022</span>
+                        <span class="Mes">6 meses</span>
+                    </div>
+                    <div class="EventoMarcador"></div>
+                    <div class="EventoContenido">
+                        <div class="EventoHeader">
+                            <h3 class="EventoTitulo">Full Stack Web Development</h3>
+                            <span class="EventoTipo curso">Certificación</span>
+                        </div>
+                        <p class="EventoEmpresa">CoderHouse</p>
+                        <p class="EventoDescripcion">
+                            Curso intensivo de desarrollo web full stack con enfoque en tecnologías 
+                            modernas. Aprendizaje hands-on con proyectos prácticos y metodología 
+                            project-based learning.
+                        </p>
+                        <ul class="EventoLogros">
+                            <li>Certificación con honor (95/100)</li>
+                            <li>Proyecto destacado en showcase final</li>
+                            <li>Networking con profesionales de la industria</li>
+                        </ul>
+                        <div class="EventoTecnologias">
+                            <span>HTML5</span>
+                            <span>CSS3</span>
+                            <span>JavaScript</span>
+                            <span>React</span>
+                            <span>Node.js</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="Evento">
+                    <div class="EventoFecha">
+                        <span class="Año">2021</span>
+                        <span class="Mes">Inicio</span>
+                    </div>
+                    <div class="EventoMarcador inicio"></div>
+                    <div class="EventoContenido">
+                        <div class="EventoHeader">
+                            <h3 class="EventoTitulo">Primeros pasos en programación</h3>
+                            <span class="EventoTipo inicio">Inicio</span>
+                        </div>
+                        <p class="EventoEmpresa">Autodidacta</p>
+                        <p class="EventoDescripcion">
+                            El momento donde todo comenzó. Mi primer contacto con la programación a través 
+                            de tutoriales online, documentación y mucha experimentación. La curiosidad se 
+                            convirtió en pasión y la pasión en vocación.
+                        </p>
+                        <ul class="EventoLogros">
+                            <li>Primer "Hola Mundo" en Python</li>
+                            <li>Creación de mi primera página web</li>
+                            <li>100+ horas de práctica autodidacta</li>
+                        </ul>
+                        <div class="EventoTecnologias">
+                            <span>Python</span>
+                            <span>HTML</span>
+                            <span>CSS</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección de contacto -->
+    <section class="Contacto" id="contacto">
+        <div class="Contenedor">
+            <div class="Encabezado">
+                <div class="Badge">
+                    <span>¿Hablamos?</span>
+                </div>
+                <h2 class="Titulo">Ponte en contacto</h2>
+                <p class="Descripcion">
+                    ¿Tienes un proyecto en mente? ¿Quieres colaborar? ¿O simplemente charlar sobre tecnología? 
+                    Me encantaría escucharte.
+                </p>
+            </div>
+            
+            <div class="ContactoContenido">
+                <div class="ContactoInfo">
+                    <div class="InfoCard">
+                        <div class="InfoIcono">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                                <polyline points="22,6 12,13 2,6"/>
+                            </svg>
+                        </div>
+                        <div class="InfoTexto">
+                            <h3>Email</h3>
+                            <p>contacto@santinorodriguez.com</p>
+                            <a href="mailto:contacto@santinorodriguez.com" class="InfoEnlace">Enviar mensaje</a>
+                        </div>
+                    </div>
+                    
+                    <div class="InfoCard">
+                        <div class="InfoIcono">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                            </svg>
+                        </div>
+                        <div class="InfoTexto">
+                            <h3>Teléfono</h3>
+                            <p>+54 11 1234-5678</p>
+                            <a href="tel:+541112345678" class="InfoEnlace">Llamar</a>
+                        </div>
+                    </div>
+                    
+                    <div class="InfoCard">
+                        <div class="InfoIcono">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                                <circle cx="12" cy="10" r="3"/>
+                            </svg>
+                        </div>
+                        <div class="InfoTexto">
+                            <h3>Ubicación</h3>
+                            <p>Buenos Aires, Argentina</p>
+                            <span class="InfoEnlace">Disponible remotamente</span>
+                        </div>
+                    </div>
+                    
+                    <div class="RedesSociales">
+                        <h3>Sígueme en</h3>
+                        <div class="SocialesGrid">
+                            <a href="https://github.com/santinorodriguez" class="SocialCard github" target="_blank" rel="noopener">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                                </svg>
+                                <span>GitHub</span>
+                            </a>
+                            <a href="https://linkedin.com/in/santinorodriguez" class="SocialCard linkedin" target="_blank" rel="noopener">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                                </svg>
+                                <span>LinkedIn</span>
+                            </a>
+                            <a href="https://twitter.com/santinodev" class="SocialCard twitter" target="_blank" rel="noopener">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
+                                </svg>
+                                <span>Twitter</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="ContactoFormulario">
+                    <form class="Formulario" id="contactForm">
+                        <div class="FormularioHeader">
+                            <h3>Envíame un mensaje</h3>
+                            <p>Te responderé lo antes posible</p>
+                        </div>
+                        
+                        <div class="FormularioGrupo">
+                            <div class="Campo">
+                                <label for="nombre" class="CampoLabel">Nombre *</label>
+                                <input type="text" id="nombre" name="nombre" class="CampoInput" required>
+                            </div>
+                            <div class="Campo">
+                                <label for="email" class="CampoLabel">Email *</label>
+                                <input type="email" id="email" name="email" class="CampoInput" required>
+                            </div>
+                        </div>
+                        
+                        <div class="Campo">
+                            <label for="asunto" class="CampoLabel">Asunto *</label>
+                            <input type="text" id="asunto" name="asunto" class="CampoInput" required>
+                        </div>
+                        
+                        <div class="Campo">
+                            <label for="mensaje" class="CampoLabel">Mensaje *</label>
+                            <textarea id="mensaje" name="mensaje" class="CampoTextarea" rows="6" required></textarea>
+                        </div>
+                        
+                        <div class="FormularioAcciones">
+                            <button type="submit" class="Boton primario">
+                                <span>Enviar mensaje</span>
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <line x1="22" y1="2" x2="11" y2="13"/>
+                                    <polygon points="22,2 15,22 11,13 2,9 22,2"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
