@@ -314,6 +314,7 @@ button {
   color: var(--texto-terciario);
   margin: 0 0 2rem 0;
   max-width: 600px;
+  margin: 0 auto 0 auto;
 }
 
 .Encabezado {
@@ -1050,6 +1051,12 @@ button {
   box-shadow: var(--sombra-ligera);
   border: 1px solid var(--borde-claro);
   transition: var(--transition);
+  display: flex;
+  flex-direction: row;
+}
+
+.EventoContenido div {
+  padding: 1rem;
 }
 
 .EventoContenido:hover {
@@ -1057,11 +1064,14 @@ button {
   box-shadow: var(--sombra-media);
 }
 
+.Evento .EventoContenido .EventoGrupo {
+  width: 25rem;
+}
+
 .EventoHeader {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
   align-items: flex-start;
-  margin-bottom: 1rem;
   gap: 1rem;
 }
 
@@ -1111,7 +1121,6 @@ button {
 .EventoDescripcion {
   color: var(--texto-secundario);
   line-height: 1.6;
-  margin: 0 0 1.5rem 0;
 }
 
 .EventoLogros {
@@ -1140,15 +1149,17 @@ button {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
+  padding: 0 !important;
 }
 
 .EventoTecnologias span {
   background: var(--fondo-terciario);
   color: var(--texto-secundario);
-  padding: 0.25rem 0.75rem;
+  padding: 0.30rem; 
   border-radius: 50px;
   font-size: 0.75rem;
   font-weight: 500;
+
 }
 
 /* ==============================================

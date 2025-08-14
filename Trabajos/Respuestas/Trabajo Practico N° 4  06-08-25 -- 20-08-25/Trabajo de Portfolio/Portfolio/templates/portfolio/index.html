@@ -45,15 +45,6 @@
                     </div>
                     
                     <div class="Acciones">
-                        <a href="#proyectos" class="Boton primario">
-                            <span>Ver mis proyectos</span>
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="m9 18 6-6-6-6"/>
-                            </svg>
-                        </a>
-                        <a href="#contacto" class="Boton secundario">
-                            <span>Contactar</span>
-                        </a>
                         <a href="/static/portfolio/documents/cv-santino-rodriguez.pdf" class="Boton terciario" download>
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
@@ -84,8 +75,7 @@
                             </div>
                         </div>
                     </div>
-                    
-                    <!-- Elementos flotantes decorativos -->
+
                     <div class="Flotantes">
                         <div class="Flotante tech">
                             <svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor">
@@ -106,8 +96,7 @@
                 </div>
             </div>
         </div>
-        
-        <!-- Scroll indicator -->
+
         <div class="Scroll">
             <p>Explorar</p>
             <div class="Flecha">
@@ -358,13 +347,6 @@
                 </p>
             </div>
             
-            <div class="Filtros">
-                <button class="Filtro activo" data-filter="todos">Todos los proyectos</button>
-                <button class="Filtro" data-filter="web">Desarrollo Web</button>
-                <button class="Filtro" data-filter="mobile">Mobile Apps</button>
-                <button class="Filtro" data-filter="backend">Backend</button>
-            </div>
-            
             <div class="Galeria">
                 <article class="Proyecto destacado" data-categoria="web">
                     <div class="ProyectoImagen">
@@ -558,36 +540,6 @@
                         </div>
                     </div>
                 </article>
-                
-                <article class="Proyecto" data-categoria="backend">
-                    <div class="ProyectoImagen">
-                        <img src="/static/portfolio/images/proyecto-microservices.jpg" alt="Microservices Architecture" loading="lazy">
-                        <div class="ProyectoOverlay">
-                            <div class="ProyectoAcciones">
-                                <a href="https://github.com/santinorodriguez/microservices" class="Accion" target="_blank" rel="noopener">
-                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                                        <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-                                    </svg>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="ProyectoContenido">
-                        <div class="ProyectoHeader">
-                            <h3 class="ProyectoTitulo">Arquitectura Microservicios</h3>
-                        </div>
-                        <p class="ProyectoDescripcion">
-                            Sistema distribuido basado en microservicios con gateway API, service discovery, 
-                            circuit breakers y monitoreo centralizado. Implementación de patrones de arquitectura moderna.
-                        </p>
-                        <div class="ProyectoTecnologias">
-                            <span class="Tecnologia">Docker</span>
-                            <span class="Tecnologia">Kubernetes</span>
-                            <span class="Tecnologia">MongoDB</span>
-                            <span class="Tecnologia">RabbitMQ</span>
-                        </div>
-                    </div>
-                </article>
             </div>
             
             <div class="ProyectosAccion">
@@ -614,29 +566,16 @@
                 </p>
             </div>
             
-            <div class="Linea">
-                <div class="Evento">
-                    <div class="EventoFecha">
-                        <span class="Año">2024</span>
-                        <span class="Mes">Presente</span>
-                    </div>
-                    <div class="EventoMarcador"></div>
-                    <div class="EventoContenido">
-                        <div class="EventoHeader">
-                            <h3 class="EventoTitulo">Desarrollador Full Stack Freelance</h3>
-                            <span class="EventoTipo trabajo">Trabajo</span>
-                        </div>
-                        <p class="EventoEmpresa">Proyectos independientes</p>
-                        <p class="EventoDescripcion">
-                            Desarrollo de aplicaciones web personalizadas para diversos clientes, 
-                            desde startups hasta pequeñas empresas. Especialización en soluciones 
-                            escalables con Django, React y tecnologías modernas.
-                        </p>
-                        <ul class="EventoLogros">
-                            <li>Completé más de 12 proyectos exitosos</li>
-                            <li>Incrementé la eficiencia de los clientes en un 40% promedio</li>
-                            <li>Mantuve una calificación de 5 estrellas en todas las colaboraciones</li>
-                        </ul>
+            <div class="Evento">
+                <div class="EventoFecha">
+                    <span class="Año">2024</span>
+                    <span class="Mes">Presente</span>
+                </div>
+                <div class="EventoMarcador"></div>
+                <div class="EventoContenido">
+                    <div class="EventoHeader">
+                        <h3 class="EventoTitulo">Desarrollador Full Stack Freelance</h3>
+                        <span class="EventoTipo trabajo">Trabajo</span>
                         <div class="EventoTecnologias">
                             <span>Python</span>
                             <span>Django</span>
@@ -645,30 +584,34 @@
                             <span>Docker</span>
                         </div>
                     </div>
-                </div>
-                
-                <div class="Evento">
-                    <div class="EventoFecha">
-                        <span class="Año">2023</span>
-                        <span class="Mes">2024</span>
-                    </div>
-                    <div class="EventoMarcador"></div>
-                    <div class="EventoContenido">
-                        <div class="EventoHeader">
-                            <h3 class="EventoTitulo">Desarrollador Junior</h3>
-                            <span class="EventoTipo trabajo">Trabajo</span>
-                        </div>
-                        <p class="EventoEmpresa">TechSolutions Argentina</p>
+                    <div class="EventoGrupo">
+                        <p class="EventoEmpresa">Proyectos independientes</p>
                         <p class="EventoDescripcion">
-                            Mi primera experiencia profesional formal donde participé en el desarrollo 
-                            de sistemas internos y aplicaciones cliente. Trabajé en equipo siguiendo 
-                            metodologías ágiles y buenas prácticas de desarrollo.
+                            Desarrollo de aplicaciones web personalizadas para diversos clientes, 
+                            desde startups hasta pequeñas empresas. Especialización en soluciones 
+                            escalables con Django, React y tecnologías modernas.
                         </p>
+                    </div>
+                    <div class="EventoGrupo">
                         <ul class="EventoLogros">
-                            <li>Contribuí en 8 proyectos de diferentes escalas</li>
-                            <li>Reduje bugs en producción en un 25%</li>
-                            <li>Mentoré a 2 nuevos desarrolladores junior</li>
+                            <li>Completé más de 12 proyectos exitosos</li>
+                            <li>Incrementé la eficiencia de los clientes en un 40% promedio</li>
+                            <li>Mantuve una calificación de 5 estrellas en todas las colaboraciones</li>
                         </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="Evento">
+                <div class="EventoFecha">
+                    <span class="Año">2023</span>
+                    <span class="Mes">2024</span>
+                </div>
+                <div class="EventoMarcador"></div>
+                <div class="EventoContenido">
+                    <div class="EventoHeader">
+                        <h3 class="EventoTitulo">Desarrollador Junior</h3>
+                        <span class="EventoTipo trabajo">Trabajo</span>
                         <div class="EventoTecnologias">
                             <span>JavaScript</span>
                             <span>Node.js</span>
@@ -677,30 +620,34 @@
                             <span>AWS</span>
                         </div>
                     </div>
-                </div>
-                
-                <div class="Evento">
-                    <div class="EventoFecha">
-                        <span class="Año">2022</span>
-                        <span class="Mes">2024</span>
-                    </div>
-                    <div class="EventoMarcador"></div>
-                    <div class="EventoContenido">
-                        <div class="EventoHeader">
-                            <h3 class="EventoTitulo">Tecnicatura en Programación</h3>
-                            <span class="EventoTipo educacion">Educación</span>
-                        </div>
-                        <p class="EventoEmpresa">Universidad Tecnológica Nacional</p>
+                    <div class="EventoGrupo">
+                        <p class="EventoEmpresa">TechSolutions Argentina</p>
                         <p class="EventoDescripcion">
-                            Formación integral en desarrollo de software, algoritmos, estructuras de datos, 
-                            bases de datos y ingeniería de software. Enfoque práctico con proyectos reales 
-                            y metodologías modernas de desarrollo.
+                            Mi primera experiencia profesional formal donde participé en el desarrollo 
+                            de sistemas internos y aplicaciones cliente. Trabajé en equipo siguiendo 
+                            metodologías ágiles y buenas prácticas de desarrollo.
                         </p>
+                    </div>
+                    <div class="EventoGrupo">
                         <ul class="EventoLogros">
-                            <li>Promedio académico: 8.7/10</li>
-                            <li>Proyecto final: Sistema de gestión hospitalaria</li>
-                            <li>Participación en hackathons universitarios</li>
+                            <li>Contribuí en 8 proyectos de diferentes escalas</li>
+                            <li>Reduje bugs en producción en un 25%</li>
+                            <li>Mentoré a 2 nuevos desarrolladores junior</li>
                         </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="Evento">
+                <div class="EventoFecha">
+                    <span class="Año">2022</span>
+                    <span class="Mes">2024</span>
+                </div>
+                <div class="EventoMarcador"></div>
+                <div class="EventoContenido">
+                    <div class="EventoHeader">
+                        <h3 class="EventoTitulo">Tecnicatura en Programación</h3>
+                        <span class="EventoTipo educacion">Educación</span>
                         <div class="EventoTecnologias">
                             <span>Java</span>
                             <span>C++</span>
@@ -709,30 +656,34 @@
                             <span>UML</span>
                         </div>
                     </div>
-                </div>
-                
-                <div class="Evento">
-                    <div class="EventoFecha">
-                        <span class="Año">2022</span>
-                        <span class="Mes">6 meses</span>
-                    </div>
-                    <div class="EventoMarcador"></div>
-                    <div class="EventoContenido">
-                        <div class="EventoHeader">
-                            <h3 class="EventoTitulo">Full Stack Web Development</h3>
-                            <span class="EventoTipo curso">Certificación</span>
-                        </div>
-                        <p class="EventoEmpresa">CoderHouse</p>
+                    <div class="EventoGrupo">
+                        <p class="EventoEmpresa">Universidad Tecnológica Nacional</p>
                         <p class="EventoDescripcion">
-                            Curso intensivo de desarrollo web full stack con enfoque en tecnologías 
-                            modernas. Aprendizaje hands-on con proyectos prácticos y metodología 
-                            project-based learning.
+                            Formación integral en desarrollo de software, algoritmos, estructuras de datos, 
+                            bases de datos y ingeniería de software. Enfoque práctico con proyectos reales 
+                            y metodologías modernas de desarrollo.
                         </p>
+                    </div>
+                    <div class="EventoGrupo">
                         <ul class="EventoLogros">
-                            <li>Certificación con honor (95/100)</li>
-                            <li>Proyecto destacado en showcase final</li>
-                            <li>Networking con profesionales de la industria</li>
+                            <li>Promedio académico: 8.7/10</li>
+                            <li>Proyecto final: Sistema de gestión hospitalaria</li>
+                            <li>Participación en hackathons universitarios</li>
                         </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="Evento">
+                <div class="EventoFecha">
+                    <span class="Año">2022</span>
+                    <span class="Mes">6 meses</span>
+                </div>
+                <div class="EventoMarcador"></div>
+                <div class="EventoContenido">
+                    <div class="EventoHeader">
+                        <h3 class="EventoTitulo">Full Stack Web Development</h3>
+                        <span class="EventoTipo curso">Certificación</span>
                         <div class="EventoTecnologias">
                             <span>HTML5</span>
                             <span>CSS3</span>
@@ -741,40 +692,61 @@
                             <span>Node.js</span>
                         </div>
                     </div>
-                </div>
-                
-                <div class="Evento">
-                    <div class="EventoFecha">
-                        <span class="Año">2021</span>
-                        <span class="Mes">Inicio</span>
-                    </div>
-                    <div class="EventoMarcador inicio"></div>
-                    <div class="EventoContenido">
-                        <div class="EventoHeader">
-                            <h3 class="EventoTitulo">Primeros pasos en programación</h3>
-                            <span class="EventoTipo inicio">Inicio</span>
-                        </div>
-                        <p class="EventoEmpresa">Autodidacta</p>
+                    <div class="EventoGrupo">
+                        <p class="EventoEmpresa">CoderHouse</p>
                         <p class="EventoDescripcion">
-                            El momento donde todo comenzó. Mi primer contacto con la programación a través 
-                            de tutoriales online, documentación y mucha experimentación. La curiosidad se 
-                            convirtió en pasión y la pasión en vocación.
+                            Curso intensivo de desarrollo web full stack con enfoque en tecnologías 
+                            modernas. Aprendizaje hands-on con proyectos prácticos y metodología 
+                            project-based learning.
                         </p>
+                    </div>
+                    <div class="EventoGrupo">
                         <ul class="EventoLogros">
-                            <li>Primer "Hola Mundo" en Python</li>
-                            <li>Creación de mi primera página web</li>
-                            <li>100+ horas de práctica autodidacta</li>
+                            <li>Certificación con honor (95/100)</li>
+                            <li>Proyecto destacado en showcase final</li>
+                            <li>Networking con profesionales de la industria</li>
                         </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="Evento">
+                <div class="EventoFecha">
+                    <span class="Año">2021</span>
+                    <span class="Mes">Inicio</span>
+                </div>
+                <div class="EventoMarcador inicio"></div>
+                <div class="EventoContenido">
+                    <div class="EventoHeader">
+                        <h3 class="EventoTitulo">Primeros pasos en programación</h3>
+                        <span class="EventoTipo inicio">Inicio</span>
                         <div class="EventoTecnologias">
                             <span>Python</span>
                             <span>HTML</span>
                             <span>CSS</span>
                         </div>
                     </div>
+                    <div class="EventoGrupo">
+                        <p class="EventoEmpresa">Autodidacta</p>
+                        <p class="EventoDescripcion">
+                            El momento donde todo comenzó. Mi primer contacto con la programación a través 
+                            de tutoriales online, documentación y mucha experimentación. La curiosidad se 
+                            convirtió en pasión y la pasión en vocación.
+                        </p>
+                    </div>
+                    <div class="EventoGrupo">
+                        <ul class="EventoLogros">
+                            <li>Primer "Hola Mundo" en Python</li>
+                            <li>Creación de mi primera página web</li>
+                            <li>100+ horas de práctica autodidacta</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
+
         </div>
     </section>
+
 
     <!-- Sección de contacto -->
     <section class="Contacto" id="contacto">
