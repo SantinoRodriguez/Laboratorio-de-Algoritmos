@@ -1,11 +1,15 @@
 :root {
+  --color-principal: #1c7ed6;      /* azul principal */
+  --color-secundario: #f1f3f5;     /* fondo claro */
   /* Colores neutros para fondos */
-  --fondo-principal: #ffffff;
-  --fondo-secundario: #f8f9fa;
-  --fondo-terciario: #e9ecef;
-  --fondo-cards: #f1f3f5;
-  --fondo-panel: #dee2e6;
-  --fondo-hover: #d0ebff;
+  --fondo-principal: #ffffff;   /* Blanco puro */
+  --fondo-secundario: #f0f3f6;  /* Gris muy claro, apenas contraste */
+  --fondo-terciario: #e1e6eb;   /* Gris suave más oscuro */
+  --fondo-cards: #d4dadf;       /* Gris azulado claro para tarjetas */
+  --fondo-cards2:rgb(201, 212, 223);       /* Gris azulado claro para tarjetas */
+  --fondo-panel: #b8c4d1;       /* Gris azulado medio para paneles */
+  --fondo-hover: #a1d4ff;       /* Azul claro brillante para hover */
+
 
   /* Colores para bordes */
   --borde-claro: #ced4da;
@@ -90,6 +94,12 @@ button {
   cursor: pointer;
   font-family: inherit;
   transition: var(--transition);
+}
+
+ul {
+    list-style: none; 
+    padding: 0;    
+    margin: 0;       
 }
 
 /* ==============================================
@@ -1601,6 +1611,57 @@ button {
 .Proyecto {
   transform-style: preserve-3d;
   transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* ==============================================
+   Sección Blog
+   ============================================== */
+
+.Principal2 {
+  margin-top: 80px;
+  display: flex;
+  flex-direction: row;
+}
+   
+.Navegacion2 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  background-color: var(--color-secundario);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.Busqueda {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 9999px;
+  width: 40%;
+  background-color: var(--fondo-cards2);
+  padding: 0.4rem 0.8rem;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.08);
+  transition: box-shadow 0.2s ease;
+}
+
+.Busqueda svg {
+  color: var(--color-principal);
+  flex-shrink: 0;
+}
+
+.Busqueda:hover {
+  box-shadow: inset 0 0 0 1px var(--color-principal);
+}
+
+.MenuLateral {
+  width: 15%;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  overflow-y: auto;
 }
 
 /* ==============================================

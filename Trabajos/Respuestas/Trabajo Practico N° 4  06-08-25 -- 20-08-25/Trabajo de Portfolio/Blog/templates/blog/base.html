@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block titulo %}Santino Rodriguez - Desarrollador{% endblock %}</title>
+    <title>{% block titulo %}Santino Rodriguez - Blog{% endblock %}</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -13,15 +13,9 @@
     {% block extra_css %}{% endblock %}
 </head>
 <body>
-    <!--/* Indicador de carga */
-    <div class="Cargador" id="cargador">
-        <div class="Pulso"></div>
-        <p>Iniciando experiencia...</p>
-    </div>-->
-
     <!-- Navegación principal -->
     <header class="Cabecera" id="cabecera">
-        <nav class="Navegacion">
+        <nav class="Navegacion2">
             <div class="Marca">
                 <a href="/" class="Logo">
                     <span class="Inicial">S</span>
@@ -29,16 +23,13 @@
                 </a>
             </div>
             
-            <div class="Menu" id="menu">
-                <ul class="Enlaces">
-                    <li><a href="#inicio" class="Enlace activo">Inicio</a></li>
-                    <li><a href="#sobre" class="Enlace">Sobre mí</a></li>
-                    <li><a href="#habilidades" class="Enlace">Habilidades</a></li>
-                    <li><a href="#proyectos" class="Enlace">Proyectos</a></li>
-                    <li><a href="#experiencia" class="Enlace">Experiencia</a></li>
-                    <li><a href="{% url 'blog:index' %}" class="Enlace">Blog</a></li>
-                    <li><a href="#contacto" class="Enlace">Contacto</a></li>
-                </ul>
+            <div class="Busqueda">
+                <svg aria-hidden="true" viewBox="0 0 24 24" width="24" height="24"
+                    fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="7"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
             </div>
 
             <div class="Controles">
@@ -69,7 +60,7 @@
     </header>
 
     <!-- Contenido principal -->
-    <main class="Principal">
+    <main class="Principal2">
         {% block contenido %}
         {% endblock %}
     </main>
