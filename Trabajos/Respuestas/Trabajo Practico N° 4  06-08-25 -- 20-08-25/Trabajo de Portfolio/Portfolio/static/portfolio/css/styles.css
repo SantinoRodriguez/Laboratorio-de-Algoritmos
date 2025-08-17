@@ -1618,50 +1618,290 @@ ul {
    ============================================== */
 
 .Principal2 {
-  margin-top: 80px;
-  display: flex;
-  flex-direction: row;
+    margin-top: 60px;
+    display: flex;
+    flex-direction: row;
+    min-height: 100vh;
 }
-   
+
 .Navegacion2 {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0.5rem 1rem;
-  max-width: var(--max-width);
-  margin: 0 auto;
-  background-color: var(--color-secundario);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    max-width: var(--max-width);
+    margin: 0 auto;
+    background-color: var(--color-secundario);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
 }
 
 .Busqueda {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  border-radius: 9999px;
-  width: 40%;
-  background-color: var(--fondo-cards2);
-  padding: 0.4rem 0.8rem;
-  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.08);
-  transition: box-shadow 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    border-radius: 9999px;
+    width: 40%;
+    background-color: var(--fondo-cards2);
+    padding: 0.4rem 0.8rem;
+    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.08);
+    transition: box-shadow 0.2s ease;
 }
 
-.Busqueda svg {
-  color: var(--color-principal);
-  flex-shrink: 0;
-}
-
-.Busqueda:hover {
-  box-shadow: inset 0 0 0 1px var(--color-principal);
+.Busqueda input {
+    border: none;
+    background: transparent;
+    flex: 1;
+    outline: none;
+    color: var(--texto-principal);
 }
 
 .MenuLateral {
-  width: 15%;
-  padding: 2rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-  overflow-y: auto;
+    width: 20%;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    background-color: var(--fondo-secundario);
+    border-right: 1px solid var(--borde-claro);
+    position: sticky;
+    top: 60px;
+    height: calc(100vh - 60px);
+}
+
+.MenuLateral ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.MenuLateral li {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.6rem 0.8rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    color: var(--color-principal);
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.MenuLateral li:hover {
+    background-color: var(--fondo-hover);
+    color: var(--color-secundario);
+}
+
+.MenuLateral hr {
+    border: none;
+    height: 1px;
+    width: 100%;
+    background-color: var(--borde-medio);
+    opacity: 0.5;
+    margin: 0.75rem 0;
+}
+
+.Blog {
+    flex: 1;
+    padding: 1rem;
+    background-color: var(--fondo-secundario);
+}
+
+.Post {
+    background: var(--fondo-principal);
+    border-radius: var(--border-radius);
+    margin-bottom: 1rem;
+    border: 1px solid var(--borde-claro);
+    overflow: hidden;
+    transition: var(--transition);
+    position: relative;
+    display: flex;
+}
+
+.Post:hover {
+    box-shadow: var(--sombra-media);
+    border-color: var(--borde-acento);
+}
+
+.Votacion {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0.5rem;
+    background-color: var(--fondo-terciario);
+    border-right: 1px solid var(--borde-claro);
+    min-width: 50px;
+}
+
+.VotoBoton {
+    background: none;
+    border: none;
+    color: var(--texto-terciario);
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 0.25rem;
+    border-radius: 4px;
+    transition: var(--transition);
+}
+
+.VotoBoton:hover {
+    background-color: var(--fondo-hover);
+    color: var(--acento-medio);
+}
+
+.VotoBoton.activo.upvote {
+    color: #ff4500;
+}
+
+.VotoBoton.activo.downvote {
+    color: #7193ff;
+}
+
+.PuntuacionVotos {
+    font-weight: 600;
+    font-size: 0.875rem;
+    margin: 0.25rem 0;
+    color: var(--texto-principal);
+}
+
+.ContenidoPost {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.Informacion {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem 0;
+    font-size: 0.75rem;
+    color: var(--texto-terciario);
+}
+
+.SubredditBadge {
+    background-color: var(--acento-claro);
+    color: white;
+    padding: 0.125rem 0.5rem;
+    border-radius: 12px;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.Usuario {
+    color: var(--texto-secundario);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.Usuario:hover {
+    color: var(--acento-medio);
+}
+
+.Tiempo {
+    color: var(--texto-terciario);
+}
+
+.PostTexto {
+    padding: 0.5rem 1rem;
+}
+
+.PostTitulo {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin: 0 0 0.5rem 0;
+    color: var(--texto-principal);
+    cursor: pointer;
+}
+
+.PostTitulo:hover {
+    color: var(--acento-medio);
+}
+
+.PostDescripcion {
+    color: var(--texto-secundario);
+    margin: 0;
+    line-height: 1.5;
+}
+
+.PostImagen {
+    padding: 0 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.PostImagen img {
+    width: 100%;
+    max-height: 300px;
+    object-fit: cover;
+    border-radius: var(--border-radius);
+    border: 1px solid var(--borde-claro);
+}
+
+.PostAcciones {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.5rem 1rem 1rem;
+}
+
+.AccionPost {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    background: none;
+    border: none;
+    color: var(--texto-terciario);
+    font-size: 0.75rem;
+    cursor: pointer;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    transition: var(--transition);
+}
+
+.AccionPost:hover {
+    background-color: var(--fondo-terciario);
+    color: var(--texto-secundario);
+}
+
+.PostPin {
+    color: #00a651;
+}
+
+.PostDestacado {
+    border-left: 4px solid var(--acento-medio);
+}
+
+.PostDestacado .PostTitulo::before {
+    content: "📌 ";
+}
+
+.FiltroOrden {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    padding: 0 0.5rem;
+}
+
+.BotonOrden {
+    background: var(--fondo-principal);
+    border: 1px solid var(--borde-claro);
+    color: var(--texto-secundario);
+    padding: 0.5rem 1rem;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: var(--transition);
+    font-size: 0.875rem;
+}
+
+.BotonOrden:hover,
+.BotonOrden.activo {
+    background: var(--acento-medio);
+    color: white;
+    border-color: var(--acento-medio);
 }
 
 /* ==============================================
