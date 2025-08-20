@@ -47,6 +47,10 @@ def post_publish(request, pk):
         post.publish()
     return redirect('post_detail', pk=pk)
 
+def post_new(request):
+    form = PostForm()
+    return render(request, 'blog/post_edit.html', {'form': form})
+
 def publish(self):
     self.published_date = timezone.now()
     self.save()
