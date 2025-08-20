@@ -63,7 +63,7 @@
 }
 
 html {
-  scroll-behavior: smooth;
+  scroll-behavior:auto;
 }
 
 body {
@@ -855,17 +855,36 @@ ul {
   border: 2px solid var(--acento-claro);
 }
 
-.ProyectoImagen {
-  position: relative;
-  overflow: hidden;
-  aspect-ratio: 16/10;
+.PostImagen {
+    width: 100%;
+    max-height: 200px;  /* límite de altura */
+    overflow: hidden;   /* evita que sobresalga */
+    position: relative;
+    border-radius: 8px; /* opcional, esquinas redondeadas */
 }
 
-.ProyectoImagen img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: var(--transition);
+.ImagenPrincipal {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;   /* recorta la imagen sin deformarla */
+    object-position: center; /* centra la parte visible */
+    cursor: pointer;
+    display: block;
+}
+.EnlaceExterno {
+    display: block;
+    font-size: 0.85rem;
+    color: #007bff;
+    text-decoration: none;
+    margin-top: 5px;
+    text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.EnlaceExterno:hover {
+    text-decoration: underline;
 }
 
 .ProyectoOverlay {
@@ -1930,6 +1949,34 @@ display: block;
 transition: var(--transition);
 }
 
+.PostImagenFull {
+    width: 100%;
+    margin: 20px 0;
+    text-align: center;
+}
+
+.ImagenPrincipalFull {
+    max-width: 100%;   /* se adapta al ancho del contenedor */
+    height: auto;      /* mantiene proporción */
+    border-radius: 10px;
+    display: inline-block;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.EnlaceExternoFull {
+    display: block;
+    margin-top: 10px;
+    font-size: 0.9rem;
+    color: #007bff;
+    text-decoration: none;
+    word-break: break-word;
+}
+
+.EnlaceExternoFull:hover {
+    text-decoration: underline;
+}
+
+
 .Post:hover .ImagenPrincipal {
 transform: scale(1.02);
 }
@@ -2125,6 +2172,14 @@ color: var(--texto-terciario);
 .SkeletonLine.meta {
     height: 14px;
     width: 40%;
+}
+
+small a,
+small a:hover,
+small a:visited {
+    font-size: 15pt;
+    color: #ffffff;
+    text-decoration: none;
 }
 
 @keyframes skeleton-loading {

@@ -14,10 +14,23 @@
                 </div>
                 <div class="DetallesUsuario">
                     <div class="NombreUsuario">{{ post.author.get_full_name|default:"Santino Rodriguez" }}</div>
+                    {% if post.published_date %}
                     <div class="TiempoPublicacion">
                         Publicado: {{ post.published_date|date:"d M Y" }} • {{ post.published_date|timesince }}
                     </div>
+
+                    {% else %}
+                    <aside class="actions">
+                        <a class="btn btn-secondary" role="button" href="{% url 'post_publish' pk=post.pk %}">Publish</a>
+                    </aside>
+                    {% endif %}
                 </div>
+                <form action="{% url 'blog:post_remove' pk=post.pk %}" method="post">
+                    {% csrf_token %}
+                    <button class="btn btn-secondary" type="submit">
+
+                    </button>
+                </form>
                 <div class="EstadoBadge">
                     {% if post.is_sponsored %}
                         <span class="Badge patrocinado">Patrocinado</span>
@@ -48,19 +61,18 @@
             <h1 class="TituloPost" style="font-size: 2rem; margin-bottom: 1rem;">{{ post.title }}</h1>
             
             {% if post.image %}
-            <div class="PostImagen">
+            <div class="PostImagenFull">
                 <img src="{{ post.image.url }}" 
-                     alt="{{ post.title }}" 
-                     class="ImagenPrincipal"
-                     style="height: 300px;">
+                    alt="{{ post.title }}" 
+                    class="ImagenPrincipalFull">
                 {% if post.external_link %}
-                <a href="{{ post.external_link }}" class="EnlaceExterno" target="_blank">
+                <a href="{{ post.external_link }}" class="EnlaceExternoFull" target="_blank">
                     {{ post.external_link|truncatechars:25 }}
                 </a>
                 {% endif %}
             </div>
             {% endif %}
-            
+
             <div class="ContenidoPost" style="font-size: 16px; line-height: 1.8; margin: 2rem 0;">
                 {{ post.text|linebreaksbr }}
             </div>
@@ -112,69 +124,16 @@
     </article>
 
     <!-- Sección de comentarios -->
-    <div id="comments" class="Post">
-        <div class="PostHeader">
-            <h3 style="margin: 0; color: var(--texto-principal);">💬 Comentarios ({{ post.comments_count|default:0 }})</h3>
+    <hr>
+    {% for comment in post.comments.all %}
+        <div class="comment">
+            <div class="date">{{ comment.created_date }}</div>
+            <strong>{{ comment.author }}</strong>
+            <p>{{ comment.text|linebreaks }}</p>
         </div>
-        
-        <div class="PostContenido">
-            <!-- Formulario para nuevo comentario -->
-            {% if user.is_authenticated %}
-            <form method="post" style="margin-bottom: 2rem; padding: 1rem; background: var(--fondo-secundario); border-radius: var(--border-radius-sm);">
-                {% csrf_token %}
-                <div style="display: flex; align-items: flex-start; gap: 12px; margin-bottom: 1rem;">
-                    <div class="AvatarUsuario" style="background: linear-gradient(135deg, #4dabf7 0%, #1c7ed6 100%); width: 36px; height: 36px; font-size: 16px;">
-                        {{ user.first_name|first|default:user.username|first|upper }}
-                    </div>
-                    <div style="flex: 1;">
-                        <textarea name="comment" placeholder="Escribe tu comentario..." 
-                                style="width: 100%; min-height: 80px; padding: 12px; border: 2px solid var(--borde-claro); border-radius: var(--border-radius-sm); resize: vertical; font-family: inherit;"></textarea>
-                    </div>
-                </div>
-                <div style="text-align: right;">
-                    <button type="submit" style="background: var(--acento-medio); color: white; border: none; padding: 8px 16px; border-radius: var(--border-radius-sm); cursor: pointer; font-weight: 500;">
-                        Comentar
-                    </button>
-                </div>
-            </form>
-            {% else %}
-            <div style="padding: 1rem; background: var(--fondo-secundario); border-radius: var(--border-radius-sm); text-align: center; margin-bottom: 2rem;">
-                <p style="margin: 0; color: var(--texto-secundario);">
-                    <a href="/admin/login/?next={{ request.path }}" style="color: var(--acento-medio); text-decoration: none;">Inicia sesión</a> para comentar
-                </p>
-            </div>
-            {% endif %}
-
-            <!-- Lista de comentarios -->
-            {% for comment in post.comments.all %}
-            <div style="display: flex; gap: 12px; margin-bottom: 1.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--borde-claro);">
-                <div class="AvatarUsuario" style="background: linear-gradient(135deg, #ff6b35 0%, #f7931a 100%); width: 36px; height: 36px; font-size: 16px;">
-                    {{ comment.author.first_name|first|default:comment.author.username|first|upper }}
-                </div>
-                <div style="flex: 1;">
-                    <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
-                        <span style="font-weight: 600; color: var(--texto-principal);">
-                            {{ comment.author.get_full_name|default:comment.author.username }}
-                        </span>
-                        <span style="font-size: 13px; color: var(--texto-terciario);">
-                            {{ comment.created_date|timesince }}
-                        </span>
-                    </div>
-                    <p style="margin: 0; color: var(--texto-secundario); line-height: 1.5;">
-                        {{ comment.text|linebreaksbr }}
-                    </p>
-                </div>
-            </div>
-            {% empty %}
-            <div style="text-align: center; padding: 2rem; color: var(--texto-terciario);">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 48px; height: 48px; margin-bottom: 1rem; opacity: 0.5;">
-                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
-                </svg>
-                <p>¡Sé el primero en comentar!</p>
-            </div>
-            {% endfor %}
-        </div>
-    </div>
+    {% empty %}
+        <p>No comments here yet :</p>
+    {% endfor %}
 
     <!-- Navegación entre posts -->
     <div style="display: flex; justify-content: space-between; margin: 2rem 0; gap: 1rem;">
