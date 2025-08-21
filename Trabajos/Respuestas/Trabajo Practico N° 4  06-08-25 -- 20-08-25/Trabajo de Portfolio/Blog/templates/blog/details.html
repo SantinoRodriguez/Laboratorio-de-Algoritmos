@@ -18,17 +18,19 @@
                     <div class="TiempoPublicacion">
                         Publicado: {{ post.published_date|date:"d M Y" }} • {{ post.published_date|timesince }}
                     </div>
-
                     {% else %}
                     <aside class="actions">
-                        <a class="btn btn-secondary" role="button" href="{% url 'post_publish' pk=post.pk %}">Publish</a>
+                        <a class="btn btn-secondary" role="button" href="{% url 'blog:post_publish' pk=post.pk %}">Publicar</a>
                     </aside>
                     {% endif %}
                 </div>
-                <form action="{% url 'blog:post_remove' pk=post.pk %}" method="post">
+                <form action="{% url 'blog:post_remove' pk=post.pk %}" method="post" class="FormAccionesPost">
                     {% csrf_token %}
-                    <button class="btn btn-secondary" type="submit">
-
+                    <a href="{% url 'blog:post_edit' pk=post.pk %}" class="btn-edit">
+                        <span class="glyphicon glyphicon-pencil"></span> Editar
+                    </a>
+                    <button class="btn-delete" type="submit">
+                        <span class="glyphicon glyphicon-trash"></span> Eliminar
                     </button>
                 </form>
                 <div class="EstadoBadge">
@@ -99,7 +101,7 @@
                         <svg class="IconoAccion" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
                         </svg>
-                        <span>{{ post.comments_count|default:0 }}</span>
+                        <span>{{ post.comments.all|length }}</span>
                     </button>
                     <button class="BotonAccion bookmark {% if post.is_bookmarked %}activo{% endif %}" data-post-id="{{ post.pk }}">
                         <svg class="IconoAccion" viewBox="0 0 24 24" fill="currentColor">
@@ -115,25 +117,116 @@
                     </button>
                 </div>
                 <div class="EstadisticasPost">
-                    <span>{{ post.views|default:0 }} views</span>
+                    <span>{{ post.views|default:0 }} vistas</span>
                     <span>•</span>
-                    <span>{{ post.upvote_percentage|default:95 }}% upvoted</span>
+                    <span>{{ post.upvote_percentage|default:95 }}% positivos</span>
                 </div>
             </div>
         </div>
     </article>
 
     <!-- Sección de comentarios -->
-    <hr>
-    {% for comment in post.comments.all %}
-        <div class="comment">
-            <div class="date">{{ comment.created_date }}</div>
-            <strong>{{ comment.author }}</strong>
-            <p>{{ comment.text|linebreaks }}</p>
+    <section class="SeccionComentarios" id="comentarios">
+        <div class="HeaderComentarios">
+            <h3 class="TituloComentarios">
+                <svg class="IconoComentarios" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                </svg>
+                Comentarios ({{ post.comments.all|length }})
+            </h3>
         </div>
-    {% empty %}
-        <p>No comments here yet :</p>
-    {% endfor %}
+
+        <!-- Formulario para agregar comentario -->
+        <div class="FormularioComentario">
+            <h4 class="TituloFormComentario">Agregar un comentario</h4>
+            <form action="{% url 'blog:add_comment_to_post' pk=post.pk %}" method="post" class="FormComentario">
+                {% csrf_token %}
+                <div class="CampoFormulario">
+                    <label for="id_author" class="LabelFormulario">Nombre *</label>
+                    <input type="text" name="author" id="id_author" class="InputFormulario" placeholder="Tu nombre" maxlength="200" required>
+                    <div class="TextoAyuda">Este nombre aparecerá en tu comentario</div>
+                </div>
+                
+                <div class="CampoFormulario">
+                    <label for="id_text" class="LabelFormulario">Comentario *</label>
+                    <textarea name="text" 
+                              id="id_text" 
+                              class="TextareaFormulario" 
+                              placeholder="Escribe tu comentario... Comparte tu opinión de manera respetuosa" 
+                              rows="4" 
+                              required></textarea>
+                    <div class="TextoAyuda">Mínimo 10 caracteres</div>
+                </div>
+                
+                <div class="BotonesFormulario">
+                    <button type="submit" class="BotonEnviar">
+                        <svg class="IconoBoton" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="22" y1="2" x2="11" y2="13"/>
+                            <polygon points="22,2 15,22 11,13 2,9"/>
+                        </svg>
+                        Publicar comentario
+                    </button>
+                    <button type="button" class="BotonCancelar" onclick="limpiarFormulario()">
+                        Cancelar
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Lista de comentarios -->
+        <div class="ListaComentarios">
+            {% for comment in post.comments.all %}
+                {% if comment.approved_comment %}
+                <article class="Comentario">
+                    <div class="HeaderComentario">
+                        <div class="AvatarComentario">
+                            {{ comment.author|first|upper }}
+                        </div>
+                        <div class="InfoComentario">
+                            <div class="NombreAutorComentario">{{ comment.author }}</div>
+                            <div class="FechaComentario">
+                                {{ comment.created_date|date:"d M Y" }} a las {{ comment.created_date|date:"H:i" }}
+                                <span class="TiempoRelativo">• hace {{ comment.created_date|timesince }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ContenidoComentario">
+                        <p class="TextoComentario">{{ comment.text|linebreaksbr }}</p>
+                    </div>
+                    <div class="AccionesComentario">
+                        <button class="BotonAccionComentario">
+                            <svg class="IconoAccionComentario" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M7 10v12l4-4h5.5A2.5 2.5 0 0 0 19 15.5v-8A2.5 2.5 0 0 0 16.5 5h-9A2.5 2.5 0 0 0 5 7.5v8A2.5 2.5 0 0 0 7.5 18H9"/>
+                            </svg>
+                            Responder
+                        </button>
+                        <button class="BotonAccionComentario">
+                            <svg class="IconoAccionComentario" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                            </svg>
+                            <span>0</span>
+                        </button>
+                    </div>
+                </article>
+                {% endif %}
+            {% empty %}
+                <div class="SinComentarios">
+                    <div class="IconoSinComentarios">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                            <circle cx="9" cy="9" r="1"/>
+                            <circle cx="15" cy="9" r="1"/>
+                            <path d="M8 13s1.5 2 4 2 4-2 4-2"/>
+                        </svg>
+                    </div>
+                    <h4 class="TituloSinComentarios">¡Sé el primero en comentar!</h4>
+                    <p class="TextoSinComentarios">
+                        Comparte tu opinión sobre este post. Tu comentario aparecerá aquí después de ser aprobado.
+                    </p>
+                </div>
+            {% endfor %}
+        </div>
+    </section>
 
     <!-- Navegación entre posts -->
     <div style="display: flex; justify-content: space-between; margin: 2rem 0; gap: 1rem;">
@@ -176,4 +269,17 @@
         </a>
     </div>
 </section>
+
+<script>
+function limpiarFormulario() {
+    document.getElementById('id_author').value = '';
+    document.getElementById('id_text').value = '';
+}
+
+// Auto-resize textarea
+document.getElementById('id_text').addEventListener('input', function() {
+    this.style.height = 'auto';
+    this.style.height = (this.scrollHeight) + 'px';
+});
+</script>
 {% endblock %}

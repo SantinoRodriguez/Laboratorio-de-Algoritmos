@@ -1,0 +1,493 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+
+{% block titulo %}Agregar comentario - {{ post.title }}{% endblock %}
+
+{% block contenido %}
+<section class="Blog">
+    <div class="ContenedorFormulario" style="max-width: 800px; margin: 0 auto;">
+        <!-- Header del formulario -->
+        <div class="HeaderFormulario">
+            <a href="{% url 'blog:post_detail' pk=post.pk %}" class="BotonVolver">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M19 12H5"/>
+                    <path d="M12 19l-7-7 7-7"/>
+                </svg>
+                Volver al post
+            </a>
+            <h1 class="TituloFormulario">Agregar comentario</h1>
+            <p class="DescripcionFormulario">
+                Estás comentando en: <strong>"{{ post.title }}"</strong>
+            </p>
+        </div>
+
+        <!-- Formulario completo -->
+        <div class="FormularioComentarioCompleto">
+            <form method="post" class="FormComentarioCompleto">
+                {% csrf_token %}
+                
+                <!-- Mostrar errores del formulario -->
+                {% if form.errors %}
+                <div class="AlertaErrores">
+                    <div class="IconoAlerta">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"/>
+                            <line x1="12" y1="8" x2="12" y2="12"/>
+                            <line x1="12" y1="16" x2="12.01" y2="16"/>
+                        </svg>
+                    </div>
+                    <div class="ContenidoAlerta">
+                        <h4>Por favor corrige los siguientes errores:</h4>
+                        <ul>
+                            {% for field in form %}
+                                {% for error in field.errors %}
+                                    <li>{{ field.label }}: {{ error }}</li>
+                                {% endfor %}
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+                {% endif %}
+
+                <!-- Campo Nombre -->
+                <div class="CampoFormularioCompleto">
+                    <label for="{{ form.author.id_for_label }}" class="LabelCompleto">
+                        <svg class="IconoLabel" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                            <circle cx="12" cy="7" r="4"/>
+                        </svg>
+                        Nombre *
+                    </label>
+                    {{ form.author }}
+                    {% if form.author.help_text %}
+                    <div class="TextoAyudaCompleto">{{ form.author.help_text }}</div>
+                    {% endif %}
+                    {% if form.author.errors %}
+                    <div class="ErrorCampo">
+                        {% for error in form.author.errors %}
+                            {{ error }}
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                </div>
+
+                <!-- Campo Comentario -->
+                <div class="CampoFormularioCompleto">
+                    <label for="{{ form.text.id_for_label }}" class="LabelCompleto">
+                        <svg class="IconoLabel" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                        </svg>
+                        Comentario *
+                    </label>
+                    {{ form.text }}
+                    <div class="ContadorCaracteres" id="contador">
+                        <span id="caracteres-actuales">0</span> / 1000 caracteres
+                    </div>
+                    {% if form.text.help_text %}
+                    <div class="TextoAyudaCompleto">{{ form.text.help_text }}</div>
+                    {% endif %}
+                    {% if form.text.errors %}
+                    <div class="ErrorCampo">
+                        {% for error in form.text.errors %}
+                            {{ error }}
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                </div>
+
+                <!-- Información adicional -->
+                <div class="InfoAdicional">
+                    <div class="TarjetaInfo">
+                        <svg class="IconoInfo" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"/>
+                            <line x1="12" y1="16" x2="12" y2="12"/>
+                            <line x1="12" y1="8" x2="12.01" y2="8"/>
+                        </svg>
+                        <div>
+                            <h4>Ten en cuenta:</h4>
+                            <ul>
+                                <li>Tu comentario será revisado antes de ser publicado</li>
+                                <li>Mantén un tono respetuoso y constructivo</li>
+                                <li>Evita contenido ofensivo o spam</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Botones de acción -->
+                <div class="BotonesAccionCompletos">
+                    <button type="submit" class="BotonPublicar" id="boton-enviar">
+                        <svg class="IconoBoton" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="22" y1="2" x2="11" y2="13"/>
+                            <polygon points="22,2 15,22 11,13 2,9"/>
+                        </svg>
+                        Publicar comentario
+                    </button>
+                    
+                    <a href="{% url 'blog:post_detail' pk=post.pk %}" class="BotonCancelarCompleto">
+                        <svg class="IconoBoton" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="18" y1="6" x2="6" y2="18"/>
+                            <line x1="6" y1="6" x2="18" y2="18"/>
+                        </svg>
+                        Cancelar
+                    </a>
+                </div>
+            </form>
+        </div>
+
+        <!-- Preview del post -->
+        <div class="PreviewPost">
+            <h3>Post que estás comentando:</h3>
+            <div class="TarjetaPreview">
+                <h4>{{ post.title }}</h4>
+                <p>{{ post.text|truncatewords:30 }}</p>
+                <div class="MetaPreview">
+                    Por {{ post.author.get_full_name|default:"Santino Rodriguez" }} • 
+                    {{ post.published_date|date:"d M Y" }}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+/* Estilos específicos para esta página */
+.ContenedorFormulario {
+    padding: 2rem 1rem;
+}
+
+.HeaderFormulario {
+    text-align: center;
+    margin-bottom: 2rem;
+    padding-bottom: 2rem;
+    border-bottom: 2px solid var(--borde-claro, #e1e5e9);
+}
+
+.BotonVolver {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--acento-medio, #4dabf7);
+    text-decoration: none;
+    font-weight: 500;
+    margin-bottom: 1rem;
+    padding: 8px 16px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.BotonVolver:hover {
+    background: var(--fondo-hover, #f7fafc);
+    transform: translateX(-4px);
+}
+
+.BotonVolver svg {
+    width: 16px;
+    height: 16px;
+}
+
+.TituloFormulario {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--texto-principal, #1a202c);
+    margin: 0 0 0.5rem 0;
+}
+
+.DescripcionFormulario {
+    color: var(--texto-secundario, #4a5568);
+    font-size: 1rem;
+    margin: 0;
+}
+
+.FormularioComentarioCompleto {
+    background: white;
+    border: 1px solid var(--borde-claro, #e1e5e9);
+    border-radius: 12px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.CampoFormularioCompleto {
+    margin-bottom: 1.5rem;
+}
+
+.LabelCompleto {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+    color: var(--texto-secundario, #4a5568);
+    margin-bottom: 0.5rem;
+    font-size: 0.95rem;
+}
+
+.IconoLabel {
+    width: 18px;
+    height: 18px;
+    color: var(--acento-medio, #4dabf7);
+}
+
+.CampoFormularioCompleto input,
+.CampoFormularioCompleto textarea {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid var(--borde-claro, #e1e5e9);
+    border-radius: 8px;
+    font-size: 1rem;
+    font-family: inherit;
+    background: white;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+}
+
+.CampoFormularioCompleto textarea {
+    min-height: 120px;
+    resize: vertical;
+    line-height: 1.5;
+}
+
+.AlertaErrores {
+    display: flex;
+    gap: 12px;
+    padding: 16px;
+    background: #fed7d7;
+    border: 1px solid #feb2b2;
+    border-radius: 8px;
+    margin-bottom: 2rem;
+}
+
+.IconoAlerta {
+    color: #c53030;
+    flex-shrink: 0;
+}
+
+.IconoAlerta svg {
+    width: 24px;
+    height: 24px;
+}
+
+.ContenidoAlerta h4 {
+    color: #c53030;
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 0 0 0.5rem 0;
+}
+
+.ContenidoAlerta ul {
+    color: #c53030;
+    margin: 0;
+    padding-left: 1.5rem;
+}
+
+.InfoAdicional {
+    margin: 2rem 0;
+}
+
+.TarjetaInfo {
+    display: flex;
+    gap: 12px;
+    padding: 16px;
+    background: #bee3f8;
+    border: 1px solid #90cdf4;
+    border-radius: 8px;
+}
+
+.IconoInfo {
+    color: #2b6cb0;
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.IconoInfo svg {
+    width: 20px;
+    height: 20px;
+}
+
+.TarjetaInfo h4 {
+    color: #2b6cb0;
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin: 0 0 0.5rem 0;
+}
+
+.TarjetaInfo ul {
+    color: #2c5282;
+    font-size: 0.9rem;
+    margin: 0;
+    padding-left: 1.25rem;
+}
+
+.BotonesAccionCompletos {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--borde-claro, #e1e5e9);
+}
+
+.BotonPublicar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 28px;
+    background: var(--acento-medio, #4dabf7);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(77, 171, 247, 0.3);
+}
+
+.BotonPublicar:hover {
+    background: var(--acento-oscuro, #339af0);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(77, 171, 247, 0.4);
+}
+
+.BotonCancelarCompleto {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 24px;
+    background: transparent;
+    color: var(--texto-terciario, #718096);
+    border: 2px solid var(--borde-claro, #e1e5e9);
+    border-radius: 8px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.BotonCancelarCompleto:hover {
+    color: var(--texto-secundario, #4a5568);
+    border-color: var(--borde-medio, #cbd5e0);
+    background: var(--fondo-hover, #f7fafc);
+}
+
+.PreviewPost {
+    background: var(--fondo-secundario, #f8f9fa);
+    border: 1px solid var(--borde-claro, #e1e5e9);
+    border-radius: 12px;
+    padding: 1.5rem;
+}
+
+.PreviewPost h3 {
+    color: var(--texto-principal, #1a202c);
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin: 0 0 1rem 0;
+}
+
+.TarjetaPreview {
+    background: white;
+    border: 1px solid var(--borde-claro, #e1e5e9);
+    border-radius: 8px;
+    padding: 1rem;
+}
+
+.TarjetaPreview h4 {
+    color: var(--texto-principal, #1a202c);
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 0 0 0.5rem 0;
+}
+
+.TarjetaPreview p {
+    color: var(--texto-secundario, #4a5568);
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin: 0 0 0.75rem 0;
+}
+
+.MetaPreview {
+    font-size: 0.8rem;
+    color: var(--texto-terciario, #718096);
+}
+
+@media (max-width: 768px) {
+    .ContenedorFormulario {
+        padding: 1rem;
+    }
+    
+    .FormularioComentarioCompleto {
+        padding: 1.5rem;
+    }
+    
+    .BotonesAccionCompletos {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .BotonPublicar,
+    .BotonCancelarCompleto {
+        justify-content: center;
+    }
+}
+</style>
+
+<script>
+// Contador de caracteres
+document.addEventListener('DOMContentLoaded', function() {
+    const textarea = document.querySelector('textarea[name="text"]');
+    const contador = document.getElementById('caracteres-actuales');
+    const maxLength = 1000;
+    
+    if (textarea && contador) {
+        function actualizarContador() {
+            const length = textarea.value.length;
+            contador.textContent = length;
+            
+            const contadorEl = document.getElementById('contador');
+            if (length > maxLength * 0.8) {
+                contadorEl.classList.add('cerca-limite');
+            } else {
+                contadorEl.classList.remove('cerca-limite');
+            }
+            
+            if (length >= maxLength) {
+                contadorEl.classList.add('limite-alcanzado');
+            } else {
+                contadorEl.classList.remove('limite-alcanzado');
+            }
+        }
+        
+        textarea.addEventListener('input', actualizarContador);
+        actualizarContador(); // Inicializar
+    }
+    
+    // Auto-resize textarea
+    if (textarea) {
+        textarea.addEventListener('input', function() {
+            this.style.height = 'auto';
+            this.style.height = (this.scrollHeight) + 'px';
+        });
+    }
+    
+    // Confirmar antes de cancelar si hay contenido
+    const botonCancelar = document.querySelector('.BotonCancelarCompleto');
+    const inputs = document.querySelectorAll('input, textarea');
+    
+    if (botonCancelar) {
+        botonCancelar.addEventListener('click', function(e) {
+            let hayContenido = false;
+            inputs.forEach(input => {
+                if (input.value.trim() !== '') {
+                    hayContenido = true;
+                }
+            });
+            
+            if (hayContenido) {
+                if (!confirm('¿Estás seguro de que quieres cancelar? Se perderá el contenido escrito.')) {
+                    e.preventDefault();
+                }
+            }
+        });
+    }
+});
+</script>
+{% endblock %}

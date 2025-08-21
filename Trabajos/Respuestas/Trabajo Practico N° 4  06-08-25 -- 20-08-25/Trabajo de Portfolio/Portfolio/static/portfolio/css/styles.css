@@ -103,54 +103,6 @@ ul {
 }
 
 /* ==============================================
-   LOADER
-   ============================================== */
-
-.Cargador {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: var(--fondo-principal);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  z-index: 9999;
-  opacity: 1;
-  transition: opacity 0.5s ease-in-out;
-}
-
-.Cargador.oculto {
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-  transition: opacity 0.5s ease, visibility 0.5s ease;
-}
-
-
-.Pulso {
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  background: var(--gradiente-primary);
-  animation: pulso 1.5s ease-in-out infinite;
-  margin-bottom: 20px;
-}
-
-.Cargador p {
-  color: var(--texto-secundario);
-  font-size: 16px;
-  margin: 0;
-}
-
-@keyframes pulso {
-  0%, 100% { transform: scale(1); opacity: 0.7; }
-  50% { transform: scale(1.2); opacity: 1; }
-}
-
-/* ==============================================
    HEADER Y NAVEGACIÓN
    ============================================== */
 
@@ -2227,36 +2179,1801 @@ small a:visited {
     color: white;
 }
 
-/* Estilos responsive */
-@media (max-width: 1200px) {
-    .SidebarDerecho {
-        display: none;
+/* ===== SECCIÓN DE COMENTARIOS RENOVADA ===== */
+.SeccionComentarios {
+    margin-top: 4rem;
+    padding: 3rem 0;
+    background: linear-gradient(135deg, var(--fondo-principal) 0%, var(--fondo-secundario) 100%);
+    border-radius: var(--border-radius-lg);
+    position: relative;
+    overflow: hidden;
+    border: var(--borde-fuerte);
+}
+
+.SeccionComentarios::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: var(--gradiente-primary);
+    border-radius: var(--border-radius-lg) var(--border-radius-lg) 0 0;
+}
+
+/* ===== HEADER DE COMENTARIOS ===== */
+.HeaderComentarios {
+    text-align: center;
+    margin-bottom: 3rem;
+    padding: 0 2rem;
+}
+
+.TituloComentarios {
+    display: inline-flex;
+    align-items: center;
+    gap: 16px;
+    font-size: clamp(1.5rem, 4vw, 2.25rem);
+    font-weight: 800;
+    color: var(--texto-principal);
+    margin: 0 0 1rem 0;
+    position: relative;
+}
+
+.TituloComentarios::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 3px;
+    background: var(--gradiente-primary);
+    border-radius: 2px;
+}
+
+.IconoComentarios {
+    width: 32px;
+    height: 32px;
+    color: var(--acento-medio);
+    filter: drop-shadow(0 2px 4px rgba(77, 171, 247, 0.2));
+}
+
+.DescripcionComentarios {
+    font-size: 1.125rem;
+    color: var(--texto-terciario);
+    margin: 1rem 0 0 0;
+    font-weight: 400;
+}
+
+/* ===== FORMULARIO DE COMENTARIOS RENOVADO ===== */
+.FormularioComentario {
+    background: white;
+    border-radius: var(--border-radius);
+    padding: 2.5rem;
+    margin: 0 2rem 3rem 2rem;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+    border: 1px solid var(--borde-claro);
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.FormularioComentario:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.12);
+    border-color: var(--acento-claro);
+}
+
+.TituloFormComentario {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--texto-principal);
+    margin: 0 0 2rem 0;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+/* ===== CAMPOS DEL FORMULARIO ===== */
+.FormComentario {
+    display: grid;
+    gap: 2rem;
+}
+
+.CamposGrupo {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+}
+
+.CampoFormulario {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.LabelFormulario {
+    font-weight: 600;
+    color: var(--texto-secundario);
+    font-size: 0.95rem;
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.LabelFormulario::before {
+    content: '';
+    width: 3px;
+    height: 16px;
+    background: var(--gradiente-primary);
+    border-radius: 2px;
+}
+
+.InputFormulario,
+.TextareaFormulario {
+    width: 100%;
+    padding: 1rem 1.5rem;
+    border: 2px solid var(--borde-claro);
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+    font-family: inherit;
+    background: var(--fondo-principal);
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    box-sizing: border-box;
+    position: relative;
+}
+
+.InputFormulario::placeholder,
+.TextareaFormulario::placeholder {
+    color: var(--texto-terciario);
+    font-style: italic;
+}
+
+.InputFormulario:focus,
+.TextareaFormulario:focus {
+    outline: none;
+    border-color: var(--acento-medio);
+    box-shadow: 
+        0 0 0 4px rgba(77, 171, 247, 0.15),
+        0 4px 12px rgba(77, 171, 247, 0.1);
+    transform: translateY(-2px);
+    background: white;
+}
+
+.TextareaFormulario {
+    resize: vertical;
+    min-height: 120px;
+    line-height: 1.6;
+    font-family: inherit;
+}
+
+.TextoAyuda {
+    font-size: 0.85rem;
+    color: var(--texto-terciario);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 0.25rem;
+}
+
+.TextoAyuda::before {
+    content: 'ℹ️';
+    font-size: 0.75rem;
+}
+
+/* ===== CONTADOR DE CARACTERES ===== */
+.ContadorCaracteres {
+    position: absolute;
+    right: 12px;
+    bottom: 12px;
+    font-size: 0.75rem;
+    font-family: 'SF Mono', 'Monaco', 'Consolas', monospace;
+    color: var(--texto-terciario);
+    background: rgba(255, 255, 255, 0.9);
+    padding: 4px 8px;
+    border-radius: 12px;
+    border: 1px solid var(--borde-claro);
+    backdrop-filter: blur(4px);
+    transition: all 0.3s ease;
+}
+
+.ContadorCaracteres.cerca-limite {
+    color: #ed8936;
+    border-color: #ed8936;
+    background: rgba(237, 137, 54, 0.1);
+}
+
+.ContadorCaracteres.limite-alcanzado {
+    color: #e53e3e;
+    border-color: #e53e3e;
+    background: rgba(229, 62, 62, 0.1);
+    animation: shake 0.3s ease-in-out;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-4px); }
+    75% { transform: translateX(4px); }
+}
+
+.FormAccionesPost {
+    display: flex;
+    gap: 0.8rem;
+    margin-top: 1rem;
+}
+
+.FormAccionesPost a,
+.FormAccionesPost button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    padding: 0.6rem 1rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-decoration: none;
+}
+
+/* Botón editar */
+.FormAccionesPost .btn-edit {
+    background: var(--acento-medio);
+    color: #fff;
+}
+
+.FormAccionesPost .btn-edit:hover {
+    background: var(--acento-oscuro);
+}
+
+/* Botón eliminar */
+.FormAccionesPost .btn-delete {
+    background: #e03131;
+    color: #fff;
+}
+
+.FormAccionesPost .btn-delete:hover {
+    background: #c92a2a;
+    transform: scale(1.05);
+}
+
+/* Ajuste de íconos dentro de los botones */
+.FormAccionesPost svg,
+.FormAccionesPost span.glyphicon {
+    font-size: 1rem;
+}
+
+
+/* ===== BOTONES DEL FORMULARIO ===== */
+.BotonesFormulario {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    justify-content: flex-start;
+    margin-top: 1rem;
+}
+
+.BotonEnviar {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 1rem 2rem;
+    background: var(--gradiente-primary);
+    color: white;
+    border: none;
+    border-radius: var(--border-radius);
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    box-shadow: 
+        0 4px 12px rgba(77, 171, 247, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    position: relative;
+    overflow: hidden;
+}
+
+.BotonEnviar::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+}
+
+.BotonEnviar:hover::before {
+    left: 100%;
+}
+
+.BotonEnviar:hover {
+    transform: translateY(-3px);
+    box-shadow: 
+        0 8px 24px rgba(77, 171, 247, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+.BotonEnviar:active {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(77, 171, 247, 0.3);
+}
+
+.IconoBoton {
+    width: 18px;
+    height: 18px;
+    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
+}
+
+.BotonCancelar {
+    padding: 1rem 1.5rem;
+    background: transparent;
+    color: var(--texto-terciario);
+    border: 2px solid var(--borde-claro);
+    border-radius: var(--border-radius);
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0.95rem;
+}
+
+.BotonCancelar:hover {
+    color: var(--texto-secundario);
+    border-color: var(--borde-medio);
+    background: var(--fondo-hover);
+    transform: translateY(-1px);
+}
+
+/* ===== LISTA DE COMENTARIOS ===== */
+.ListaComentarios {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    padding: 0 2rem;
+}
+
+.Comentario {
+    background: white;
+    border-radius: var(--border-radius);
+    padding: 2rem;
+    border: 1px solid var(--borde-claro);
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.Comentario::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 4px;
+    height: 100%;
+    background: var(--gradiente-primary);
+    transform: scaleY(0);
+    transition: transform 0.3s ease;
+    border-radius: 0 2px 2px 0;
+}
+
+.Comentario:hover::before {
+    transform: scaleY(1);
+}
+
+.Comentario:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
+    border-color: var(--acento-claro);
+}
+
+/* ===== HEADER DEL COMENTARIO ===== */
+.HeaderComentario {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.AvatarComentario {
+    width: 48px;
+    height: 48px;
+    background: var(--gradiente-primary);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 700;
+    font-size: 1.125rem;
+    flex-shrink: 0;
+    box-shadow: 
+        0 4px 12px rgba(77, 171, 247, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    position: relative;
+    overflow: hidden;
+}
+
+.AvatarComentario::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.2) 50%, transparent 70%);
+    transform: rotate(45deg);
+    transition: all 0.6s;
+    opacity: 0;
+}
+
+.Comentario:hover .AvatarComentario::after {
+    opacity: 1;
+    animation: shine 0.8s ease-out;
+}
+
+@keyframes shine {
+    0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+    100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+}
+
+.InfoComentario {
+    flex: 1;
+}
+
+.NombreAutorComentario {
+    font-weight: 700;
+    color: var(--texto-principal);
+    font-size: 1.125rem;
+    margin: 0 0 0.5rem 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.BadgeAutor {
+    background: var(--gradiente-primary);
+    color: white;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.FechaComentario {
+    font-size: 0.875rem;
+    color: var(--texto-terciario);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 500;
+}
+
+.FechaComentario svg {
+    width: 14px;
+    height: 14px;
+    opacity: 0.7;
+}
+
+/* ===== CONTENIDO DEL COMENTARIO ===== */
+.ContenidoComentario {
+    margin: 1.5rem 0;
+    padding-left: 64px;
+}
+
+.TextoComentario {
+    color: var(--texto-secundario);
+    line-height: 1.7;
+    margin: 0;
+    font-size: 1rem;
+    word-wrap: break-word;
+    hyphens: auto;
+}
+
+/* ===== ACCIONES DEL COMENTARIO ===== */
+.AccionesComentario {
+    display: flex;
+    gap: 1rem;
+    padding-left: 64px;
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--borde-claro);
+}
+
+.BotonAccionComentario {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    background: transparent;
+    color: var(--texto-terciario);
+    border: 1px solid var(--borde-claro);
+    border-radius: 50px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.BotonAccionComentario:hover {
+    background: var(--fondo-hover);
+    color: var(--acento-medio);
+    border-color: var(--acento-claro);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(77, 171, 247, 0.15);
+}
+
+.IconoAccionComentario {
+    width: 16px;
+    height: 16px;
+    transition: transform 0.3s ease;
+}
+
+.BotonAccionComentario:hover .IconoAccionComentario {
+    transform: scale(1.1);
+}
+
+/* ===== SIN COMENTARIOS ===== */
+.SinComentarios {
+    text-align: center;
+    padding: 4rem 2rem;
+    background: linear-gradient(135deg, var(--fondo-secundario) 0%, var(--fondo-terciario) 100%);
+    border: 2px dashed var(--borde-claro);
+    border-radius: var(--border-radius-lg);
+    margin: 2rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.SinComentarios::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 10px,
+        rgba(77, 171, 247, 0.05) 10px,
+        rgba(77, 171, 247, 0.05) 20px
+    );
+    animation: float 20s linear infinite;
+}
+
+@keyframes float {
+    0% { transform: translate(-50%, -50%) rotate(0deg); }
+    100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+.IconoSinComentarios {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 1.5rem;
+    color: var(--texto-terciario);
+    opacity: 0.6;
+    position: relative;
+    z-index: 1;
+}
+
+.TituloSinComentarios {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--texto-secundario);
+    margin: 0 0 1rem 0;
+    position: relative;
+    z-index: 1;
+}
+
+.TextoSinComentarios {
+    color: var(--texto-terciario);
+    font-size: 1.125rem;
+    line-height: 1.6;
+    margin: 0;
+    max-width: 500px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+}
+
+/* ===== MENSAJES DE ESTADO ===== */
+.MensajeExito,
+.MensajeError {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 1rem 1.5rem;
+    border-radius: var(--border-radius);
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin: 1rem 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.MensajeExito {
+    background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.MensajeError {
+    background: linear-gradient(135deg, #f8d7da 0%, #f5c6cb 100%);
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+.MensajeExito svg,
+.MensajeError svg {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+}
+
+/* Seccion Edicion */
+
+.EditorPost {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 2rem;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header mejorado del Editor */
+.EditorHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 3rem;
+  padding: 2rem;
+  background: white;
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--sombra-media);
+  border: 2px solid var(--borde-claro);
+  position: relative;
+  overflow: hidden;
+}
+
+.EditorHeader::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--gradiente-primary);
+}
+
+.HeaderInfo {
+  flex: 1;
+}
+
+.TituloEditor {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
+  font-weight: 800;
+  color: var(--texto-principal);
+  margin-bottom: 0.5rem;
+}
+
+.IconoEditor {
+  width: 40px;
+  height: 40px;
+  color: var(--acento-medio);
+  filter: drop-shadow(0 2px 8px rgba(77, 171, 247, 0.3));
+}
+
+.SubtituloEditor {
+  font-size: 1.125rem;
+  color: var(--texto-terciario);
+  font-weight: 500;
+}
+
+.EstadoEditor {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: flex-end;
+}
+
+.BadgeEstado {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: 50px;
+  font-weight: 600;
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: var(--sombra-ligera);
+}
+
+.BadgeEstado svg {
+  width: 18px;
+  height: 18px;
+}
+
+.BadgeEstado.publicado {
+  background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+  color: #155724;
+  border: 2px solid #c3e6cb;
+}
+
+.BadgeEstado.borrador {
+  background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
+  color: #856404;
+  border: 2px solid #ffeaa7;
+}
+
+.BadgeEstado.modificando {
+  background: linear-gradient(135deg, #cce5ff 0%, #99d6ff 100%);
+  color: #0066cc;
+  border: 2px solid #99d6ff;
+}
+
+.InfoModificacion {
+  font-size: 0.75rem;
+  color: var(--texto-terciario);
+  text-align: right;
+  font-style: italic;
+}
+
+/* Layout principal mejorado */
+.FormularioEditor {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 2rem;
+  flex: 1;
+  align-items: start;
+}
+
+.ContenidoPrincipal {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+/* Vista previa del post original cuando se está modificando */
+.VistaOriginal {
+  background: white;
+  border-radius: var(--border-radius);
+  padding: 2rem;
+  border: 2px solid var(--alerta-aviso);
+  margin-bottom: 2rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.VistaOriginal::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(135deg, var(--alerta-aviso) 0%, #f59f00 100%);
+}
+
+.VistaOriginalHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+  font-weight: 700;
+  color: var(--texto-principal);
+}
+
+.VistaOriginalHeader svg {
+  width: 20px;
+  height: 20px;
+  color: var(--alerta-aviso);
+}
+
+.PostOriginal {
+  padding: 1rem;
+  background: var(--fondo-secundario);
+  border-radius: var(--border-radius);
+  border: 1px solid var(--borde-claro);
+}
+
+.PostOriginalTitulo {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--texto-principal);
+  margin-bottom: 1rem;
+  line-height: 1.3;
+}
+
+.PostOriginalContenido {
+  color: var(--texto-secundario);
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+.PostOriginalImagen {
+  width: 100%;
+  max-height: 200px;
+  object-fit: cover;
+  border-radius: var(--border-radius);
+  margin: 1rem 0;
+}
+
+.PostOriginalMeta {
+  display: flex;
+  gap: 1rem;
+  font-size: 0.875rem;
+  color: var(--texto-terciario);
+  border-top: 1px solid var(--borde-claro);
+  padding-top: 1rem;
+}
+
+/* Campos del Editor mejorados */
+.CampoEditor {
+  background: white;
+  border-radius: var(--border-radius);
+  padding: 2rem;
+  border: 2px solid var(--borde-claro);
+  transition: var(--transition);
+  position: relative;
+  box-shadow: var(--sombra-ligera);
+}
+
+.CampoEditor:focus-within {
+  border-color: var(--acento-medio);
+  box-shadow: 0 0 0 4px rgba(77, 171, 247, 0.1);
+  transform: translateY(-2px);
+}
+
+.LabelEditor {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--texto-principal);
+  margin-bottom: 1rem;
+}
+
+.IconoLabel {
+  width: 24px;
+  height: 24px;
+  color: var(--acento-medio);
+}
+
+.InputEditor {
+  width: 100%;
+  border: none;
+  outline: none;
+  font-size: 1rem;
+  color: var(--texto-principal);
+  background: transparent;
+  padding: 0;
+  font-family: inherit;
+}
+
+.titulo-input {
+  font-size: 1.5rem;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.AyudaCampo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1rem;
+  font-size: 0.875rem;
+}
+
+.ContadorCaracteres {
+  background: var(--fondo-terciario);
+  color: var(--texto-terciario);
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-weight: 600;
+  font-size: 0.75rem;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.TextoAyuda {
+  color: var(--texto-terciario);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Editor de contenido mejorado */
+.EditorContenido {
+  position: relative;
+}
+
+.BarraHerramientas {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background: var(--fondo-secundario);
+  border-radius: var(--border-radius) var(--border-radius) 0 0;
+  border-bottom: 2px solid var(--borde-claro);
+}
+
+.GrupoHerramientas {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.BotonHerramienta {
+  background: var(--fondo-principal);
+  border: 2px solid var(--borde-claro);
+  border-radius: var(--border-radius);
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.BotonHerramienta:hover {
+  background: var(--acento-medio);
+  color: white;
+  border-color: var(--acento-medio);
+  transform: translateY(-2px);
+}
+
+.ContadorPalabras {
+  background: var(--fondo-principal);
+  color: var(--texto-terciario);
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  border: 2px solid var(--borde-claro);
+}
+
+.TextareaEditor {
+  width: 100%;
+  border: none;
+  outline: none;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--texto-principal);
+  background: transparent;
+  resize: vertical;
+  min-height: 400px;
+  font-family: 'Inter', sans-serif;
+  padding: 1rem;
+}
+
+/* Panel lateral mejorado */
+.PanelLateral {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  height: fit-content;
+  position: sticky;
+  top: 2rem;
+}
+
+.PanelSeccion {
+  background: white;
+  border-radius: var(--border-radius);
+  padding: 1.5rem;
+  border: 2px solid var(--borde-claro);
+  box-shadow: var(--sombra-ligera);
+  transition: var(--transition);
+}
+
+.PanelSeccion:hover {
+  box-shadow: var(--sombra-media);
+  transform: translateY(-1px);
+}
+
+.TituloPanelSeccion {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--texto-principal);
+  margin: 0 0 1rem 0;
+}
+
+.TituloPanelSeccion svg {
+  width: 18px;
+  height: 18px;
+  color: var(--acento-medio);
+}
+
+/* Subida de imagen mejorada */
+.SubidaImagen {
+  position: relative;
+}
+
+.AreaSubida {
+  border: 2px dashed var(--borde-claro);
+  border-radius: var(--border-radius);
+  padding: 2rem;
+  text-align: center;
+  cursor: pointer;
+  transition: var(--transition);
+  position: relative;
+  overflow: hidden;
+  min-height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.AreaSubida:hover {
+  border-color: var(--acento-medio);
+  background: rgba(77, 171, 247, 0.05);
+}
+
+.AreaSubida.con-imagen {
+  padding: 0;
+  border-style: solid;
+  border-color: var(--acento-medio);
+  min-height: 200px;
+}
+
+.ImagenPreview {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: var(--border-radius);
+}
+
+.OverlayImagen {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  opacity: 0;
+  transition: var(--transition);
+  border-radius: var(--border-radius);
+}
+
+.AreaSubida:hover .OverlayImagen {
+  opacity: 1;
+}
+
+.OverlayImagen svg {
+  width: 32px;
+  height: 32px;
+  margin-bottom: 0.5rem;
+}
+
+.PlaceholderImagen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  color: var(--texto-terciario);
+}
+
+.PlaceholderImagen svg {
+  width: 48px;
+  height: 48px;
+  opacity: 0.6;
+}
+
+.InfoImagen {
+  background: var(--fondo-terciario);
+  padding: 0.5rem 1rem;
+  border-radius: var(--border-radius);
+  font-size: 0.75rem;
+  color: var(--texto-secundario);
+  margin-top: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Campos del panel */
+.CampoPanel {
+  margin-bottom: 1rem;
+}
+
+.LabelPanel {
+  display: block;
+  font-weight: 600;
+  color: var(--texto-secundario);
+  font-size: 0.875rem;
+  margin-bottom: 0.5rem;
+}
+
+.InputPanel {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 2px solid var(--borde-claro);
+  border-radius: var(--border-radius);
+  font-size: 0.875rem;
+  color: var(--texto-principal);
+  background: var(--fondo-principal);
+  transition: var(--transition);
+}
+
+.InputPanel:focus {
+  outline: none;
+  border-color: var(--acento-medio);
+  box-shadow: 0 0 0 3px rgba(77, 171, 247, 0.1);
+}
+
+.SelectWrapper {
+  position: relative;
+}
+
+.SelectEditor {
+  width: 100%;
+  padding: 0.75rem 2.5rem 0.75rem 1rem;
+  border: 2px solid var(--borde-claro);
+  border-radius: var(--border-radius);
+  font-size: 0.875rem;
+  color: var(--texto-principal);
+  background: var(--fondo-principal);
+  appearance: none;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.IconoSelect {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 16px;
+  height: 16px;
+  color: var(--texto-terciario);
+  pointer-events: none;
+}
+
+/* Sistema de tags */
+.TagsInput {
+  border: 2px solid var(--borde-claro);
+  border-radius: var(--border-radius);
+  padding: 0.5rem;
+  background: var(--fondo-principal);
+  transition: var(--transition);
+  min-height: 50px;
+}
+
+.TagsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.TagItem {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--acento-medio);
+  color: white;
+  padding: 0.25rem 0.75rem;
+  border-radius: 50px;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.EliminarTag {
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-size: 1rem;
+  width: 16px;
+  height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+
+.InputTags {
+  border: none;
+  outline: none;
+  padding: 0.5rem;
+  font-size: 0.875rem;
+  color: var(--texto-principal);
+  background: transparent;
+  min-width: 120px;
+  flex: 1;
+}
+
+/* Opciones con checkboxes */
+.OpcionesList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.OpcionCheck {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  cursor: pointer;
+  padding: 0.5rem 0;
+  transition: var(--transition);
+}
+
+.OpcionCheck input[type="checkbox"] {
+  display: none;
+}
+
+.Checkmark {
+  width: 18px;
+  height: 18px;
+  border: 2px solid var(--borde-claro);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition);
+}
+
+.OpcionCheck input[type="checkbox"]:checked + .Checkmark {
+  background: var(--acento-medio);
+  border-color: var(--acento-medio);
+}
+
+.OpcionCheck input[type="checkbox"]:checked + .Checkmark::after {
+  content: '✓';
+  color: white;
+  font-weight: 700;
+  font-size: 12px;
+}
+
+.LabelCheck {
+  font-weight: 500;
+  font-size: 0.875rem;
+}
+
+/* Vista previa mejorada */
+.VistaPrevia {
+  background: var(--fondo-secundario);
+  border-radius: var(--border-radius);
+  padding: 1.5rem;
+  border: 1px solid var(--borde-claro);
+  transition: var(--transition);
+}
+
+.PreviewTitulo {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--texto-principal);
+  margin-bottom: 1rem;
+  line-height: 1.3;
+}
+
+.PreviewContenido {
+  color: var(--texto-secundario);
+  line-height: 1.6;
+  font-size: 0.875rem;
+}
+
+/* Botones de acción mejorados */
+.AccionesFormulario {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem;
+  background: white;
+  border-radius: var(--border-radius);
+  border: 2px solid var(--borde-claro);
+  margin-top: 2rem;
+  box-shadow: var(--sombra-ligera);
+  position: relative;
+  z-index: 10;
+}
+
+.GrupoAcciones {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.BotonPrimario {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 2rem;
+  background: var(--gradiente-primary);
+  color: white;
+  border: none;
+  border-radius: var(--border-radius);
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: var(--transition);
+  box-shadow: 0 4px 12px rgba(77, 171, 247, 0.3);
+}
+
+.BotonPrimario:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(77, 171, 247, 0.4);
+}
+
+.BotonSecundario {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 2rem;
+  background: var(--alerta-exito);
+  color: white;
+  border: none;
+  border-radius: var(--border-radius);
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: var(--transition);
+  box-shadow: 0 4px 12px rgba(64, 192, 87, 0.3);
+}
+
+.BotonTerciario {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 2rem;
+  background: transparent;
+  color: var(--texto-secundario);
+  border: 2px solid var(--borde-claro);
+  border-radius: var(--border-radius);
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+  text-decoration: none;
+}
+
+.BotonEliminar {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 2rem;
+  background: var(--alerta-error);
+  color: white;
+  border: none;
+  border-radius: var(--border-radius);
+  font-weight: 700;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+/* Animaciones */
+@keyframes slideInUp {
+  from {
+      opacity: 0;
+      transform: translateY(20px);
+  }
+  to {
+      opacity: 1;
+      transform: translateY(0);
+  }
+}
+
+.CampoEditor,
+.PanelSeccion,
+.AccionesFormulario {
+  animation: slideInUp 0.5s ease-out;
+}
+
+.VistaOriginal {
+  animation: slideInUp 0.6s ease-out;
+}
+
+/* Estilos adicionales para las mejoras del editor */
+
+/* Vista previa mejorada */
+.PreviewTitulo {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--texto-principal);
+    margin-bottom: 1rem;
+    line-height: 1.3;
+    word-wrap: break-word;
+}
+
+.PreviewContenido {
+    color: var(--texto-secundario);
+    line-height: 1.6;
+    font-size: 0.875rem;
+    word-wrap: break-word;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.PreviewContenido:empty::before {
+    content: 'El contenido aparecerá aquí...';
+    color: var(--texto-terciario);
+    font-style: italic;
+}
+
+/* Estadísticas del post */
+.EstadisticasPost {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.EstadisticaItem {
+    text-align: center;
+    padding: 1rem;
+    background: var(--fondo-secundario);
+    border-radius: var(--border-radius);
+    border: 1px solid var(--borde-claro);
+    transition: var(--transition);
+}
+
+.EstadisticaItem:hover {
+    background: var(--fondo-terciario);
+    transform: translateY(-2px);
+}
+
+.EstadisticaValor {
+    display: block;
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--acento-medio);
+    margin-bottom: 0.25rem;
+}
+
+.EstadisticaLabel {
+    font-size: 0.75rem;
+    color: var(--texto-terciario);
+    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+/* Mejoras al badge de estado */
+.BadgeEstado.publicado {
+    background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+    color: #155724;
+    border: 2px solid #c3e6cb;
+}
+
+.BadgeEstado.borrador {
+    background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
+    color: #856404;
+    border: 2px solid #ffeaa7;
+}
+
+.BadgeEstado.modificando {
+    background: linear-gradient(135deg, #cce5ff 0%, #99d6ff 100%);
+    color: #0066cc;
+    border: 2px solid #99d6ff;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.8; }
+}
+
+/* Mejoras para la información de imagen */
+.InfoImagen {
+    background: var(--fondo-terciario);
+    padding: 0.5rem 1rem;
+    border-radius: var(--border-radius);
+    font-size: 0.75rem;
+    color: var(--texto-secundario);
+    margin-top: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: var(--transition);
+}
+
+.InfoImagen svg {
+    width: 14px;
+    height: 14px;
+    color: var(--acento-medio);
+}
+
+/* Vista "Ver más" para contenido truncado */
+.VerMas {
+    color: var(--texto-terciario);
+    font-style: italic;
+    font-size: 0.875rem;
+}
+
+/* Mejoras al placeholder de imagen */
+.PlaceholderImagen {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    color: var(--texto-terciario);
+    padding: 2rem;
+}
+
+.PlaceholderImagen svg {
+    width: 48px;
+    height: 48px;
+    opacity: 0.6;
+    color: var(--acento-medio);
+}
+
+.PlaceholderImagen span {
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+.PlaceholderImagen small {
+    font-size: 0.75rem;
+    opacity: 0.8;
+}
+
+/* Mejoras para el overlay de imagen */
+.OverlayImagen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    opacity: 0;
+    transition: var(--transition);
+    border-radius: var(--border-radius);
+    backdrop-filter: blur(2px);
+}
+
+.AreaSubida:hover .OverlayImagen {
+    opacity: 1;
+}
+
+.OverlayImagen svg {
+    width: 32px;
+    height: 32px;
+    margin-bottom: 0.75rem;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+}
+
+.OverlayImagen span {
+    font-weight: 600;
+    font-size: 0.875rem;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* Mejoras a los contadores */
+.ContadorCaracteres,
+.ContadorPalabras {
+    background: var(--fondo-principal);
+    color: var(--texto-terciario);
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    border: 2px solid var(--borde-claro);
+    font-family: 'JetBrains Mono', 'Courier New', monospace;
+    transition: var(--transition);
+}
+
+.ContadorCaracteres.warning {
+    color: var(--alerta-aviso);
+    border-color: var(--alerta-aviso);
+}
+
+.ContadorCaracteres.error {
+    color: var(--alerta-error);
+    border-color: var(--alerta-error);
+}
+
+/* Animaciones para elementos que aparecen */
+.PostOriginalMeta span {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.25rem 0.5rem;
+    background: var(--fondo-principal);
+    border-radius: var(--border-radius);
+    border: 1px solid var(--borde-claro);
+    font-size: 0.75rem;
+}
+
+/* Estados de carga y interacción */
+.CampoEditor.loading {
+    opacity: 0.7;
+    pointer-events: none;
+}
+
+.CampoEditor.loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--borde-claro);
+    border-top: 2px solid var(--acento-medio);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: translate(-50%, -50%) rotate(0deg); }
+    100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+/* Mejoras de accesibilidad */
+.BotonHerramienta:focus,
+.BotonPrimario:focus,
+.BotonSecundario:focus,
+.BotonTerciario:focus {
+    outline: 3px solid rgba(77, 171, 247, 0.3);
+    outline-offset: 2px;
+}
+
+/* Mejoras para el drag and drop */
+.AreaSubida.drag-over {
+    border-color: var(--acento-medio) !important;
+    background: rgba(77, 171, 247, 0.1) !important;
+    transform: scale(1.02);
+    box-shadow: 0 0 20px rgba(77, 171, 247, 0.3);
+}
+
+/* Notificaciones de estado */
+.notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 1rem 1.5rem;
+    border-radius: var(--border-radius);
+    color: white;
+    font-weight: 600;
+    z-index: 1000;
+    animation: slideInRight 0.3s ease-out;
+    box-shadow: var(--sombra-fuerte);
+}
+
+.notification.success {
+    background: var(--alerta-exito);
+}
+
+.notification.error {
+    background: var(--alerta-error);
+}
+
+.notification.warning {
+    background: var(--alerta-aviso);
+}
+
+@keyframes slideInRight {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
     }
-    
-    .Principal2 {
-        justify-content: center;
+    to {
+        transform: translateX(0);
+        opacity: 1;
     }
 }
 
-@media (max-width: 768px) {
-    .MenuLateral {
-        display: none;
-    }
-    
-    .Blog {
-        padding: 1rem;
-    }
-    
-    .Navegacion2 {
-        padding: 0 1rem;
-    }
-    
-    .Busqueda {
-        display: none;
-    }
-    
-    .Principal2 {
-        margin-top: 70px;
-        display: block;
-    }
+/* ===== ESTADOS DE CARGA ===== */
+.FormComentario.enviando {
+    opacity: 0.7;
+    pointer-events: none;
+    position: relative;
+}
+
+.FormComentario.enviando::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(2px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.BotonEnviar.enviando {
+    background: var(--texto-terciario);
+    cursor: not-allowed;
+    transform: none;
+}
+
+.BotonEnviar.enviando .IconoBoton {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* ===== MEJORAS ADICIONALES ===== */
+.ComentarioDestacado {
+    background: linear-gradient(135deg, rgba(77, 171, 247, 0.05) 0%, rgba(77, 171, 247, 0.02) 100%);
+    border-color: var(--acento-claro);
+}
+
+.ComentarioDestacado .AvatarComentario {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+}
+
+.ComentarioRespuesta {
+    margin-left: 3rem;
+    border-left: 3px solid var(--acento-claro);
+    border-radius: 0 var(--border-radius) var(--border-radius) 0;
+}
+
+/* ===== TRANSICIONES SUAVES ===== */
+* {
+    transition-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* ===== UTILIDADES ===== */
+.fade-in-up {
+    animation: slideInUp 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.pulse {
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+}
+
+/* ===== UTILIDADES ADICIONALES ===== */
+.oculto {
+    display: none;
+}
+
+.fade-in {
+    animation: fadeInUp 0.5s ease-out;
+}
+
+.texto-centrado {
+    text-align: center;
+}
+
+.margen-superior {
+    margin-top: 1rem;
+}
+
+.margen-inferior {
+    margin-bottom: 1rem;
+}
+
+/* ===== SCROLL SUAVE PARA ANCLAS ===== */
+html {
+    scroll-behavior: smooth;
+}
+
+#comentarios {
+    scroll-margin-top: 2rem;
 }
