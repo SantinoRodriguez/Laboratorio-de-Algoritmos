@@ -517,5 +517,6 @@ function init() {
     // setupAutoSave(); // Descomenta si quieres auto-guardado
 }
 
+
 // Inicializar
 init();

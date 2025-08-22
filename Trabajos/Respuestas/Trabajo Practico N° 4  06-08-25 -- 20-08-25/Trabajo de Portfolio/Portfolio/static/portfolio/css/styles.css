@@ -54,6 +54,58 @@
   --max-width: 1200px;
 }
 
+.Oscuro {
+  --color-principal: #4dabf7;        /* azul más brillante en dark */
+  --color-secundario: #1e1e1e;       /* fondo oscuro */
+
+  /* Fondos */
+  --fondo-principal: #121212;        /* casi negro */
+  --fondo-secundario: #1a1a1a;       /* gris oscuro */
+  --fondo-terciario: #2a2a2a;        /* gris medio */
+  --fondo-cards: #242424;            /* tarjetas */
+  --fondo-cards2: #2f2f2f;
+  --fondo-panel: #1e2530;            /* paneles */
+  --fondo-hover: #2b4259;            /* hover azulado */
+
+  /* Bordes */
+  --borde-claro: #2f2f2f;
+  --borde-medio: #3d3d3d;
+  --borde-fuerte: #555;
+  --borde-acento: #4dabf7;
+
+  /* Textos */
+  --texto-principal: #f1f3f5;        /* casi blanco */
+  --texto-secundario: #dee2e6;       /* gris claro */
+  --texto-terciario: #adb5bd;        /* gris medio */
+  --texto-acento: #74c0fc;           /* azul claro */
+
+  /* Acentos */
+  --acento-oscuro: #1971c2;
+  --acento-medio: #339af0;
+  --acento-claro: #4dabf7;
+  --acento-super-claro: #a5d8ff;
+
+  /* Botones */
+  --btn-fondo: var(--acento-medio);
+  --btn-texto: #ffffff;
+  --btn-hover: var(--acento-claro);
+  --btn-disabled: #555;
+
+  /* Sombras */
+  --sombra-ligera: 0 1px 3px rgba(0, 0, 0, 0.5);
+  --sombra-media: 0 4px 8px rgba(0, 0, 0, 0.6);
+  --sombra-fuerte: 0 8px 25px rgba(0, 0, 0, 0.8);
+
+  /* Alertas */
+  --alerta-error: #ff6b6b;
+  --alerta-exito: #51cf66;
+  --alerta-aviso: #fcc419;
+
+  /* Gradientes */
+  --gradiente-primary: linear-gradient(135deg, var(--acento-oscuro) 0%, var(--acento-medio) 100%);
+  --gradiente-hero: linear-gradient(135deg, var(--fondo-secundario) 0%, var(--fondo-principal) 100%);
+}
+
 /* ==============================================
    RESET Y BASE
    ============================================== */
@@ -1753,6 +1805,30 @@ font-size: 1rem;
 margin: 0;
 }
 
+.TituloAcciones {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.BotonCrearPost {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--acento-medio);
+    color: #fff;
+    padding: 0.5rem 1rem;
+    border-radius: var(--border-radius);
+    text-decoration: none;
+    font-weight: 600;
+    transition: var(--transition);
+}
+
+.BotonCrearPost:hover {
+    background: var(--acento-oscuro);
+    transform: translateY(-2px);
+}
+
 .FiltrosPost {
 display: flex;
 gap: 1rem;
@@ -2187,18 +2263,7 @@ small a:visited {
     border-radius: var(--border-radius-lg);
     position: relative;
     overflow: hidden;
-    border: var(--borde-fuerte);
-}
-
-.SeccionComentarios::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 4px;
-    background: var(--gradiente-primary);
-    border-radius: var(--border-radius-lg) var(--border-radius-lg) 0 0;
+    border: var(--borde-claro) solid 1px;
 }
 
 /* ===== HEADER DE COMENTARIOS ===== */
@@ -2409,7 +2474,6 @@ small a:visited {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 0.4rem;
     padding: 0.6rem 1rem;
     font-size: 0.9rem;
     font-weight: 500;
@@ -2820,7 +2884,7 @@ small a:visited {
 /* Seccion Edicion */
 
 .EditorPost {
-  max-width: 1400px;
+  width: 70%;
   margin: 0 auto;
   padding: 2rem;
   min-height: 100vh;
@@ -2841,16 +2905,6 @@ small a:visited {
   border: 2px solid var(--borde-claro);
   position: relative;
   overflow: hidden;
-}
-
-.EditorHeader::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 4px;
-  background: var(--gradiente-primary);
 }
 
 .HeaderInfo {
@@ -3105,8 +3159,8 @@ small a:visited {
   align-items: center;
   padding: 1rem;
   background: var(--fondo-secundario);
-  border-radius: var(--border-radius) var(--border-radius) 0 0;
-  border-bottom: 2px solid var(--borde-claro);
+  border-radius:  0 0 var(--border-radius) var(--border-radius);
+  border-top: 2px solid var(--borde-claro);
 }
 
 .GrupoHerramientas {
@@ -3473,104 +3527,102 @@ small a:visited {
   font-size: 0.875rem;
 }
 
-/* Botones de acción mejorados */
+/* Contenedor de acciones */
 .AccionesFormulario {
   grid-column: 1 / -1;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 2rem;
+  padding: 1.25rem;
   background: white;
   border-radius: var(--border-radius);
   border: 2px solid var(--borde-claro);
   margin-top: 2rem;
   box-shadow: var(--sombra-ligera);
-  position: relative;
-  z-index: 10;
+  flex-wrap: wrap;
+  gap: 1rem;
+  width: 71%;
 }
 
+/* Grupo de botones */
 .GrupoAcciones {
   display: flex;
-  gap: 1rem;
+  gap: 0.75rem;
   flex-wrap: wrap;
 }
 
-.BotonPrimario {
+/* Estilos base para todos los botones */
+.BotonPrimario,
+.BotonSecundario,
+.BotonTerciario,
+.BotonEliminar {
   display: inline-flex;
   align-items: center;
-  gap: 0.75rem;
-  padding: 1rem 2rem;
+  gap: 0.5rem;
+  padding: 0.6rem 1.2rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.BotonPrimario svg,
+.BotonSecundario svg,
+.BotonTerciario svg,
+.BotonEliminar svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* Variantes */
+.BotonPrimario {
   background: var(--gradiente-primary);
   color: white;
   border: none;
-  border-radius: var(--border-radius);
-  font-weight: 700;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: var(--transition);
-  box-shadow: 0 4px 12px rgba(77, 171, 247, 0.3);
+  box-shadow: 0 3px 8px rgba(77, 171, 247, 0.3);
 }
 
 .BotonPrimario:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(77, 171, 247, 0.4);
+  box-shadow: 0 5px 12px rgba(77, 171, 247, 0.4);
 }
 
 .BotonSecundario {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.75rem;
-  padding: 1rem 2rem;
   background: var(--alerta-exito);
   color: white;
   border: none;
-  border-radius: var(--border-radius);
-  font-weight: 700;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: var(--transition);
-  box-shadow: 0 4px 12px rgba(64, 192, 87, 0.3);
+  box-shadow: 0 3px 8px rgba(64, 192, 87, 0.3);
+}
+
+.BotonSecundario:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 12px rgba(64, 192, 87, 0.4);
 }
 
 .BotonTerciario {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.75rem;
-  padding: 1rem 2rem;
   background: transparent;
   color: var(--texto-secundario);
   border: 2px solid var(--borde-claro);
-  border-radius: var(--border-radius);
-  font-weight: 600;
-  cursor: pointer;
-  transition: var(--transition);
-  text-decoration: none;
+}
+
+.BotonTerciario:hover {
+  background: var(--fondo-claro);
+  color: var(--texto-principal);
 }
 
 .BotonEliminar {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.75rem;
-  padding: 1rem 2rem;
   background: var(--alerta-error);
   color: white;
   border: none;
-  border-radius: var(--border-radius);
-  font-weight: 700;
-  cursor: pointer;
-  transition: var(--transition);
+  box-shadow: 0 3px 8px rgba(255, 99, 99, 0.3);
 }
 
-/* Animaciones */
-@keyframes slideInUp {
-  from {
-      opacity: 0;
-      transform: translateY(20px);
-  }
-  to {
-      opacity: 1;
-      transform: translateY(0);
-  }
+.BotonEliminar:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 12px rgba(255, 99, 99, 0.4);
 }
 
 .CampoEditor,
@@ -3610,42 +3662,69 @@ small a:visited {
     font-style: italic;
 }
 
-/* Estadísticas del post */
-.EstadisticasPost {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1rem;
-    margin-top: 1rem;
+.EstadisticasPost2 {
+  display: flex; 
+  flex-direction: row; 
+  gap: 1rem; 
 }
 
+/* Contenedor general */
+.EstadisticasPost {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 1.2rem;
+    margin-top: 1.5rem;
+}
+
+/* Tarjeta de cada estadística */
 .EstadisticaItem {
     text-align: center;
-    padding: 1rem;
-    background: var(--fondo-secundario);
+    padding: 1.25rem 1rem;
+    background: linear-gradient(145deg, var(--fondo-secundario), var(--fondo-terciario));
     border-radius: var(--border-radius);
     border: 1px solid var(--borde-claro);
-    transition: var(--transition);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    transition: all 0.25s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.EstadisticaItem::before {
+    content: "";
+    position: absolute;
+    top: 0; left: -50%;
+    width: 200%; height: 100%;
+    background: rgba(255,255,255,0.06);
+    transform: skewX(-20deg);
+    transition: 0.5s;
+}
+
+.EstadisticaItem:hover::before {
+    left: 150%;
 }
 
 .EstadisticaItem:hover {
-    background: var(--fondo-terciario);
-    transform: translateY(-2px);
+    transform: translateY(-4px);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.08);
 }
 
+/* Número destacado */
 .EstadisticaValor {
     display: block;
-    font-size: 1.5rem;
+    font-size: 1.8rem;
     font-weight: 800;
     color: var(--acento-medio);
-    margin-bottom: 0.25rem;
+    margin-bottom: 0.4rem;
+    letter-spacing: -0.5px;
 }
 
+/* Etiqueta */
 .EstadisticaLabel {
-    font-size: 0.75rem;
+    font-size: 0.8rem;
     color: var(--texto-terciario);
     text-transform: uppercase;
     font-weight: 600;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.6px;
 }
 
 /* Mejoras al badge de estado */

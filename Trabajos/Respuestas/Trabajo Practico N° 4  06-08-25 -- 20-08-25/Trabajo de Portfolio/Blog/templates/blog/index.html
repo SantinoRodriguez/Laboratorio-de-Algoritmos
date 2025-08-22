@@ -7,13 +7,15 @@
     <aside class="MenuLateral" id="menuLateral">
         <h3>Navegación</h3>
         <ul class="Bloques">
-            <li class="activo">
-                <svg viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
-                </svg>
-                Inicio
-                <span class="Contador">{{ total_posts|default:0 }}</span>
-            </li>
+            <a href="{% url 'blog:index' %}">
+                <li class="activo">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+                    </svg>
+                    Inicio
+                    <span class="Contador">{{ total_posts|default:0 }}</span>
+                </li>
+            </a>
             <li>
                 <svg viewBox="0 0 24 24" fill="currentColor">
                     <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
@@ -91,9 +93,19 @@
 
     <section class="Blog">
         <div class="BlogHeader">
-            <h1>Blog Personal</h1>
+            <div class="TituloAcciones">
+                <h1>Blog Personal</h1>
+                <!-- FIXED: Changed from post_edit to post_new since we want to create a new post -->
+                <a href="{% url 'blog:post_new' %}" class="BotonCrearPost">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 5v14m-7-7h14"/>
+                    </svg>
+                    Crear Post
+                </a>
+            </div>
             <p>Pensamientos, ideas y experiencias sobre desarrollo, tecnología y más.</p>
         </div>
+
 
         <div class="FiltrosPost">
             <button class="FiltroPost activo">Todos</button>
@@ -226,7 +238,7 @@
                                 </svg>
                             </button>
                         </div>
-                        <div class="EstadisticasPost">
+                        <div class="EstadisticasPost2">
                             <span>{{ post.views|default:0 }} views</span>
                             <span>•</span>
                             <span>{{ post.upvote_percentage|default:95 }}% upvoted</span>

@@ -1,7 +1,14 @@
 {% extends 'blog/base.html' %}
 {% load static %}
 
-{% block titulo %}Editar: {{ post.title }} - Blog Santino Rodriguez{% endblock %}
+{% block titulo %}
+    {% if post %}
+        Editar Post - {{ post.title }}
+    {% else %}
+        Crear Nuevo Post
+    {% endif %} 
+    - Blog Santino Rodriguez
+{% endblock %}
 
 {% block contenido %}
 <section class="EditorPost">
@@ -96,25 +103,10 @@
                         <path d="M11 7h2v10"/>
                         <path d="M8 17l8 0"/>
                     </svg>
-                    Título del Post *
+                    Título del Post
                 </label>
-                <input type="text" 
-                       name="title" 
-                       id="id_title" 
-                       class="InputEditor titulo-input"
-                       placeholder="Escribe un título llamativo para tu post..." 
-                       value="{{ post.title }}"
-                       maxlength="200"
-                       required>
+                <input type="text" name="title" id="id_title" class="InputEditor titulo-input" placeholder="Escribe un título llamativo para tu post..." value="{{ post.title }}"maxlength="200"required>
                 <div class="AyudaCampo">
-                    <div class="TextoAyuda">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 14px; height: 14px;">
-                            <circle cx="12" cy="12" r="10"/>
-                            <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
-                            <path d="M12 17h.01"/>
-                        </svg>
-                        Un buen título es clave para atraer lectores
-                    </div>
                     <div class="ContadorCaracteres" id="contadorTitulo">{{ post.title|length }}/200</div>
                 </div>
             </div>
@@ -129,9 +121,10 @@
                         <line x1="16" y1="17" x2="8" y2="17"/>
                         <line x1="10" y1="9" x2="8" y2="9"/>
                     </svg>
-                    Contenido del Post *
+                    Contenido del Post
                 </label>
                 <div class="EditorContenido">
+                    <textarea name="text" id="id_text" class="TextareaEditor"placeholder="Comparte tus ideas, experiencias y conocimientos..." rows="15"required>{{ post.text }}</textarea>
                     <div class="BarraHerramientas">
                         <div class="GrupoHerramientas">
                             <button type="button" class="BotonHerramienta" onclick="aplicarFormato('bold')" title="Negrita">
@@ -156,12 +149,6 @@
                         </div>
                         <div class="ContadorPalabras" id="contadorPalabras">{{ post.text|wordcount }} palabras</div>
                     </div>
-                    <textarea name="text" 
-                              id="id_text" 
-                              class="TextareaEditor"
-                              placeholder="Comparte tus ideas, experiencias y conocimientos..." 
-                              rows="15"
-                              required>{{ post.text }}</textarea>
                 </div>
             </div>
 
@@ -172,7 +159,7 @@
                         <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
                         <circle cx="12" cy="12" r="3"/>
                     </svg>
-                    Vista previa en tiempo real
+                    Vista previa (Sin Imagenes)
                 </h3>
                 <div class="VistaPrevia" id="vistaPrevia">
                     <div class="PreviewTitulo">{{ post.title }}</div>
@@ -270,11 +257,7 @@
                                 </span>
                             {% endfor %}
                         </div>
-                        <input type="text" 
-                               id="tagsInput" 
-                               placeholder="Agregar tags..."
-                               onkeypress="agregarTag(event)"
-                               class="InputTags">
+                        <input type="text" id="tagsInput" placeholder="Agregar tags..."onkeypress="agregarTag(event)"class="InputTags">
                     </div>
                     <div class="TextoAyuda">Presiona Enter para agregar un tag</div>
                 </div>
@@ -282,12 +265,7 @@
                 <!-- Enlace externo -->
                 <div class="CampoPanel">
                     <label for="id_external_link" class="LabelPanel">Enlace externo</label>
-                    <input type="url" 
-                           name="external_link" 
-                           id="id_external_link" 
-                           class="InputPanel"
-                           placeholder="https://ejemplo.com"
-                           value="{{ post.external_link|default:'' }}">
+                    <input type="url" name="external_link" id="id_external_link" class="InputPanel"placeholder="https://ejemplo.com"value="{{ post.external_link|default:'' }}">
                     <div class="TextoAyuda">Enlace relacionado al contenido</div>
                 </div>
             </div>
@@ -341,10 +319,6 @@
                         <span class="EstadisticaValor">{{ post.comments.count }}</span>
                         <span class="EstadisticaLabel">Comentarios</span>
                     </div>
-                    <div class="EstadisticaItem">
-                        <span class="EstadisticaValor">{{ post.likes|default:0 }}</span>
-                        <span class="EstadisticaLabel">Likes</span>
-                    </div>
                 </div>
             </div>
         </div>
@@ -352,15 +326,6 @@
         <!-- Botones de acción -->
         <div class="AccionesFormulario">
             <div class="GrupoAcciones principal">
-                <button type="submit" name="action" value="save" class="BotonPrimario">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/>
-                        <polyline points="17,21 17,13 7,13 7,21"/>
-                        <polyline points="7,3 7,8 15,8"/>
-                    </svg>
-                    Guardar cambios
-                </button>
-                
                 {% if not post.published_date %}
                     <button type="submit" name="action" value="publish" class="BotonSecundario">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -383,23 +348,29 @@
             </div>
             
             <div class="GrupoAcciones secundario">
-                <a href="{% url 'blog:post_detail' pk=post.pk %}" class="BotonTerciario">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
-                        <circle cx="12" cy="12" r="3"/>
-                    </svg>
-                    Ver post
-                </a>
-                
-                <button type="button" class="BotonEliminar" onclick="confirmarEliminacion()">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <polyline points="3,6 5,6 21,6"/>
-                        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
-                    </svg>
-                    Eliminar
-                </button>
+                {% if post %}
+                    <a href="{% url 'blog:post_detail' pk=post.pk %}" class="BotonTerciario">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                            <circle cx="12" cy="12" r="3"/>
+                        </svg>
+                        Ver post
+                    </a>
+
+                    <button type="button" class="BotonEliminar" onclick="confirmarEliminacion()">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="3,6 5,6 21,6"/>
+                            <path d="M14,6V4a2,2 0 0,0-2-2H8a2,2 0 0,0-2,2V6"/>
+                            <path d="M19,6v14a2,2 0 0,1-2,2H7a2,2 0 0,1-2-2V6"/>
+                            <line x1="10" y1="11" x2="10" y2="17"/>
+                            <line x1="14" y1="11" x2="14" y2="17"/>
+                        </svg>
+                        Eliminar
+                    </button>
+                {% endif %}
             </div>
         </div>
     </form>
 </section>
+
 {% endblock %}

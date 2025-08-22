@@ -35,6 +35,7 @@ def post_detail(request, pk):
     context = get_base_context()
     context['post'] = post
     
+    # Fixed template name - removed colon
     return render(request, 'blog/details.html', context)
 
 def post_draft_list(request):
@@ -43,13 +44,13 @@ def post_draft_list(request):
 
 def post_publish(request, pk):
     post = get_object_or_404(Post, pk=pk)
-    if request.method=='POST':
+    if request.method == 'POST':
         post.publish()
     return redirect('blog:post_detail', pk=pk)
 
 def post_new(request):
     if request.method == "POST":
-        form = PostForm(request.POST)
+        form = PostForm(request.POST, request.FILES)  # Added request.FILES for image uploads
         if form.is_valid():
             post = form.save(commit=False)
             post.author = request.user
@@ -72,14 +73,9 @@ def post_edit(request, pk):
         form = PostForm(instance=post)
     return render(request, 'blog/post_edit.html', {'form': form, 'post': post})
 
-
-def publish(self):
-    self.published_date = timezone.now()
-    self.save()
-
 def post_remove(request, pk):
     post = get_object_or_404(Post, pk=pk)
-    if request.method=='POST':
+    if request.method == 'POST':
         post.delete()
     return redirect('blog:index')
 
