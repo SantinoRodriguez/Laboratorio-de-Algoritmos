@@ -55,17 +55,18 @@
 }
 
 .Oscuro {
-  --color-principal: #4dabf7;        /* azul más brillante en dark */
-  --color-secundario: #1e1e1e;       /* fondo oscuro */
+  /* Colores principales */
+  --color-principal: #4dabf7;        /* Azul brillante */
+  --color-secundario: #1a1a1a;       /* Fondo base oscuro */
 
   /* Fondos */
-  --fondo-principal: #121212;        /* casi negro */
-  --fondo-secundario: #1a1a1a;       /* gris oscuro */
-  --fondo-terciario: #2a2a2a;        /* gris medio */
-  --fondo-cards: #242424;            /* tarjetas */
-  --fondo-cards2: #2f2f2f;
-  --fondo-panel: #1e2530;            /* paneles */
-  --fondo-hover: #2b4259;            /* hover azulado */
+  --fondo-principal: #0d0d0d;        /* Negro profundo */
+  --fondo-secundario: #1a1a1a;       /* Gris muy oscuro */
+  --fondo-terciario: #2c2c2c;        /* Gris intermedio */
+  --fondo-cards: #202020;            /* Tarjetas */
+  --fondo-cards2: #262626;           /* Tarjetas variante */
+  --fondo-panel: #1e2530;            /* Panel con toque azulado */
+  --fondo-hover: #334a63;            /* Hover más marcado */
 
   /* Bordes */
   --borde-claro: #2f2f2f;
@@ -74,13 +75,13 @@
   --borde-acento: #4dabf7;
 
   /* Textos */
-  --texto-principal: #f1f3f5;        /* casi blanco */
-  --texto-secundario: #dee2e6;       /* gris claro */
-  --texto-terciario: #adb5bd;        /* gris medio */
-  --texto-acento: #74c0fc;           /* azul claro */
+  --texto-principal: #e9ecef;        /* Gris casi blanco */
+  --texto-secundario: #cfd4da;       /* Gris claro */
+  --texto-terciario: #9ca3af;        /* Gris medio */
+  --texto-acento: #74c0fc;           /* Azul claro */
 
   /* Acentos */
-  --acento-oscuro: #1971c2;
+  --acento-oscuro: #1864ab;
   --acento-medio: #339af0;
   --acento-claro: #4dabf7;
   --acento-super-claro: #a5d8ff;
@@ -91,10 +92,10 @@
   --btn-hover: var(--acento-claro);
   --btn-disabled: #555;
 
-  /* Sombras */
-  --sombra-ligera: 0 1px 3px rgba(0, 0, 0, 0.5);
-  --sombra-media: 0 4px 8px rgba(0, 0, 0, 0.6);
-  --sombra-fuerte: 0 8px 25px rgba(0, 0, 0, 0.8);
+  /* Sombras más suaves (para no aplanar UI en oscuro) */
+  --sombra-ligera: 0 1px 3px rgba(0, 0, 0, 0.3);
+  --sombra-media: 0 4px 12px rgba(0, 0, 0, 0.4);
+  --sombra-fuerte: 0 8px 30px rgba(0, 0, 0, 0.5);
 
   /* Alertas */
   --alerta-error: #ff6b6b;
@@ -102,9 +103,10 @@
   --alerta-aviso: #fcc419;
 
   /* Gradientes */
-  --gradiente-primary: linear-gradient(135deg, var(--acento-oscuro) 0%, var(--acento-medio) 100%);
-  --gradiente-hero: linear-gradient(135deg, var(--fondo-secundario) 0%, var(--fondo-principal) 100%);
+  --gradiente-primary: linear-gradient(135deg, #1864ab 0%, #339af0 100%);
+  --gradiente-hero: linear-gradient(135deg, var(--fondo-secundario) 0%, var(--fondo-terciario) 100%);
 }
+
 
 /* ==============================================
    RESET Y BASE
@@ -1814,19 +1816,35 @@ margin: 0;
 .BotonCrearPost {
     display: inline-flex;
     align-items: center;
+    justify-content: center;
     gap: 0.5rem;
     background: var(--acento-medio);
-    color: #fff;
-    padding: 0.5rem 1rem;
-    border-radius: var(--border-radius);
-    text-decoration: none;
+    color: var(--texto-claro, #fff);
+    padding: 0.6rem 1.2rem;
+    border-radius: var(--border-radius, 8px);
     font-weight: 600;
-    transition: var(--transition);
+    font-size: 0.95rem;
+    text-decoration: none;
+    line-height: 1.2;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
 }
 
 .BotonCrearPost:hover {
-    background: var(--acento-oscuro);
+    background: var(--acento-fuerte, #004d99);
     transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
+}
+
+.BotonCrearPost:focus {
+    outline: 3px solid var(--acento-claro, #66aaff);
+    outline-offset: 2px;
+}
+
+.BotonCrearPost:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .FiltrosPost {
@@ -2492,6 +2510,7 @@ small a:visited {
 
 .FormAccionesPost .btn-edit:hover {
     background: var(--acento-oscuro);
+    transform: scale(1.05);
 }
 
 /* Botón eliminar */

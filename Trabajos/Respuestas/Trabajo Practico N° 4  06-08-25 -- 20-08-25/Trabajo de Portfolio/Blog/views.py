@@ -87,7 +87,8 @@ def add_comment_to_post(request, pk):
             comment = form.save(commit=False)
             comment.post = post
             comment.approved_comment = True  # Aprobar automáticamente
-            comment.save()
+            if comment.text.len() < 10:
+                comment.save()
             return redirect('blog:post_detail', pk=post.pk)
     else:
         form = CommentForm()

@@ -517,6 +517,58 @@ function init() {
     // setupAutoSave(); // Descomenta si quieres auto-guardado
 }
 
+// --- Cambio de tema claro/oscuro ---
+function toggleTheme() {
+    const body = document.body;
+    const isDark = body.classList.toggle('Oscuro');
+
+    // Guardar preferencia
+    localStorage.setItem('theme', isDark ? 'oscuro' : 'claro');
+
+    // Actualizar iconos
+    updateThemeIcons(isDark);
+}
+
+function loadTheme() {
+    const savedTheme = localStorage.getItem('theme');
+    const isDark = savedTheme === 'oscuro';
+
+    if (isDark) {
+        document.body.classList.add('Oscuro');
+    } else {
+        document.body.classList.remove('Oscuro');
+    }
+
+    // Ajustar iconos al cargar
+    updateThemeIcons(isDark);
+}
+
+function updateThemeIcons(isDark) {
+    const iconoSol = document.querySelector('#cambiarTema .sol');
+    const iconoLuna = document.querySelector('#cambiarTema .luna');
+
+    if (isDark) {
+        if (iconoSol) iconoSol.style.display = 'none';
+        if (iconoLuna) iconoLuna.style.display = 'inline';
+    } else {
+        if (iconoSol) iconoSol.style.display = 'inline';
+        if (iconoLuna) iconoLuna.style.display = 'none';
+    }
+}
+
+function setupThemeToggle() {
+    const themeButton = document.getElementById('cambiarTema');
+    if (themeButton) {
+        themeButton.addEventListener('click', toggleTheme);
+    }
+}
+
+// Inicializar cuando el DOM está listo
+document.addEventListener('DOMContentLoaded', () => {
+    loadTheme();
+    setupThemeToggle();
+});
+
 
 // Inicializar
 init();
