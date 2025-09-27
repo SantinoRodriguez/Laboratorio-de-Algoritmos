@@ -1,3 +1,6 @@
+import os
+os.system("cls")
+
 def productoria(n,m):
     try:
         if not isinstance(n, int) or n < 0:

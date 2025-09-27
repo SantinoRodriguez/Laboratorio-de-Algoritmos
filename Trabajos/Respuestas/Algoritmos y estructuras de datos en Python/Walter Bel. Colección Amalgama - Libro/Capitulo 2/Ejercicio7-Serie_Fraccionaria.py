@@ -1,3 +1,6 @@
+import os
+os.system("cls")
+
 def sumatoria(n):
     try:
         if not isinstance(n, int) or n < 0:

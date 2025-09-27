@@ -1,3 +1,6 @@
+import os
+os.system("cls")
+
 def fibonacci(n):
     try:
         if not isinstance(n, int) or n < 0:

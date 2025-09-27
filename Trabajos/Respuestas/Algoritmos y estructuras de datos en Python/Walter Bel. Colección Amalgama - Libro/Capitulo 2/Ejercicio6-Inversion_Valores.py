@@ -1,3 +1,6 @@
+import os
+os.system("cls")
+
 def inversion(palabra):
     try:
         if not isinstance(palabra, str):

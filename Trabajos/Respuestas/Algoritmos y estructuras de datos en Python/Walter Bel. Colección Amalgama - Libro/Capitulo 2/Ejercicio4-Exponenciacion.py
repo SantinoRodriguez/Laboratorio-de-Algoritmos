@@ -1,3 +1,6 @@
+import os
+os.system("cls")
+
 def potenciacion(n,m):
     try:
         if not isinstance(n, int) or not isinstance(m, int):

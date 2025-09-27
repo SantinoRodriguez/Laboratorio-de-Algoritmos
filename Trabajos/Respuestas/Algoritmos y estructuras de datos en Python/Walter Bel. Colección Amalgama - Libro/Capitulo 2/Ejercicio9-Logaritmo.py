@@ -1,3 +1,6 @@
+import os
+os.system("cls")
+
 def logaritmo(n,m):
     try:
         if not isinstance(n, int) or not isinstance(m, int) or n < 0:

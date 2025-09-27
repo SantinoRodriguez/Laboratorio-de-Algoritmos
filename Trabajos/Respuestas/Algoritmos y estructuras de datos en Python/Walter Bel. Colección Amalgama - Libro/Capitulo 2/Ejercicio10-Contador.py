@@ -1,3 +1,6 @@
+import os
+os.system("cls")
+
 def contador(n):
     try:    
         if not isinstance(n, int):
