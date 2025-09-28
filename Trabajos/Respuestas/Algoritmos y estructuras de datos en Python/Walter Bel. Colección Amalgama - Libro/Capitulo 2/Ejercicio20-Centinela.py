@@ -9,9 +9,9 @@ def centinela(lista,n,m = 0):
             lista.append(n)
         if n == lista[m]:
             if m == len(lista) - 1:
-                return False
+                return f"{n} No se encuentra en la lista"
             else:
-                return True, m + 1
+                return f"El numero {n} se encuentra en la lista en la posicion {m + 1}"
         else:
             return centinela(lista, n, m + 1)
     

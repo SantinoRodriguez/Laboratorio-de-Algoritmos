@@ -14,5 +14,4 @@ def sumatoria(n):
         print(f"Ocurrió un error inesperado: {e}")
         return None
 
-
 print(sumatoria(186))

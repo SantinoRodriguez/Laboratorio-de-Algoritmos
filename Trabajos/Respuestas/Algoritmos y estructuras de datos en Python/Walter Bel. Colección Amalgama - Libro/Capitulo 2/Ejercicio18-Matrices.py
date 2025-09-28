@@ -17,8 +17,5 @@ def matrices(n,x = 0,y = 0):
         print(f"Ocurrió un error inesperado: {e}")
         return None
 
-matrices([
-    [1, 2, 3],
-    [4, 5, 6],
-    [7, 8, 9]
-])
+print("Ejercicio 18, Lector de matrices:")
+matrices([[1, 2, 3],[4, 5, 6],[7, 8, 9]])
