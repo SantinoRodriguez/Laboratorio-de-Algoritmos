@@ -16,3 +16,4 @@ def insercion(lista):
             # Intercambia el elemento actual con el anterior
             lista[k], lista[k - 1] = lista[k - 1], lista[k]
             k -= 1  # Retrocede una posición para seguir comparando
+    return lista

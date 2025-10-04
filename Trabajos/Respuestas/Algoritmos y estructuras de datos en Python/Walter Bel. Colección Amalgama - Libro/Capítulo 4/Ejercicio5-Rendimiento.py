@@ -1,14 +1,16 @@
 # Optimizado por ChatGPT para ser mas corto
 import time
 import random
-from Bubblesort import burbuja
-from Bubblesort_Mejorado import burbuja_mejorado
-from Bubblesort_Birideccional import coctel
-from Selectionsort import seleccion
-from Inserctionsort import insercion
-from Quicksort import quicksort
-from Mergesort import mergesort
-from Countsort import countsort
+import os
+from AlgoritmosOrdenamiento.Bubblesort import burbuja
+from AlgoritmosOrdenamiento.Bubblesort_Mejorado import burbuja_mejorado
+from AlgoritmosOrdenamiento.Bubblesort_Birideccional import coctel
+from AlgoritmosOrdenamiento.Selectionsort import seleccion
+from AlgoritmosOrdenamiento.Inserctionsort import insercion
+from AlgoritmosOrdenamiento.Quicksort import quicksort
+from AlgoritmosOrdenamiento.Mergesort import mergesort
+from AlgoritmosOrdenamiento.Countsort import countsort
+os.system('cls')
 
 N = 10000          # tamaño de la lista
 MAX_VALUE = 1000  # máximo valor para CountSort
