@@ -1,0 +1,28 @@
+{
+    "Productos": [
+        {
+            "Codigo": "C001",
+            "Nombre": "Batman Comic",
+            "Precio": 2500,
+            "Cantidad": 15,
+            "Categoria": "Dc Comics",
+            "Hash": 8
+        },
+        {
+            "Codigo": "C002",
+            "Nombre": "Spiderman Comic",
+            "Precio": 2200,
+            "Cantidad": 10,
+            "Categoria": "Marvel Comics",
+            "Hash": 4
+        },
+        {
+            "Codigo": "C003",
+            "Nombre": "One Piece Volumen 1",
+            "Precio": 1800,
+            "Cantidad": 8,
+            "Categoria": "Manga Japonés",
+            "Hash": 3
+        }
+    ]
+}
