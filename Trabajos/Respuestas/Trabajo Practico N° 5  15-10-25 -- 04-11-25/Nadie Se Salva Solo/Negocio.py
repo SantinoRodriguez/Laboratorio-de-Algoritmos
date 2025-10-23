@@ -1,6 +1,22 @@
 import os
 import json
 os.system('cls')
+
+try:
+    with open("Stock.json", "r", encoding="utf-8") as Archivo:
+        Datos = json.load(Archivo)
+except (FileNotFoundError, json.JSONDecodeError):
+    Datos = {"Productos": []}
+
+TablaHash = [[] for _ in range(10)]
+# Si el JSON tiene productos, distribuirlos en la tabla hash
+if isinstance(Datos, dict) and "Productos" in Datos:
+    for producto in Datos["Productos"]:
+        Posicion = producto["Hash"] 
+        TablaHash[Posicion].append(producto)
+else:
+    Datos = {"Productos": []}
+
 class Hash():
     @staticmethod
     def hash(producto):
@@ -46,6 +62,4 @@ class Hash():
         if (producto in bucket):
             bucket.remove(producto)
 
-Hash.agregar("Batman Comic", 2500, 15, "Dc Comics")
-Hash.agregar("Spiderman Comic", 2200, 10, "Marvel Comics")
-Hash.agregar("One Piece Volumen 1", 1800, 8, "Manga Japonés")
+print(TablaHash)
