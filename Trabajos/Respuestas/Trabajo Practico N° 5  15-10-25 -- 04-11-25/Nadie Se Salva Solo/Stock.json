@@ -1,28 +1,662 @@
 {
-    "Productos": [
-        {
-            "Codigo": "C001",
-            "Nombre": "Batman Comic",
-            "Precio": 2500,
-            "Cantidad": 15,
-            "Categoria": "Dc Comics",
-            "Hash": 8
+    "CategoryTree": {
+        "Bandai": {
+            "Figura": {
+                "Dragon Ball": [
+                    {
+                        "Codigo": "C005",
+                        "Nombre": "Dragon Ball Z Figura Goku",
+                        "Precio": 15000,
+                        "Cantidad": 5,
+                        "Hash": 4
+                    },
+                    {
+                        "Codigo": "C030",
+                        "Nombre": "Figura Vegeta Super Saiyan",
+                        "Precio": 16500,
+                        "Cantidad": 3,
+                        "Hash": 8
+                    }
+                ],
+                "One Piece": [
+                    {
+                        "Codigo": "C024",
+                        "Nombre": "Figura Luffy Gear 4",
+                        "Precio": 18000,
+                        "Cantidad": 4,
+                        "Hash": 5
+                    }
+                ]
+            }
         },
-        {
-            "Codigo": "C002",
-            "Nombre": "Spiderman Comic",
-            "Precio": 2200,
-            "Cantidad": 10,
-            "Categoria": "Marvel Comics",
-            "Hash": 4
+        "DC": {
+            "Comic": {
+                "Batman": [
+                    {
+                        "Codigo": "C002",
+                        "Nombre": "Batman Año Uno",
+                        "Precio": 5200,
+                        "Cantidad": 8,
+                        "Hash": 0
+                    }
+                ],
+                "Superman": [
+                    {
+                        "Codigo": "C013",
+                        "Nombre": "Superman Vol 1",
+                        "Precio": 5000,
+                        "Cantidad": 5,
+                        "Hash": 3
+                    }
+                ],
+                "Wonder Woman": [
+                    {
+                        "Codigo": "C016",
+                        "Nombre": "Wonder Woman Rebirth",
+                        "Precio": 5300,
+                        "Cantidad": 9,
+                        "Hash": 2
+                    }
+                ],
+                "Flash": [
+                    {
+                        "Codigo": "C021",
+                        "Nombre": "The Flash Rebirth",
+                        "Precio": 5100,
+                        "Cantidad": 11,
+                        "Hash": 4
+                    }
+                ],
+                "Green Lantern": [
+                    {
+                        "Codigo": "C025",
+                        "Nombre": "Green Lantern Brightest Day",
+                        "Precio": 5400,
+                        "Cantidad": 10,
+                        "Hash": 6
+                    }
+                ],
+                "Aquaman": [
+                    {
+                        "Codigo": "C027",
+                        "Nombre": "Aquaman New 52",
+                        "Precio": 5200,
+                        "Cantidad": 13,
+                        "Hash": 7
+                    }
+                ]
+            }
         },
-        {
-            "Codigo": "C003",
-            "Nombre": "One Piece Volumen 1",
-            "Precio": 1800,
-            "Cantidad": 8,
-            "Categoria": "Manga Japonés",
-            "Hash": 3
+        "Funko": {
+            "Figura": {
+                "Batman": [
+                    {
+                        "Codigo": "C008",
+                        "Nombre": "Funko Pop Batman",
+                        "Precio": 12000,
+                        "Cantidad": 6,
+                        "Hash": 7
+                    }
+                ],
+                "Dragon Ball": [
+                    {
+                        "Codigo": "C012",
+                        "Nombre": "Funko Pop Goku",
+                        "Precio": 12000,
+                        "Cantidad": 2,
+                        "Hash": 8
+                    }
+                ],
+                "Spiderman": [
+                    {
+                        "Codigo": "C033",
+                        "Nombre": "Funko Pop Spiderman",
+                        "Precio": 11500,
+                        "Cantidad": 8,
+                        "Hash": 9
+                    }
+                ]
+            }
+        },
+        "Kodansha": {
+            "Manga": {
+                "Attack On Titan": [
+                    {
+                        "Codigo": "C006",
+                        "Nombre": "Attack On Titan Vol 12",
+                        "Precio": 5000,
+                        "Cantidad": 15,
+                        "Hash": 6
+                    }
+                ]
+            }
+        },
+        "Konami": {
+            "Cartas": {
+                "Yu Gi Oh": [
+                    {
+                        "Codigo": "C009",
+                        "Nombre": "Yu Gi Oh Lote Cartas",
+                        "Precio": 3500,
+                        "Cantidad": 40,
+                        "Hash": 9
+                    }
+                ]
+            }
+        },
+        "Marvel": {
+            "Comic": {
+                "Spiderman": [
+                    {
+                        "Codigo": "C003",
+                        "Nombre": "Spiderman Classic",
+                        "Precio": 4800,
+                        "Cantidad": 10,
+                        "Hash": 2
+                    }
+                ],
+                "Deadpool": [
+                    {
+                        "Codigo": "C007",
+                        "Nombre": "Deadpool Comic",
+                        "Precio": 4600,
+                        "Cantidad": 7,
+                        "Hash": 7
+                    }
+                ],
+                "Iron Man": [
+                    {
+                        "Codigo": "C014",
+                        "Nombre": "Iron Man Extremis",
+                        "Precio": 5500,
+                        "Cantidad": 12,
+                        "Hash": 1
+                    }
+                ],
+                "Captain America": [
+                    {
+                        "Codigo": "C018",
+                        "Nombre": "Captain America Civil War",
+                        "Precio": 5600,
+                        "Cantidad": 14,
+                        "Hash": 3
+                    }
+                ],
+                "X-Men": [
+                    {
+                        "Codigo": "C022",
+                        "Nombre": "X-Men Dark Phoenix Saga",
+                        "Precio": 6200,
+                        "Cantidad": 7,
+                        "Hash": 5
+                    }
+                ],
+                "Thor": [
+                    {
+                        "Codigo": "C028",
+                        "Nombre": "Thor God Of Thunder",
+                        "Precio": 5700,
+                        "Cantidad": 8,
+                        "Hash": 8
+                    }
+                ],
+                "Black Panther": [
+                    {
+                        "Codigo": "C031",
+                        "Nombre": "Black Panther Nation",
+                        "Precio": 5500,
+                        "Cantidad": 11,
+                        "Hash": 9
+                    }
+                ]
+            }
+        },
+        "Shueisha": {
+            "Manga": {
+                "Naruto": [
+                    {
+                        "Codigo": "C001",
+                        "Nombre": "Naruto Manga Vol 1",
+                        "Precio": 4500,
+                        "Cantidad": 20,
+                        "Hash": 0
+                    },
+                    {
+                        "Codigo": "C010",
+                        "Nombre": "Naruto Manga Vol 1",
+                        "Precio": 4500,
+                        "Cantidad": 4,
+                        "Hash": 7
+                    }
+                ],
+                "One Piece": [
+                    {
+                        "Codigo": "C004",
+                        "Nombre": "One Piece Vol 5",
+                        "Precio": 4700,
+                        "Cantidad": 18,
+                        "Hash": 3
+                    }
+                ],
+                "Tokyo Ghoul": [
+                    {
+                        "Codigo": "C015",
+                        "Nombre": "Tokyo Ghoul Vol 7",
+                        "Precio": 4600,
+                        "Cantidad": 18,
+                        "Hash": 1
+                    }
+                ],
+                "My Hero Academia": [
+                    {
+                        "Codigo": "C017",
+                        "Nombre": "My Hero Academia Vol 15",
+                        "Precio": 4700,
+                        "Cantidad": 22,
+                        "Hash": 2
+                    }
+                ],
+                "Bleach": [
+                    {
+                        "Codigo": "C019",
+                        "Nombre": "Bleach Vol 20",
+                        "Precio": 4500,
+                        "Cantidad": 16,
+                        "Hash": 4
+                    }
+                ],
+                "Demon Slayer": [
+                    {
+                        "Codigo": "C020",
+                        "Nombre": "Demon Slayer Vol 3",
+                        "Precio": 4800,
+                        "Cantidad": 25,
+                        "Hash": 0
+                    }
+                ],
+                "Death Note": [
+                    {
+                        "Codigo": "C023",
+                        "Nombre": "Death Note Vol 12",
+                        "Precio": 4900,
+                        "Cantidad": 19,
+                        "Hash": 5
+                    }
+                ],
+                "Hunter X Hunter": [
+                    {
+                        "Codigo": "C029",
+                        "Nombre": "Hunter X Hunter Vol 25",
+                        "Precio": 4900,
+                        "Cantidad": 17,
+                        "Hash": 8
+                    }
+                ],
+                "Chainsaw Man": [
+                    {
+                        "Codigo": "C032",
+                        "Nombre": "Chainsaw Man Vol 4",
+                        "Precio": 4700,
+                        "Cantidad": 23,
+                        "Hash": 9
+                    }
+                ]
+            }
+        },
+        "Square Enix": {
+            "Manga": {
+                "Fullmetal Alchemist": [
+                    {
+                        "Codigo": "C026",
+                        "Nombre": "Fullmetal Alchemist Vol 8",
+                        "Precio": 4800,
+                        "Cantidad": 21,
+                        "Hash": 6
+                    }
+                ]
+            }
         }
+    },
+    "Productos": [
+        [
+            {
+                "Codigo": "C001",
+                "Nombre": "Naruto Manga Vol 1",
+                "Precio": 4500,
+                "Cantidad": 20,
+                "Marca": "Shueisha",
+                "Categoria": "Manga",
+                "Subcategoria": "Naruto",
+                "Hash": 0
+            },
+            {
+                "Codigo": "C002",
+                "Nombre": "Batman Año Uno",
+                "Precio": 5200,
+                "Cantidad": 8,
+                "Marca": "DC",
+                "Categoria": "Comic",
+                "Subcategoria": "Batman",
+                "Hash": 0
+            },
+            {
+                "Codigo": "C020",
+                "Nombre": "Demon Slayer Vol 3",
+                "Precio": 4800,
+                "Cantidad": 25,
+                "Marca": "Shueisha",
+                "Categoria": "Manga",
+                "Subcategoria": "Demon Slayer",
+                "Hash": 0
+            }
+        ],
+        [
+            {
+                "Codigo": "C014",
+                "Nombre": "Iron Man Extremis",
+                "Precio": 5500,
+                "Cantidad": 12,
+                "Marca": "Marvel",
+                "Categoria": "Comic",
+                "Subcategoria": "Iron Man",
+                "Hash": 1
+            },
+            {
+                "Codigo": "C015",
+                "Nombre": "Tokyo Ghoul Vol 7",
+                "Precio": 4600,
+                "Cantidad": 18,
+                "Marca": "Shueisha",
+                "Categoria": "Manga",
+                "Subcategoria": "Tokyo Ghoul",
+                "Hash": 1
+            }
+        ],
+        [
+            {
+                "Codigo": "C003",
+                "Nombre": "Spiderman Classic",
+                "Precio": 4800,
+                "Cantidad": 10,
+                "Marca": "Marvel",
+                "Categoria": "Comic",
+                "Subcategoria": "Spiderman",
+                "Hash": 2
+            },
+            {
+                "Codigo": "C016",
+                "Nombre": "Wonder Woman Rebirth",
+                "Precio": 5300,
+                "Cantidad": 9,
+                "Marca": "DC",
+                "Categoria": "Comic",
+                "Subcategoria": "Wonder Woman",
+                "Hash": 2
+            },
+            {
+                "Codigo": "C017",
+                "Nombre": "My Hero Academia Vol 15",
+                "Precio": 4700,
+                "Cantidad": 22,
+                "Marca": "Shueisha",
+                "Categoria": "Manga",
+                "Subcategoria": "My Hero Academia",
+                "Hash": 2
+            }
+        ],
+        [
+            {
+                "Codigo": "C004",
+                "Nombre": "One Piece Vol 5",
+                "Precio": 4700,
+                "Cantidad": 18,
+                "Marca": "Shueisha",
+                "Categoria": "Manga",
+                "Subcategoria": "One Piece",
+                "Hash": 3
+            },
+            {
+                "Codigo": "C013",
+                "Nombre": "Superman Vol 1",
+                "Precio": 5000,
+                "Cantidad": 5,
+                "Marca": "DC",
+                "Categoria": "Comic",
+                "Subcategoria": "Superman",
+                "Hash": 3
+            },
+            {
+                "Codigo": "C018",
+                "Nombre": "Captain America Civil War",
+                "Precio": 5600,
+                "Cantidad": 14,
+                "Marca": "Marvel",
+                "Categoria": "Comic",
+                "Subcategoria": "Captain America",
+                "Hash": 3
+            }
+        ],
+        [
+            {
+                "Codigo": "C005",
+                "Nombre": "Dragon Ball Z Figura Goku",
+                "Precio": 15000,
+                "Cantidad": 5,
+                "Marca": "Bandai",
+                "Categoria": "Figura",
+                "Subcategoria": "Dragon Ball",
+                "Hash": 4
+            },
+            {
+                "Codigo": "C019",
+                "Nombre": "Bleach Vol 20",
+                "Precio": 4500,
+                "Cantidad": 16,
+                "Marca": "Shueisha",
+                "Categoria": "Manga",
+                "Subcategoria": "Bleach",
+                "Hash": 4
+            },
+            {
+                "Codigo": "C021",
+                "Nombre": "The Flash Rebirth",
+                "Precio": 5100,
+                "Cantidad": 11,
+                "Marca": "DC",
+                "Categoria": "Comic",
+                "Subcategoria": "Flash",
+                "Hash": 4
+            }
+        ],
+        [
+            {
+                "Codigo": "C022",
+                "Nombre": "X-Men Dark Phoenix Saga",
+                "Precio": 6200,
+                "Cantidad": 7,
+                "Marca": "Marvel",
+                "Categoria": "Comic",
+                "Subcategoria": "X-Men",
+                "Hash": 5
+            },
+            {
+                "Codigo": "C023",
+                "Nombre": "Death Note Vol 12",
+                "Precio": 4900,
+                "Cantidad": 19,
+                "Marca": "Shueisha",
+                "Categoria": "Manga",
+                "Subcategoria": "Death Note",
+                "Hash": 5
+            },
+            {
+                "Codigo": "C024",
+                "Nombre": "Figura Luffy Gear 4",
+                "Precio": 18000,
+                "Cantidad": 4,
+                "Marca": "Bandai",
+                "Categoria": "Figura",
+                "Subcategoria": "One Piece",
+                "Hash": 5
+            }
+        ],
+        [
+            {
+                "Codigo": "C006",
+                "Nombre": "Attack On Titan Vol 12",
+                "Precio": 5000,
+                "Cantidad": 15,
+                "Marca": "Kodansha",
+                "Categoria": "Manga",
+                "Subcategoria": "Attack On Titan",
+                "Hash": 6
+            },
+            {
+                "Codigo": "C025",
+                "Nombre": "Green Lantern Brightest Day",
+                "Precio": 5400,
+                "Cantidad": 10,
+                "Marca": "DC",
+                "Categoria": "Comic",
+                "Subcategoria": "Green Lantern",
+                "Hash": 6
+            },
+            {
+                "Codigo": "C026",
+                "Nombre": "Fullmetal Alchemist Vol 8",
+                "Precio": 4800,
+                "Cantidad": 21,
+                "Marca": "Square Enix",
+                "Categoria": "Manga",
+                "Subcategoria": "Fullmetal Alchemist",
+                "Hash": 6
+            }
+        ],
+        [
+            {
+                "Codigo": "C007",
+                "Nombre": "Deadpool Comic",
+                "Precio": 4600,
+                "Cantidad": 7,
+                "Marca": "Marvel",
+                "Categoria": "Comic",
+                "Subcategoria": "Deadpool",
+                "Hash": 7
+            },
+            {
+                "Codigo": "C008",
+                "Nombre": "Funko Pop Batman",
+                "Precio": 12000,
+                "Cantidad": 6,
+                "Marca": "Funko",
+                "Categoria": "Figura",
+                "Subcategoria": "Batman",
+                "Hash": 7
+            },
+            {
+                "Codigo": "C010",
+                "Nombre": "Naruto Manga Vol 1",
+                "Precio": 4500,
+                "Cantidad": 4,
+                "Marca": "Shueisha",
+                "Categoria": "Manga",
+                "Subcategoria": "Naruto",
+                "Hash": 7
+            },
+            {
+                "Codigo": "C027",
+                "Nombre": "Aquaman New 52",
+                "Precio": 5200,
+                "Cantidad": 13,
+                "Marca": "DC",
+                "Categoria": "Comic",
+                "Subcategoria": "Aquaman",
+                "Hash": 7
+            }
+        ],
+        [
+            {
+                "Codigo": "C012",
+                "Nombre": "Funko Pop Goku",
+                "Precio": 12000,
+                "Cantidad": 2,
+                "Marca": "Funko",
+                "Categoria": "Figura",
+                "Subcategoria": "Dragon Ball",
+                "Hash": 8
+            },
+            {
+                "Codigo": "C028",
+                "Nombre": "Thor God Of Thunder",
+                "Precio": 5700,
+                "Cantidad": 8,
+                "Marca": "Marvel",
+                "Categoria": "Comic",
+                "Subcategoria": "Thor",
+                "Hash": 8
+            },
+            {
+                "Codigo": "C029",
+                "Nombre": "Hunter X Hunter Vol 25",
+                "Precio": 4900,
+                "Cantidad": 17,
+                "Marca": "Shueisha",
+                "Categoria": "Manga",
+                "Subcategoria": "Hunter X Hunter",
+                "Hash": 8
+            },
+            {
+                "Codigo": "C030",
+                "Nombre": "Figura Vegeta Super Saiyan",
+                "Precio": 16500,
+                "Cantidad": 3,
+                "Marca": "Bandai",
+                "Categoria": "Figura",
+                "Subcategoria": "Dragon Ball",
+                "Hash": 8
+            }
+        ],
+        [
+            {
+                "Codigo": "C009",
+                "Nombre": "Yu Gi Oh Lote Cartas",
+                "Precio": 3500,
+                "Cantidad": 40,
+                "Marca": "Konami",
+                "Categoria": "Cartas",
+                "Subcategoria": "Yu Gi Oh",
+                "Hash": 9
+            },
+            {
+                "Codigo": "C031",
+                "Nombre": "Black Panther Nation",
+                "Precio": 5500,
+                "Cantidad": 11,
+                "Marca": "Marvel",
+                "Categoria": "Comic",
+                "Subcategoria": "Black Panther",
+                "Hash": 9
+            },
+            {
+                "Codigo": "C032",
+                "Nombre": "Chainsaw Man Vol 4",
+                "Precio": 4700,
+                "Cantidad": 23,
+                "Marca": "Shueisha",
+                "Categoria": "Manga",
+                "Subcategoria": "Chainsaw Man",
+                "Hash": 9
+            },
+            {
+                "Codigo": "C033",
+                "Nombre": "Funko Pop Spiderman",
+                "Precio": 11500,
+                "Cantidad": 8,
+                "Marca": "Funko",
+                "Categoria": "Figura",
+                "Subcategoria": "Spiderman",
+                "Hash": 9
+            }
+        ]
     ]
 }
