@@ -28,15 +28,13 @@ def guardar_tabla(TablaHash):
 
 TablaHash = cargar_tabla()
 
-# Estructura de árbol de categorías y lista de categorías
-category_tree = {}
-all_categories = []
+categorias = {}
+TodasCat = []
 
 class Hash():
     @staticmethod
     def hash(Producto):
         try:
-            # Asegurarse de trabajar con string
             Nombre = str(Producto)
             return sum(ord(char) for char in Nombre) % 10
         except Exception as e:
@@ -70,7 +68,7 @@ class Hash():
             print("Producto agregado correctamente:", Producto.title(), "(", NuevoCodigo, ")")
             
             # Agregar al árbol de categorías
-            CategoryTree.add_to_tree(NuevoProducto)
+            CategoriaArbol.add_to_tree(NuevoProducto)
             
         except ValueError:
             print("Error: Precio o Cantidad con formato incorrecto.")
@@ -106,75 +104,68 @@ class Hash():
                     Lista.remove(Item)
                     print("Producto eliminado:", Producto.title())
                     
-                    # Eliminar del árbol de categorías
-                    CategoryTree.remove_from_tree(Item)
+                    CategoriaArbol.remove_from_tree(Item)
                     return
             
             print("Producto no encontrado.")
         except Exception as e:
             print("Error al eliminar producto:", e)
 
-class CategoryTree:
+class CategoriaArbol:
     @staticmethod
     def add_to_tree(product):
-        """Agregar producto al árbol de categorías"""
         try:
-            brand = product["Marca"]
-            category = product["Categoria"]
-            subcategory = product.get("Subcategoria", "General")
+            Separacion = product["Marca"]
+            Categoria = product["Categoria"]
+            Subcategoria = product.get("Subcategoria", "General")
             
             # Crear estructura si no existe
-            if brand not in category_tree:
-                category_tree[brand] = {}
+            if Separacion not in categorias:
+                categorias[Separacion] = {}
             
-            if category not in category_tree[brand]:
-                category_tree[brand][category] = {}
+            if Categoria not in categorias[Separacion]:
+                categorias[Separacion][Categoria] = {}
             
-            if subcategory not in category_tree[brand][category]:
-                category_tree[brand][category][subcategory] = []
+            if Subcategoria not in categorias[Separacion][Categoria]:
+                categorias[Separacion][Categoria][Subcategoria] = []
             
-            # Agregar producto a la subcategoría
-            category_tree[brand][category][subcategory].append(product)
+            categorias[Separacion][Categoria][Subcategoria].append(product)
             
-            # Actualizar lista de categorías
-            if brand not in all_categories:
-                all_categories.append(brand)
+            if Separacion not in TodasCat:
+                TodasCat.append(Separacion)
             
-            category_full = f"{brand} - {category}"
-            if category_full not in all_categories:
-                all_categories.append(category_full)
+            CategoriaFull = f"{Separacion} - {Categoria}"
+            if CategoriaFull not in TodasCat:
+                TodasCat.append(CategoriaFull)
             
-            subcategory_full = f"{brand} - {category} - {subcategory}"
-            if subcategory_full not in all_categories:
-                all_categories.append(subcategory_full)
+            SubCategoriaFull = f"{Separacion} - {Categoria} - {Subcategoria}"
+            if SubCategoriaFull not in TodasCat:
+                TodasCat.append(SubCategoriaFull)
                 
         except Exception as e:
             print(f"Error al agregar producto al árbol: {e}")
     
     @staticmethod
     def remove_from_tree(product):
-        """Eliminar producto del árbol de categorías"""
         try:
-            brand = product["Marca"]
-            category = product["Categoria"]
-            subcategory = product.get("Subcategoria", "General")
+            Separacion = product["Marca"]
+            Categoria = product["Categoria"]
+            Subcategoria = product.get("Subcategoria", "General")
             
-            if brand in category_tree and category in category_tree[brand] and subcategory in category_tree[brand][category]:
-                # Buscar y eliminar el producto
-                category_tree[brand][category][subcategory] = [
-                    p for p in category_tree[brand][category][subcategory] 
+            if Separacion in categorias and Categoria in categorias[Separacion] and Subcategoria in categorias[Separacion][Categoria]:
+                categorias[Separacion][Categoria][Subcategoria] = [
+                    p for p in categorias[Separacion][Categoria][Subcategoria] 
                     if p["Codigo"] != product["Codigo"]
                 ]
                 
-                # Limpiar si quedó vacío
-                if not category_tree[brand][category][subcategory]:
-                    del category_tree[brand][category][subcategory]
+                if not categorias[Separacion][Categoria][Subcategoria]:
+                    del categorias[Separacion][Categoria][Subcategoria]
                     
-                if not category_tree[brand][category]:
-                    del category_tree[brand][category]
+                if not categorias[Separacion][Categoria]:
+                    del categorias[Separacion][Categoria]
                     
-                if not category_tree[brand]:
-                    del category_tree[brand]
+                if not categorias[Separacion]:
+                    del categorias[Separacion]
                     
         except Exception as e:
             print(f"Error al eliminar producto del árbol: {e}")
@@ -183,20 +174,20 @@ class CategoryTree:
     def rebuild_tree():
         """Reconstruir árbol de categorías desde la tabla hash"""
         try:
-            global category_tree, all_categories
-            category_tree = {}
-            all_categories = []
+            global categorias, TodasCat
+            categorias = {}
+            TodasCat = []
             
             for bucket in TablaHash:
                 for product in bucket:
-                    CategoryTree.add_to_tree(product)
+                    CategoriaArbol.add_to_tree(product)
                     
             print("Árbol de categorías reconstruido correctamente.")
         except Exception as e:
             print(f"Error al reconstruir árbol: {e}")
     
     @staticmethod
-    def search_by_category(search_term):
+    def search_by_Categoria(search_term):
         """Buscar productos por marca, categoría o subcategoría"""
         try:
             search_term = search_term.title()
@@ -205,41 +196,36 @@ class CategoryTree:
             print(f"\n===== RESULTADOS PARA: {search_term} =====")
             
             # Buscar por marca
-            if search_term in category_tree:
+            if search_term in categorias:
                 print(f"\nMarca: {search_term}")
-                for category, subcategories in category_tree[search_term].items():
-                    print(f"  Categoria: {category}")
-                    for subcategory, products in subcategories.items():
-                        print(f"    Subcategoria: {subcategory}")
+                for Categoria, subcategories in categorias[search_term].items():
+                    print(f"  Categoria: {Categoria}")
+                    for Subcategoria, products in subcategories.items():
+                        print(f"    Subcategoria: {Subcategoria}")
                         for product in products:
-                            print(f"      - {product['Codigo']}: {product['Nombre']} | "
-                                  f"${product['Precio']} | Stock: {product['Cantidad']}")
+                            print(f"      - {product['Codigo']}: {product['Nombre']} | " f"${product['Precio']} | Stock: {product['Cantidad']}")
                             results.append(product)
             
-            # Buscar por categoría en todas las marcas
-            found_category = False
-            for brand, categories in category_tree.items():
+            EncontrarCategoria = False
+            for Separacion, categories in categorias.items():
                 if search_term in categories:
-                    found_category = True
-                    print(f"\nMarca: {brand} -> Categoria: {search_term}")
-                    for subcategory, products in categories[search_term].items():
-                        print(f"  Subcategoria: {subcategory}")
+                    EncontrarCategoria = True
+                    print(f"\nMarca: {Separacion} -> Categoria: {search_term}")
+                    for Subcategoria, products in categories[search_term].items():
+                        print(f"  Subcategoria: {Subcategoria}")
                         for product in products:
-                            print(f"    - {product['Codigo']}: {product['Nombre']} | "
-                                  f"${product['Precio']} | Stock: {product['Cantidad']}")
+                            print(f"    - {product['Codigo']}: {product['Nombre']} | " f"${product['Precio']} | Stock: {product['Cantidad']}")
                             if product not in results:
                                 results.append(product)
             
-            # Buscar por subcategoría en todas las marcas y categorías
-            found_subcategory = False
-            for brand, categories in category_tree.items():
-                for category, subcategories in categories.items():
+            EncontrarSubategoria = False
+            for Separacion, categories in categorias.items():
+                for Categoria, subcategories in categories.items():
                     if search_term in subcategories:
-                        found_subcategory = True
-                        print(f"\nMarca: {brand} -> Categoria: {category} -> Subcategoria: {search_term}")
+                        EncontrarSubategoria = True
+                        print(f"\nMarca: {Separacion} -> Categoria: {Categoria} -> Subcategoria: {search_term}")
                         for product in subcategories[search_term]:
-                            print(f"  - {product['Codigo']}: {product['Nombre']} | "
-                                  f"${product['Precio']} | Stock: {product['Cantidad']}")
+                            print(f"  - {product['Codigo']}: {product['Nombre']} | " f"${product['Precio']} | Stock: {product['Cantidad']}")
                             if product not in results:
                                 results.append(product)
             
@@ -252,17 +238,16 @@ class CategoryTree:
             print(f"Error al buscar por categoría: {e}")
     
     @staticmethod
-    def show_all_categories():
-        """Mostrar todas las categorías disponibles"""
+    def show_TodasCat():
         try:
             print("\n===== CATEGORIAS DISPONIBLES =====")
-            if not all_categories:
+            if not TodasCat:
                 print("No hay categorías registradas.")
                 return
             
             print("\nMarcas y Categorias:")
-            for category in sorted(all_categories):
-                print(f"  - {category}")
+            for Categoria in sorted(TodasCat):
+                print(f"  - {Categoria}")
         except Exception as e:
             print(f"Error al mostrar categorías: {e}")
 
@@ -303,7 +288,7 @@ class Pedidos():
                                 try:
                                     Lista.remove(Item)
                                     print("El producto se quedó sin stock y fue retirado.")
-                                    CategoryTree.remove_from_tree(Item)
+                                    CategoriaArbol.remove_from_tree(Item)
                                 except Exception as e:
                                     print("Error al remover el producto sin stock:", e)
                             
@@ -348,7 +333,7 @@ class Historial:
 # ------------------ MENU ------------------
 
 # Reconstruir árbol de categorías al iniciar
-CategoryTree.rebuild_tree()
+CategoriaArbol.rebuild_tree()
 
 while True:
     try:
@@ -428,9 +413,9 @@ while True:
 
         elif Opcion == "8":
             try:
-                search_term = input("Ingrese marca, categoria o subcategoria a buscar: ").strip()
+                search_term = input("Ingrese marca, categoria o Subcategoria a buscar: ").strip()
                 if search_term:
-                    CategoryTree.search_by_category(search_term)
+                    CategoriaArbol.search_by_Categoria(search_term)
                 else:
                     print("Debe ingresar un término de búsqueda.")
             except Exception as e:
@@ -438,7 +423,7 @@ while True:
 
         elif Opcion == "9":
             try:
-                CategoryTree.show_all_categories()
+                CategoriaArbol.show_TodasCat()
             except Exception as e:
                 print("Error en opción 9:", e)
 
