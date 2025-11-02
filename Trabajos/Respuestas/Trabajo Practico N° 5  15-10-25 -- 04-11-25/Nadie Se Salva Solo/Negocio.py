@@ -330,121 +330,162 @@ class Historial:
         except Exception as e:
             print("Error mostrando historial:", e)
 
-# ------------------ MENU ------------------
+class Tienda:
+    def __init__(self, TablaHashRef, HashModule, PedidosModule, HistorialModule, CategoriaArbolModule, GuardarFunc):
+        # Referencias a las estructuras / módulos externos
+        self.TablaHash = TablaHashRef
+        self.Hash = HashModule
+        self.Pedidos = PedidosModule
+        self.Historial = HistorialModule
+        self.CategoriaArbol = CategoriaArbolModule
+        self.GuardarFunc = GuardarFunc
 
-# Reconstruir árbol de categorías al iniciar
-CategoriaArbol.rebuild_tree()
+        # Reconstruir árbol de categorías al iniciar (igual que en tu script actual)
+        try:
+            self.CategoriaArbol.rebuild_tree()
+        except Exception as e:
+            print("Error al reconstruir el árbol de categorías:".title(), e)
 
-while True:
-    try:
-        print("\n===== MENU PRINCIPAL =====")
-        print("1. Agregar producto al inventario")
-        print("2. Agregar stock a producto existente")
-        print("3. Eliminar producto")
-        print("4. Recibir pedido")
-        print("5. Procesar pedidos")
-        print("6. Mostrar pedidos en cola")
-        print("7. Mostrar historial de productos vistos")
-        print("8. Buscar productos por categoria")
-        print("9. Ver todas las categorias")
-        print("10. Guardar y salir")
-
-        Opcion = input("Seleccione una opción: ").strip()
-
-        if Opcion == "1":
+    def EjecutarMenu(self):
+        """Bucle principal del menú (sustituye el bloque while True original)."""
+        while True:
             try:
-                Producto = input("Nombre del producto: ").strip()
-                Precio_input = input("Precio: ").strip()
-                Cantidad_input = input("Cantidad: ").strip()
-                Marca = input("Marca: ").strip()
-                Categoria = input("Categoria: ").strip()
-                Subcategoria = input("Subcategoria: ").strip()
-                # Intentar convertir antes de llamar
-                Precio = float(Precio_input)
-                Cantidad = int(Cantidad_input)
-                Hash.agregar(Producto, Precio, Cantidad, Marca, Categoria, Subcategoria)
-            except ValueError:
-                print("Precio o Cantidad con formato inválido. Intente de nuevo.")
-            except Exception as e:
-                print("Error en opción 1:", e)
+                print("\n===== MENU PRINCIPAL =====")
+                print("1. Agregar producto al inventario")
+                print("2. Agregar stock a producto existente")
+                print("3. Eliminar producto")
+                print("4. Recibir pedido")
+                print("5. Procesar pedidos")
+                print("6. Mostrar pedidos en cola")
+                print("7. Mostrar historial de productos vistos")
+                print("8. Buscar productos por categoria")
+                print("9. Ver todas las categorias")
+                print("10. Guardar y salir")
 
-        elif Opcion == "2":
-            try:
-                Producto = input("Producto: ").strip()
-                Cantidad_input = input("Cantidad a agregar: ").strip()
-                Cantidad = int(Cantidad_input)
-                Hash.agregarProducto(Producto, Cantidad)
-            except ValueError:
-                print("Cantidad inválida.")
-            except Exception as e:
-                print("Error en opción 2:", e)
+                Opcion = input("Seleccione una opción: ").strip()
 
-        elif Opcion == "3":
-            try:
-                Producto = input("Producto a eliminar: ").strip()
-                Hash.eliminar(Producto)
-            except Exception as e:
-                print("Error en opción 3:", e)
-
-        elif Opcion == "4":
-            try:
-                Pedido = input("Producto solicitado: ").strip()
-                Pedidos.RecibirPedido(Pedido)
-            except Exception as e:
-                print("Error en opción 4:", e)
-
-        elif Opcion == "5":
-            try:
-                Pedidos.ProcesarPedidos()
-            except Exception as e:
-                print("Error en opción 5:", e)
-
-        elif Opcion == "6":
-            try:
-                Pedidos.MostrarPedidos()
-            except Exception as e:
-                print("Error en opción 6:", e)
-
-        elif Opcion == "7":
-            try:
-                Historial.mostrarHistorial()
-            except Exception as e:
-                print("Error en opción 7:", e)
-
-        elif Opcion == "8":
-            try:
-                search_term = input("Ingrese marca, categoria o Subcategoria a buscar: ").strip()
-                if search_term:
-                    CategoriaArbol.search_by_Categoria(search_term)
+                if Opcion == "1":
+                    self._opcion_agregar_producto()
+                elif Opcion == "2":
+                    self._opcion_agregar_stock()
+                elif Opcion == "3":
+                    self._opcion_eliminar_producto()
+                elif Opcion == "4":
+                    self._opcion_recibir_pedido()
+                elif Opcion == "5":
+                    self._opcion_procesar_pedidos()
+                elif Opcion == "6":
+                    self._opcion_mostrar_pedidos()
+                elif Opcion == "7":
+                    self._opcion_mostrar_historial()
+                elif Opcion == "8":
+                    self._opcion_buscar_categoria()
+                elif Opcion == "9":
+                    self._opcion_mostrar_todas_categorias()
+                elif Opcion == "10":
+                    try:
+                        self.GuardarFunc(self.TablaHash)
+                        print("Saliendo del sistema.".title())
+                        break
+                    except Exception as e:
+                        print("Error guardando datos al salir:".title(), e)
                 else:
-                    print("Debe ingresar un término de búsqueda.")
-            except Exception as e:
-                print("Error en opción 8:", e)
+                    print("Opción no válida. Intente de nuevo.".title())
 
-        elif Opcion == "9":
-            try:
-                CategoriaArbol.show_TodasCat()
-            except Exception as e:
-                print("Error en opción 9:", e)
-
-        elif Opcion == "10":
-            try:
-                guardar_tabla(TablaHash)
-                print("Saliendo del sistema.")
+            except KeyboardInterrupt:
+                # Capturar Ctrl+C para guardar antes de salir
+                try:
+                    print("\nInterrupción por teclado detectada. Guardando datos...".title())
+                    self.GuardarFunc(self.TablaHash)
+                except Exception:
+                    pass
+                print("Saliendo.".title())
                 break
             except Exception as e:
-                print("Error guardando datos al salir:", e)
+                print("Error en el menú principal:".title(), e)
 
-        else:
-            print("Opción no válida. Intente de nuevo.")
-    except KeyboardInterrupt:
-        # Capturar Ctrl+C para guardar antes de salir
+    # ---------------- Métodos para cada opción ----------------
+
+    def _opcion_agregar_producto(self):
         try:
-            print("\nInterrupción por teclado detectada. Guardando datos...")
-            guardar_tabla(TablaHash)
-        except Exception:
-            pass
-        print("Saliendo.")
-        break
-    except Exception as e:
-        print("Error en el menú principal:", e)
+            Producto = input("Nombre del producto: ").strip()
+            Precio_input = input("Precio: ").strip()
+            Cantidad_input = input("Cantidad: ").strip()
+            Marca = input("Marca: ").strip()
+            Categoria = input("Categoria: ").strip()
+            Subcategoria = input("Subcategoria: ").strip()
+
+            # Intentar convertir antes de llamar
+            Precio = float(Precio_input)
+            Cantidad = int(Cantidad_input)
+
+            # Llamada al método estático/agregado de tu Hash (igual que antes)
+            self.Hash.agregar(Producto, Precio, Cantidad, Marca, Categoria, Subcategoria)
+
+        except ValueError:
+            print("Precio o Cantidad con formato inválido. Intente de nuevo.".title())
+        except Exception as e:
+            print("Error en opción 1:".title(), e)
+
+    def _opcion_agregar_stock(self):
+        try:
+            Producto = input("Producto: ").strip()
+            Cantidad_input = input("Cantidad a agregar: ").strip()
+            Cantidad = int(Cantidad_input)
+            self.Hash.agregarProducto(Producto, Cantidad)
+        except ValueError:
+            print("Cantidad inválida.".title())
+        except Exception as e:
+            print("Error en opción 2:".title(), e)
+
+    def _opcion_eliminar_producto(self):
+        try:
+            Producto = input("Producto a eliminar: ").strip()
+            self.Hash.eliminar(Producto)
+        except Exception as e:
+            print("Error en opción 3:".title(), e)
+
+    def _opcion_recibir_pedido(self):
+        try:
+            Pedido = input("Producto solicitado: ").strip()
+            self.Pedidos.RecibirPedido(Pedido)
+        except Exception as e:
+            print("Error en opción 4:".title(), e)
+
+    def _opcion_procesar_pedidos(self):
+        try:
+            self.Pedidos.ProcesarPedidos()
+        except Exception as e:
+            print("Error en opción 5:".title(), e)
+
+    def _opcion_mostrar_pedidos(self):
+        try:
+            self.Pedidos.MostrarPedidos()
+        except Exception as e:
+            print("Error en opción 6:".title(), e)
+
+    def _opcion_mostrar_historial(self):
+        try:
+            self.Historial.mostrarHistorial()
+        except Exception as e:
+            print("Error en opción 7:".title(), e)
+
+    def _opcion_buscar_categoria(self):
+        try:
+            search_term = input("Ingrese marca, categoria o Subcategoria a buscar: ").strip()
+            if search_term:
+                self.CategoriaArbol.search_by_Categoria(search_term)
+            else:
+                print("Debe ingresar un término de búsqueda.".title())
+        except Exception as e:
+            print("Error en opción 8:".title(), e)
+
+    def _opcion_mostrar_todas_categorias(self):
+        try:
+            self.CategoriaArbol.show_TodasCat()
+        except Exception as e:
+            print("Error en opción 9:".title(), e)
+
+if __name__ == "__main__":
+    Sistema = Tienda(TablaHash, Hash, Pedidos, Historial, CategoriaArbol, guardar_tabla)
+    Sistema.EjecutarMenu()
